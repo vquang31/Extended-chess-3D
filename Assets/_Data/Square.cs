@@ -3,27 +3,41 @@ using UnityEngine;
 
 public class Square : NewMonoBehaviour
 {
-    private Vector2Int _position;
-    public Vector2Int Position
+
+
+    private Vector3Int _position;
+    public Vector3Int Position
     {
         get => _position;
+        set => _position = value;
     }
 
 
-
-    private int _height = 1;
 
     private ItemBuff itemBuff;
+    private GameObject pieceGameObject;
 
-    protected override void Awake()
+
+    public void InitRandomHeight(Vector2Int pos)
     {
-        this.LoadComponents();
-    }
-
-
-    protected void RandomHeight()
-    {
-        _height = Random.Range(1, Const.MAX_BEGIN_HEIGHT_GROUND);
+        if(pos.y == 1 || pos.y == Const.MAX_BOARD_SIZE)
+        {
+            _position.y = 3;
+        }
+        else if (pos.y == 2 || pos.y == Const.MAX_BOARD_SIZE - 1)
+        {
+            _position.y = 2;
+        }
+        else if (pos.y == 3 || pos.y == Const.MAX_BOARD_SIZE - 2)
+        {
+            _position.y = 1;
+        } 
+        else
+        {
+            //_position.y = Random.Range(Const.MIN_HEIGHT_GROUND, Const.MAX_BEGIN_HEIGHT_GROUND + 1);
+            _position.y = 1;
+        }
+        SetPosition(new Vector3Int(pos.x, Position.y, pos.y));
     }
 
     protected override void Reset()
@@ -35,7 +49,12 @@ public class Square : NewMonoBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.RandomHeight();
+    }
+
+    public void SetPosition(Vector3Int pos)
+    {
+        _position = pos;
+        transform.position = _position;
     }
 
 }

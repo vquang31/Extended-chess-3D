@@ -6,6 +6,11 @@ using static Const;
 
 public class Piece : NewMonoBehaviour
 {
+    private Vector3Int _position;
+    public Vector3Int Position
+    {
+        get => _position;
+    }
     private int _side;
 
     protected int _maxHp;
@@ -41,10 +46,11 @@ public class Piece : NewMonoBehaviour
         // switch expression C# 8.0
         PieceType pieceType = this switch
         {
-            Bishop => PieceType.Bishop,
-            Rook => PieceType.Rook,
-            Queen => PieceType.Queen,
             Pawn => PieceType.Pawn,
+            Rook => PieceType.Rook,
+            Knight => PieceType.Knight,
+            Bishop => PieceType.Bishop,
+            Queen => PieceType.Queen,
             King => PieceType.King,
             _ => throw new InvalidOperationException("Unknown piece type")
         };
@@ -85,5 +91,23 @@ public class Piece : NewMonoBehaviour
         Destroy(gameObject);
     }
 
+
+    /// <summary>
+    ///  Set _position and transform.position of Piece
+    /// </summary>
+    /// <param name="pos"> </param>
+    public void SetPosition(Vector3Int pos)
+    {
+        _position = pos;
+        transform.position = _position; 
+    }
+
+
+
+
+    public void OnMouseDown()
+    {
+        Debug.Log("OnMouseDown");
+    }   
 
 }

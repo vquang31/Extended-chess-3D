@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class NewMonoBehaviour : MonoBehaviour
 {
+
+
+    // Dont use this method in child class
+    // if use this method,  you must call base.Awake() in child class
+    //                      and don't call LoadComponents() again
     protected virtual void Awake()
     {
         this.LoadComponents();

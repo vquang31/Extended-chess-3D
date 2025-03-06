@@ -10,10 +10,11 @@ public class Const
 
     public const int MAX_HEIGHT_GROUND = 10;
 
-    public const int MAX_BEGIN_HEIGHT_GROUND = 5;
+    public const int MIN_HEIGHT_GROUND = 1; 
 
-    public const int MAX_BOARD_SIZE = 24;
+    public const int MAX_BEGIN_HEIGHT_GROUND = 3;
 
+    public const int MAX_BOARD_SIZE = 16;
 
     public enum PieceType
     {

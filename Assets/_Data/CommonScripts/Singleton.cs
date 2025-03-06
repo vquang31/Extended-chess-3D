@@ -8,10 +8,7 @@ public abstract class Singleton<T> : NewMonoBehaviour where T : NewMonoBehaviour
     {
         get
         {
-            if (_instance == null)
-            {
-                Debug.LogError(typeof(T) + "is nothing");
-            }
+            if (_instance == null) Debug.LogError("Singleton instance has not been created yet!");
             return _instance;
         }
     }
@@ -19,10 +16,18 @@ public abstract class Singleton<T> : NewMonoBehaviour where T : NewMonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        if (this != Instance)
+        LoadInstance();
+    }
+
+    protected virtual void LoadInstance()
+    {
+        if (_instance == null)
         {
-            Destroy(this);
+            _instance = this as T;
+            if (transform.parent == null) DontDestroyOnLoad(gameObject);
             return;
         }
+
+        if (_instance != this) Debug.LogError("Another instance of SingletonExample already exists!");
     }
 }
