@@ -6,7 +6,7 @@ using static Const;
 
 public class Piece : NewMonoBehaviour
 {
-    private Vector3Int _position;
+   [SerializeField] private Vector3Int _position;
     public Vector3Int Position
     {
         get => _position;
@@ -66,7 +66,6 @@ public class Piece : NewMonoBehaviour
         this.effects = new List<Effect>();
     }
 
-
     protected virtual List<Vector2Int> GetValidMoves()
     {
         return new List<Vector2Int>();
@@ -81,7 +80,6 @@ public class Piece : NewMonoBehaviour
     {
 
     }
-
     protected virtual void Attack(Vector2Int targetPos)
     {
 
@@ -95,15 +93,17 @@ public class Piece : NewMonoBehaviour
     /// <summary>
     ///  Set _position and transform.position of Piece
     /// </summary>
-    /// <param name="pos"> </param>
-    public void SetPosition(Vector3Int pos)
+    /// <param name="pos"> new Position </param>
+    public virtual void SetPosition(Vector3Int pos)
     {
+        // DO NOT CHANGE
         _position = pos;
-        transform.position = _position; 
+        // Đặt piece lên trên Square
+        // kể cả khi Prefab_Square thay đổi height(localScale.y) thì piece vẫn nằm ở trên Square(sàn)
+        // transform.position.y = Square.localScale.y/2 + _position.y/2
+        float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
+        transform.position = new Vector3(0,1,0) * (height) + new Vector3(_position.x, (float)_position.y / 2, _position.z);
     }
-
-
-
 
     public void OnMouseDown()
     {
