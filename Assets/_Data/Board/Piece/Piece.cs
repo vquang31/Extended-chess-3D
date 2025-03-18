@@ -1,17 +1,27 @@
 ﻿using Mono.Cecil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Const;
 
-public class Piece : NewMonoBehaviour
+public class Piece : NewMonoBehaviour, IAnimation
 {
-   [SerializeField] private Vector3Int _position;
+
+    // bishop
+    // elephant
+    [SerializeField] private Vector3Int _position;
     public Vector3Int Position
     {
         get => _position;
     }
-    private int _side;
+    [SerializeField] private int _side;
+
+    public int Side
+    {
+        get => _side;
+    }
 
     protected int _maxHp;
 
@@ -24,7 +34,13 @@ public class Piece : NewMonoBehaviour
     // height range attack of piece
     protected int _heightRangeAttack;
 
-    //private int movePoint;
+    private int _movePoint;
+
+    public int MovePoint
+    {
+        get => _movePoint;
+        set => _movePoint = value;
+    }
     //protected int speed;
 
     protected List<Effect> effects;
@@ -36,9 +52,18 @@ public class Piece : NewMonoBehaviour
     }
      
 
+    public virtual void Start()
+    {
+        this.Reset();
+    }
+
     protected virtual void LoadSide()
     {
-        
+        if (this.gameObject.name[0] == 'W')
+        {
+            _side = 1;
+        }
+        else _side = -1;
     }
     protected override void ResetValues()
     {
@@ -62,18 +87,18 @@ public class Piece : NewMonoBehaviour
         this._attackPoint = stats.AttackPoint;
         this._jumpPoint = stats.JumpPoint;
         this._heightRangeAttack = stats.RangeAttack;
-
+        this._movePoint = stats.MovePoint;
         this.effects = new List<Effect>();
     }
 
-    protected virtual List<Vector2Int> GetValidMoves()
+    protected virtual List<Vector3Int> GetValidMoves()
     {
-        return new List<Vector2Int>();
+        return new List<Vector3Int>();
     }
 
-    protected virtual List<Vector2Int> GetValidAttacks(int side)
+    protected virtual List<Vector3Int> GetValidAttacks()
     {
-        return new List<Vector2Int>();
+        return new List<Vector3Int>();
     }
 
     protected virtual void Move(Vector2Int newPos)
@@ -107,7 +132,58 @@ public class Piece : NewMonoBehaviour
 
     public void OnMouseDown()
     {
-        Debug.Log("OnMouseDown");
-    }   
+        //SearchingMethod.FindSquareByPosition(Position).MoveUp(1);
+        if (TurnManager.Instance.Turn() == _side) // nếu cùng side thì chuyển select
+            MouseSelected();
+    }
+
+    public void MouseSelected()
+    {
+        if (BoardManager.Instance.selectedPiece == this.gameObject)
+        {
+            BoardManager.Instance.CancelHighlightAndSelectedChess();
+        }
+        else
+        {
+            BoardManager.Instance.CancelHighlightAndSelectedChess();
+            // Debug
+            Debug.Log(this.gameObject.name);
+
+            BoardManager.Instance.selectedPiece = this.gameObject;
+            // Highlight
+            HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
+            HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
+
+        }
+
+    }
+
+
+
+
+
+    public void MoveUp(int n)
+    {
+        _position.y += n;
+        StartCoroutine(MoveUpRoutine(n));
+    }
+
+    IEnumerator MoveUpRoutine(int n)
+    {
+        Vector3 start = transform.position;
+        Vector3 target = start + Vector3.up * (float)n / 2;
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(start, target, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null; // Chờ 1 frame trước khi tiếp tục
+        }
+        transform.position = target; // Đảm bảo đạt đúng vị trí
+
+    }
+
 
 }

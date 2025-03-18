@@ -46,18 +46,15 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
         for(int i = 1; i >= -1; i-=2)
         {
             Vector2Int newPos2D;
-            Vector3Int newPos3D;
             for (int j = 1; j <= 8 ; j++)
             {
                 GameObject newPieceGameObject;
                 newPieceGameObject = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhitePawnGameObject : BlackPawnGameObject);
                 newPieceGameObject.name = Method2.NamePiece(i,"Pawn", j);
-                newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
-                Pawn piece = newPieceGameObject.GetComponent<Pawn>();
+                Pawn pawn = newPieceGameObject.GetComponent<Pawn>();
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8 ) / 2 + j
-                                                    , (i == Const.SIDE_WHITE) ? 2 : Const.MAX_BOARD_SIZE - 1);
-                newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
-                piece.SetPosition(newPos3D);
+                                        , (i == Const.SIDE_WHITE) ? 1 + Random.Range(1,3 + 1) : Const.MAX_BOARD_SIZE - Random.Range(1,3 + 1));
+                SaveData(pawn,newPos2D, newPieceGameObject);
             }
 
             for (int j = 1; j <= 2; j++)
@@ -69,10 +66,6 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
                 newRook.name = Method2.NamePiece(i, "Rook", j);
                 newKnight.name = Method2.NamePiece(i, "Knight", j);
                 newBishop.name = Method2.NamePiece(i, "Bishop", j);
-                
-                newRook.transform.parent = GameObject.Find("Pieces").transform;
-                newKnight.transform.parent = GameObject.Find("Pieces").transform;
-                newBishop.transform.parent = GameObject.Find("Pieces").transform;
 
                 Rook rook = newRook.GetComponent<Rook>();
                 Knight knight = newKnight.GetComponent<Knight>();
@@ -80,19 +73,15 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
 
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + ((j == 1) ? 1 : 8)
                                                     , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-                newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
-                
-                rook.SetPosition(newPos3D);
+                SaveData(rook, newPos2D, newRook);
 
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + ((j == 1) ? 2 : 7)
                                     , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-                newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
-                knight.SetPosition(newPos3D);
+                SaveData(knight, newPos2D, newKnight);
 
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + ((j == 1) ? 3 : 6)
                                     , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-                newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
-                bishop.SetPosition(newPos3D);
+                SaveData(bishop, newPos2D, newBishop);
             }
             GameObject newQueen = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhiteQueenGameObject : BlackQueenGameObject);
             GameObject newKing  = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhiteKingGameObject : BlackKingGameObject);
@@ -100,21 +89,25 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
             newQueen.name = Method2.NamePiece(i, "Queen", 1);
             newKing.name = Method2.NamePiece(i, "King", 0);
 
-            newQueen.transform.parent = GameObject.Find("Pieces").transform;
-            newKing.transform.parent = GameObject.Find("Pieces").transform;
-
             Queen queen = newQueen.GetComponent<Queen>();
             King king = newKing.GetComponent<King>();
 
             newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + 4
                                 , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-            newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
-            queen.SetPosition(newPos3D);
+            SaveData(queen, newPos2D, newQueen);
 
             newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + 5
                                 , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-            newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
-            king.SetPosition(newPos3D);
+            SaveData(king, newPos2D, newKing);
+
         }
+    }
+
+    private void SaveData(Piece piece,Vector2Int newPos2D,GameObject newPieceGameObject)
+    {
+        newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
+        Vector3Int newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
+        piece.SetPosition(newPos3D);
+        SearchingMethod.FindSquareByPosition(newPos2D).PieceGameObject = newPieceGameObject;
     }
 }

@@ -30,6 +30,9 @@ public class Method2
         return new Vector3Int(pos.x, height, pos.y);
     }
 
-
+    static public Vector2Int Pos3dToPos2d(Vector3Int pos)
+    {
+        return new Vector2Int(pos.x, pos.z);
+    }
 
 }
