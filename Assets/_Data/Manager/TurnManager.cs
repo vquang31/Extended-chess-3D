@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TurnManager : Singleton<TurnManager>   
 {
+    [SerializeField] public bool avaliable = false;
     private Player player1;
     private Player player2;
 
@@ -16,13 +17,23 @@ public class TurnManager : Singleton<TurnManager>
     {
         player1.Turn = true;
         player2.Turn = false;
+
+        if (avaliable == false)
+        {
+            player1.Turn = true; 
+            player2.Turn = true;
+        }
     }
 
 
     public void ChangeTurn()
     {
-        player1.Turn = !player1.Turn;
-        player2.Turn = !player2.Turn;
+        if (avaliable)
+        {
+            player1.Turn = !player1.Turn;
+            player2.Turn = !player2.Turn;
+
+        }
     }
 
     public int Turn()

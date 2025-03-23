@@ -12,7 +12,8 @@ public class SquareManager : Singleton<SquareManager>
     public void HideSquare(Vector2Int pos)
     {
         Square square = SearchingMethod.FindSquareByPosition(pos);   
-        square.gameObject.SetActive(false);
+        square.gameObject.GetComponent<Renderer>().enabled = false;
+        square.CanClick = false;
     }
 
     public void HideSquare(Vector3Int pos)
@@ -24,7 +25,8 @@ public class SquareManager : Singleton<SquareManager>
     {
         foreach (Transform child in SquaresGameObject.transform)
         {
-            child.gameObject.SetActive(true);
+            child.gameObject.GetComponent<Renderer>().enabled = true;
+            child.GetComponent<Square>().CanClick = true; 
         }
     }
 

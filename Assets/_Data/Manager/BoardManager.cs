@@ -36,4 +36,18 @@ public class BoardManager : Singleton<BoardManager>
         BoardManager.Instance.selectedPiece = null;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="side"> side of enemy</param>
+    /// <returns></returns>
+    public bool IsSquareOccupiedByOpponent(Vector2Int position, int side) {
+        if(SearchingMethod.IsSquareValid(position) == false) return false;
+        if(SearchingMethod.IsSquareEmpty(position)) return false;
+        return SearchingMethod.FindPieceByPosition(position).Side == side;
+    }
+
+
 }

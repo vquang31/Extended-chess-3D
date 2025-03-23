@@ -12,25 +12,23 @@ public class SearchingMethod
     static public bool IsSquareValid(Vector2Int pos)
     {
         if (pos.x < 1 || pos.x > Const.MAX_BOARD_SIZE || pos.y < 1 || pos.y > Const.MAX_BOARD_SIZE)
-        {
             return false;
-        }
         return true;
     }
     static public bool IsSquareEmpty(Vector2Int pos)
     {
         if(IsSquareValid(pos) == false)
-        {
             return false;
-        }   
-        return FindSquareByPosition(pos).PieceGameObject == null;
+        return (FindSquareByPosition(pos).PieceGameObject == null);
     }
     static public Square FindSquareByPosition(Vector2Int pos)
     {
+        if(IsSquareValid(pos) == false) { return null; }
         return GameObject.Find(Method2.NameSquare(pos)).GetComponent<Square>();
     }
     static public Piece FindPieceByPosition(Vector2Int pos)
     {
+        if (IsSquareValid(pos) == false) return null;
         GameObject piece = FindSquareByPosition(pos).PieceGameObject;
         if (piece == null)
         {

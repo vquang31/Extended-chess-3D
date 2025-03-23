@@ -18,8 +18,6 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
     protected GameObject BlackQueenGameObject;
     protected GameObject BlackKingGameObject;
 
-
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -103,11 +101,17 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
         }
     }
 
+    /// <summary>
+    ///  set position for piece
+    ///  , set parent for piece
+    /// </summary>
+    /// <param name="piece"></param>
+    /// <param name="newPos2D"></param>
+    /// <param name="newPieceGameObject"></param>
     private void SaveData(Piece piece,Vector2Int newPos2D,GameObject newPieceGameObject)
     {
         newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
-        Vector3Int newPos3D = Method2.Pos2dToPos3d(newPos2D, SearchingMethod.HeightOfSquare(newPos2D));
+        Vector3Int newPos3D = Method2.Pos2dToPos3d(newPos2D);
         piece.SetPosition(newPos3D);
-        SearchingMethod.FindSquareByPosition(newPos2D).PieceGameObject = newPieceGameObject;
     }
 }

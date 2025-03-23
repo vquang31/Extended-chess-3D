@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class GrayHightlight : MonoBehaviour
+public class BlueHightlight : AbstractSquare
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void OnMouseDown()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.OnMouseDown();
+        if (!canClick) return;
+        BoardManager.Instance.selectedPiece.GetComponent<Piece>().Move(_position);
     }
 }

@@ -18,11 +18,6 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
     [SerializeField] private int _side;
 
-    public int Side
-    {
-        get => _side;
-    }
-
     protected int _maxHp;
 
     protected int _hp;
@@ -35,6 +30,17 @@ public class Piece : NewMonoBehaviour, IAnimation
     protected int _heightRangeAttack;
 
     private int _movePoint;
+
+    public int Side
+    {
+        get => _side;
+    }
+
+    public int HeightRangeAttack
+    {
+        get => _heightRangeAttack;
+    }
+
 
     public int MovePoint
     {
@@ -116,18 +122,21 @@ public class Piece : NewMonoBehaviour, IAnimation
 
 
     /// <summary>
-    ///  Set _position and transform.position of Piece
+    ///  Set _position, set transform.position of Piece
+    ///  and set PieceGameObject of Square
     /// </summary>
     /// <param name="pos"> new Position </param>
-    public virtual void SetPosition(Vector3Int pos)
+    public virtual void SetPosition(Vector3Int newPos)
     {
         // DO NOT CHANGE
-        _position = pos;
+        _position = newPos;
         // Đặt piece lên trên Square
         // kể cả khi Prefab_Square thay đổi height(localScale.y) thì piece vẫn nằm ở trên Square(sàn)
         // transform.position.y = Square.localScale.y/2 + _position.y/2
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
         transform.position = new Vector3(0,1,0) * (height) + new Vector3(_position.x, (float)_position.y / 2, _position.z);
+
+        SearchingMethod.FindSquareByPosition(newPos).PieceGameObject = this.gameObject;
     }
 
     public void OnMouseDown()
@@ -151,14 +160,28 @@ public class Piece : NewMonoBehaviour, IAnimation
 
             BoardManager.Instance.selectedPiece = this.gameObject;
             // Highlight
-            HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
             HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
+            HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
 
         }
 
     }
 
 
+    public virtual void Move(Vector3Int newPos)
+    {
+        // update physicPosition
+        // this :  BoardManager.instance.selectedPiece.GetComponent<Piece>()
+        // update data Piece.position
+        // update data board
+        // update data square
+
+        BoardManager.Instance.CancelHighlightAndSelectedChess();
+
+        SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
+        SetPosition(newPos);
+        TurnManager.Instance.ChangeTurn();
+    }
 
 
 

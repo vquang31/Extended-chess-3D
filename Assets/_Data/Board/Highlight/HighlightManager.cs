@@ -22,7 +22,8 @@ public class HighlightManager : Singleton<HighlightManager>
         {
             SquareManager.Instance.HideSquare(pos);
             GameObject highlight = Instantiate(blueHighlightPrefab, pos, Quaternion.identity);
-            highlight.transform.position = new Vector3(pos.x, (float) pos.y/2, pos.z);
+
+            highlight.GetComponent<AbstractSquare>().SetPosition(pos);
             highlight.name = "HighlightM_" + (char)('a' + pos.x - 1) + pos.z.ToString();
             highlight.transform.parent = GameObject.Find("Highlights").transform;
             highlights.Add(highlight);
@@ -33,8 +34,10 @@ public class HighlightManager : Singleton<HighlightManager>
     {
         foreach (var pos in positions)
         {
+            SquareManager.Instance.HideSquare(pos);
             GameObject highlight = Instantiate(redHighlightPrefab, pos, Quaternion.identity);
-            highlight.transform.position = new Vector3(pos.x, (float)pos.y / 2, pos.z);
+
+            highlight.GetComponent<AbstractSquare>().SetPosition(pos);
             highlight.name = "HighlightA_" + (char)('a' + pos.x - 1) + pos.z.ToString();
             highlight.transform.parent = GameObject.Find("Highlights").transform;
             highlights.Add(highlight);

@@ -2,18 +2,11 @@
 using System.ComponentModel;
 using UnityEngine;
 
-public class Square : NewMonoBehaviour, IAnimation
+public class Square : AbstractSquare, IAnimation
 {
 
     [SerializeField] private GameObject pieceGameObject;
     private ItemBuff itemBuff;
-
-    [SerializeField] private Vector3Int _position;
-    public Vector3Int Position
-    {
-        get => _position;
-        set => _position = value;
-    }
 
 
     public GameObject PieceGameObject
@@ -50,22 +43,16 @@ public class Square : NewMonoBehaviour, IAnimation
         this.ResetValues();
     }
 
-    protected override void LoadComponents()
+    public override void SetPosition(Vector3Int pos)
     {
-        base.LoadComponents();
-    }
-
-    public void SetPosition(Vector3Int pos)
-    {
-        _position = pos;
-        // transform.position.y = Square._position.y/2
-        transform.position = new Vector3(pos.x, (float)pos.y/2, pos.z);
+       base.SetPosition(pos);
     }
 
 
 
-    protected void OnMouseDown()
+    protected override void OnMouseDown()
     {
+        if (!canClick) return;
         if (BoardManager.Instance.selectedPiece == null) // chua select 
         {
             if (pieceGameObject != null &&
