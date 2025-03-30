@@ -159,6 +159,10 @@ public class Piece : NewMonoBehaviour, IAnimation
             Debug.Log(this.gameObject.name);
 
             BoardManager.Instance.selectedPiece = this.gameObject;
+            // Camera
+            CameraManager.Instance.SetTarget();
+
+
             // Highlight
             HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
             HighlightManager.Instance.HighlightValidMoves(GetValidMoves());

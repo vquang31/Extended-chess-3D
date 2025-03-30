@@ -67,4 +67,11 @@ public class Knight : Piece
         }
         return validAttacks;
     }
+
+
+    public override void SetPosition(Vector3Int pos)
+    {
+        base.SetPosition(pos);
+        transform.position = new Vector3(0, -0.1f, 0) + transform.position;
+    }
 }

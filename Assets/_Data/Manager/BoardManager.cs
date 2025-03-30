@@ -34,6 +34,7 @@ public class BoardManager : Singleton<BoardManager>
         _highlightManager.ClearHighlights();
         _squareManager.DisplayAll();
         BoardManager.Instance.selectedPiece = null;
+        CameraManager.Instance.CancelTarget();
     }
 
 

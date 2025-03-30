@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Square : AbstractSquare, IAnimation
+public class Square : AbstractSquare, IAnimation 
 {
 
     [SerializeField] private GameObject pieceGameObject;
@@ -17,22 +18,6 @@ public class Square : AbstractSquare, IAnimation
 
     public void InitHeight(Vector2Int pos)
     {
-        //if (pos.y == 1 || pos.y == Const.MAX_BOARD_SIZE || pos.x == 1 || pos.x == Const.MAX_BOARD_SIZE)
-        //{
-        //    _position.y = 3;
-        //}
-        //else if (pos.y == 2 || pos.y == Const.MAX_BOARD_SIZE - 1 || pos.x == 2 || pos.x == Const.MAX_BOARD_SIZE - 1)
-        //{
-        //    _position.y = 2;
-        //}
-        //else if (pos.y == 3 || pos.y == Const.MAX_BOARD_SIZE - 2 || pos.x == 3 || pos.x == Const.MAX_BOARD_SIZE - 2)
-        //{
-        //    _position.y = 1;
-        //} 
-        //else
-        //{
-        //    _position.y = 1;
-        //}
         _position.y = 1;
         SetPosition(new Vector3Int(pos.x, Position.y, pos.y));
     }
@@ -58,7 +43,7 @@ public class Square : AbstractSquare, IAnimation
             if (pieceGameObject != null &&
                 pieceGameObject.GetComponent<Piece>().Side == TurnManager.Instance.Turn())
             {
-                pieceGameObject.GetComponent<Piece>().MouseSelected();
+                    pieceGameObject.GetComponent<Piece>().MouseSelected();
             }
             else
             {
@@ -67,7 +52,11 @@ public class Square : AbstractSquare, IAnimation
         }
         else
         {
-            BoardManager.Instance.CancelHighlightAndSelectedChess();
+            if (BoardManager.Instance.selectedPiece == pieceGameObject)
+            {
+                BoardManager.Instance.CancelHighlightAndSelectedChess();
+            }
+
         }
     }
 
@@ -93,4 +82,5 @@ public class Square : AbstractSquare, IAnimation
         }
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
     }
+
 }

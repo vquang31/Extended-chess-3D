@@ -30,10 +30,10 @@ public class Const
         DEFAULT_STATS = new Dictionary<PieceType, (int, int, int,int,int )>
         {
             { PieceType.Pawn,   (100,  10, 2, 1, 3) },
-            { PieceType.Rook,   (200,  50, 1, 2, 8) },
+            { PieceType.Rook,   (200,  50, 1, 2, 5) },
             { PieceType.Knight, (150,  30, 4, 3, 3) },
-            { PieceType.Bishop, (150,  40, 1, 2, 6) },
-            { PieceType.Queen,  (300,  60, 2 ,2, 8) },
+            { PieceType.Bishop, (150,  40, 1, 2, 5) },
+            { PieceType.Queen,  (300,  60, 2 ,2, 6) },
             { PieceType.King,   (500, 100, 2, 2, 2) }
         };
 }
