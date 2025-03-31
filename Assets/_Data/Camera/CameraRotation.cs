@@ -7,8 +7,8 @@ public class CameraRotation : NewMonoBehaviour
     public CinemachineInputAxisController cinemachineInputAxisController; // Cinemachine FreeLook Camera
 
     //[Header("Rotation")]
-    [SerializeField]
-    private KeyCode rotateKey = KeyCode.Mouse0;  // Giữ chuột trái để xoay
+    //[SerializeField]
+    private KeyCode rotateKey = KeyCode.Mouse1;  // Giữ chuột trái để xoay
 
     protected override void LoadComponents()
     {

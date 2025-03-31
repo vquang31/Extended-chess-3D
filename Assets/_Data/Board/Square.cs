@@ -40,14 +40,20 @@ public class Square : AbstractSquare, IAnimation
         if (!canClick) return;
         if (BoardManager.Instance.selectedPiece == null) // chua select 
         {
-            if (pieceGameObject != null &&
-                pieceGameObject.GetComponent<Piece>().Side == TurnManager.Instance.Turn())
-            {
+            if (pieceGameObject != null)
+            { 
+                if(pieceGameObject.GetComponent<Piece>().Side == TurnManager.Instance.Turn())
+                {
                     pieceGameObject.GetComponent<Piece>().MouseSelected();
-            }
+                }
+                else
+                {
+                    DoubleClickSquare.Instance.selectSquare(this);
+                }
+            } 
             else
             {
-                BoardManager.Instance.CancelHighlightAndSelectedChess();
+                DoubleClickSquare.Instance.selectSquare(this);
             }
         }
         else
@@ -56,7 +62,24 @@ public class Square : AbstractSquare, IAnimation
             {
                 BoardManager.Instance.CancelHighlightAndSelectedChess();
             }
-
+            else
+            {
+                if(pieceGameObject != null)
+                {
+                    if(pieceGameObject.GetComponent<Piece>().Side == TurnManager.Instance.Turn())
+                    {
+                        pieceGameObject.GetComponent<Piece>().MouseSelected();
+                    }
+                    else
+                    {
+                        DoubleClickSquare.Instance.selectSquare(this);
+                    }
+                }
+                else
+                {
+                    DoubleClickSquare.Instance.selectSquare(this);
+                }
+            }
         }
     }
 
