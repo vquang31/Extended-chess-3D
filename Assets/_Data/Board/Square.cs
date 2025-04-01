@@ -48,12 +48,12 @@ public class Square : AbstractSquare, IAnimation
                 }
                 else
                 {
-                    DoubleClickSquare.Instance.selectSquare(this);
+                    ClickSquare.Instance.selectSquare(this);
                 }
             } 
             else
             {
-                DoubleClickSquare.Instance.selectSquare(this);
+                ClickSquare.Instance.selectSquare(this);
             }
         }
         else
@@ -72,12 +72,12 @@ public class Square : AbstractSquare, IAnimation
                     }
                     else
                     {
-                        DoubleClickSquare.Instance.selectSquare(this);
+                        ClickSquare.Instance.selectSquare(this);
                     }
                 }
                 else
                 {
-                    DoubleClickSquare.Instance.selectSquare(this);
+                    ClickSquare.Instance.selectSquare(this);
                 }
             }
         }

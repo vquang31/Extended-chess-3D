@@ -24,7 +24,7 @@ public class Rook : Piece
             while (movePoint >= 1)
             {
                 Vector2Int nextPosition2d = Method2.Pos3dToPos2d(currentPosition) + directionMoves[i];
-                //Vector2Int nextPosition2d = Method2.Pos3dToPos2d(nextPosition3d);
+
                 if (SearchingMethod.IsSquareValid(nextPosition2d) == false || SearchingMethod.IsSquareEmpty(nextPosition2d) == false)
                 {
                     break;

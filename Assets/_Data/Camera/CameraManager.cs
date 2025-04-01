@@ -28,7 +28,7 @@ public class CameraManager : Singleton<CameraManager>
     {
         Transform target = square.gameObject.transform;
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
-        Vector3 pos = new Vector3(0, 1, 0) * (height) + new Vector3(target.position.x, target.position.y, target.position.z);
+        Vector3 pos = new Vector3(0, 1, 0) * (height) + target.transform.position;
         cameraMovement.SetPositionTarget(pos);
     }
 

@@ -37,8 +37,6 @@ public class Knight : Piece
         return validMoves;
     }
 
-
-
     protected override List<Vector3Int> GetValidAttacks()
     {
         List<Vector3Int> validAttacks = new List<Vector3Int>();

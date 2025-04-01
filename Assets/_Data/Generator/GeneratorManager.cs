@@ -16,7 +16,7 @@ public class GeneratorManager : Singleton<GeneratorManager>
         generatorPiece = GameObject.Find("Generator").GetComponent<GeneratorPiece>();
         generatorSquare = GameObject.Find("Generator").GetComponent<GeneratorSquare>(); 
     }
-    void Start()
+    protected override void Start()
     {
         generatorSquare.Generate();
         Debug.Log("Generate SQUARE");

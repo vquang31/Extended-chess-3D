@@ -47,11 +47,11 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
     protected void GenerateMap()
     {
         //GenerateMountain(new Vector3Int(8, 8, 8));
-        //GenerateMountain(new Vector3Int(6, 8, 10));
-        //GenerateMountain(new Vector3Int(10, 8, 12));
-        
+        //GenerateMountain(new Vector3Int(6, 8, 8));
+        //GenerateMountain(new Vector3Int(10, 8, 8));
+
         GenerateMountains(24, 4, 10);
-        //UpHeightSquares(8,1 ,4);
+        UpHeightSquares(10, 1, 4);
     }
 
     protected void GenerateMountains(int n,int minHeight, int maxHeight)
@@ -100,26 +100,9 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
                     continue;
                 Square square = GameObject.Find(Method2.NameSquare(new Vector2Int(pos.x + x, pos.z + z))).GetComponent<Square>();
                 // Do not change this agolrithm
-                //if (square.Position.y < currentHeight)
-                //{
-                //    if (square.Position.y + currentHeight <= maxHeight && square.Position.y != 1)
-                //    {
-                //        square.SetPosition(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z));
-                //    }
-                //    else
-                //    {
-                //        square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
-                //    }
-                //}
-
-                //if (square.Position.y < currentHeight)
-                //{
-                //    square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
-                //}
-
                 if (square.Position.y < currentHeight)
                 {
-                    if (square.Position.y != 1)
+                    if (square.Position.y + currentHeight <= maxHeight && square.Position.y != 1)
                     {
                         square.SetPosition(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z));
                     }
@@ -128,6 +111,23 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
                         square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
                     }
                 }
+
+                //if (square.Position.y < currentHeight)
+                //{
+                //    square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
+                //}
+
+                //if (square.Position.y < currentHeight)
+                //{
+                //    if (square.Position.y != 1)
+                //    {
+                //        square.SetPosition(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z));
+                //    }
+                //    else
+                //    {
+                //        square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
+                //    }
+                //}
 
 
             }

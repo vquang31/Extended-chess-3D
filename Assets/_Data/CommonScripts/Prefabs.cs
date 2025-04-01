@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Prefabs : NewMonoBehaviour
 {
-    void Start()
+    protected override void Start()
     {
         gameObject.SetActive(false);
     }

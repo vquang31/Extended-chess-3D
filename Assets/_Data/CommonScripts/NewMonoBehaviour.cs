@@ -13,7 +13,7 @@ public class NewMonoBehaviour : MonoBehaviour
         this.LoadComponents();
     }
 
-    void Start()
+    protected virtual void Start()
     {
 
     }

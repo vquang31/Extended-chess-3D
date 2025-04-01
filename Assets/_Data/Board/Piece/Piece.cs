@@ -57,8 +57,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         this.ResetValues();
     }
      
-
-    public virtual void Start()
+    protected override void Start()
     {
         this.Reset();
     }
@@ -143,7 +142,14 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         //SearchingMethod.FindSquareByPosition(Position).MoveUp(1);
         if (TurnManager.Instance.Turn() == _side) // nếu cùng side thì chuyển select
+        { 
             MouseSelected();
+
+            /// show information of piece   
+            /// 
+
+        }
+        ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
     }
 
     public void MouseSelected()
@@ -161,7 +167,8 @@ public class Piece : NewMonoBehaviour, IAnimation
             BoardManager.Instance.selectedPiece = this.gameObject;
             // Camera
             CameraManager.Instance.SetTarget();
-
+            // UI
+            SelectPieceUIManager.Instance.ShowUI();
 
             // Highlight
             HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());

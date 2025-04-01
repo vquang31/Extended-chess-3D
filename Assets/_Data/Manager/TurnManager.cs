@@ -13,8 +13,9 @@ public class TurnManager : Singleton<TurnManager>
         player2 = GameObject.Find("Player2").GetComponent<Player>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         player1.Turn = true;
         player2.Turn = false;
 
