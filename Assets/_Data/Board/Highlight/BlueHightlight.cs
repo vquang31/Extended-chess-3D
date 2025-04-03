@@ -6,6 +6,6 @@ public class BlueHightlight : AbstractSquare
     {
         base.OnMouseDown();
         if (!canClick) return;
-        BoardManager.Instance.selectedPiece.GetComponent<Piece>().Move(_position);
+        BoardManager.Instance.selectedPiece.GetComponent<Piece>().FakeMove(_position);
     }
 }

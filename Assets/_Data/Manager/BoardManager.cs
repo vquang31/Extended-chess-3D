@@ -1,8 +1,27 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BoardManager : Singleton<BoardManager>
 {
     public GameObject selectedPiece;
+    public Vector3Int selectedPosition;
+
+    public void SelectedPiece(GameObject piece)
+    {
+        selectedPiece = piece;
+        selectedPosition = piece.GetComponent<Piece>().Position;
+    }
+
+    public void CancelSelectedPiece()
+    {
+        selectedPiece = null;
+        selectedPosition = Vector3Int.zero;
+    }
+
+    public void ReturnSelectedPosition()
+    {
+        selectedPiece.GetComponent<Piece>().FakeMove(selectedPosition);
+    }
 
 
     /// <summary>
@@ -33,7 +52,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         _highlightManager.ClearHighlights();
         _squareManager.DisplayAll();
-        BoardManager.Instance.selectedPiece = null;
+        BoardManager.Instance.CancelSelectedPiece();
         // UI
         SelectPieceUIManager.Instance.HideUI();
         // Camera

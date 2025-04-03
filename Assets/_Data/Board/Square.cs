@@ -60,6 +60,7 @@ public class Square : AbstractSquare, IAnimation
         {
             if (BoardManager.Instance.selectedPiece == pieceGameObject)
             {
+                BoardManager.Instance.ReturnSelectedPosition();
                 BoardManager.Instance.CancelHighlightAndSelectedChess();
             }
             else

@@ -11,7 +11,7 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     // bishop
     // elephant
-    [SerializeField] private Vector3Int _position;
+    [SerializeField] private Vector3Int _position = Vector3Int.zero;
     public Vector3Int Position
     {
         get => _position;
@@ -127,8 +127,14 @@ public class Piece : NewMonoBehaviour, IAnimation
     /// <param name="pos"> new Position </param>
     public virtual void SetPosition(Vector3Int newPos)
     {
+        // ???
+        //if(SearchingMethod.FindSquareByPosition(Position) != null)
+        //{
+        //    SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
+        //}
         // DO NOT CHANGE
         _position = newPos;
+
         // Đặt piece lên trên Square
         // kể cả khi Prefab_Square thay đổi height(localScale.y) thì piece vẫn nằm ở trên Square(sàn)
         // transform.position.y = Square.localScale.y/2 + _position.y/2
@@ -156,15 +162,20 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         if (BoardManager.Instance.selectedPiece == this.gameObject)
         {
-            BoardManager.Instance.CancelHighlightAndSelectedChess();
+            //BoardManager.Instance.ReturnSelectedPosition();
+            //BoardManager.Instance.CancelHighlightAndSelectedChess();
         }
         else
         {
+            if (BoardManager.Instance.selectedPiece != null)
+            {
+                BoardManager.Instance.ReturnSelectedPosition();
+            }
             BoardManager.Instance.CancelHighlightAndSelectedChess();
             // Debug
             Debug.Log(this.gameObject.name);
 
-            BoardManager.Instance.selectedPiece = this.gameObject;
+            BoardManager.Instance.SelectedPiece(this.gameObject);
             // Camera
             CameraManager.Instance.SetTarget();
             // UI
@@ -179,7 +190,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
 
 
-    public virtual void Move(Vector3Int newPos)
+    public virtual void Move()
     {
         // update physicPosition
         // this :  BoardManager.instance.selectedPiece.GetComponent<Piece>()
@@ -188,13 +199,15 @@ public class Piece : NewMonoBehaviour, IAnimation
         // update data square
 
         BoardManager.Instance.CancelHighlightAndSelectedChess();
-
-        SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
-        SetPosition(newPos);
+        //SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
         TurnManager.Instance.ChangeTurn();
     }
 
-
+    public virtual void FakeMove(Vector3Int newPos)
+    {
+        SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
+        SetPosition(newPos);
+    }
 
     public void MoveUp(int n)
     {
