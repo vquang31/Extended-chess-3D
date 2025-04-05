@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bishop : Piece {
 
 
-    protected override List<Vector3Int> GetValidMoves()
+    public override List<Vector3Int> GetValidMoves()
     {
         List<Vector3Int> validMoves = new List<Vector3Int>();
         Vector2Int[] directionMoves = {

@@ -96,14 +96,46 @@ public class Piece : NewMonoBehaviour, IAnimation
         this.effects = new List<Effect>();
     }
 
-    protected virtual List<Vector3Int> GetValidMoves()
+    public virtual List<Vector3Int> GetValidMoves()
     {
         return new List<Vector3Int>();
     }
 
+
+    // Display valid Attack
     protected virtual List<Vector3Int> GetValidAttacks()
     {
         return new List<Vector3Int>();
+    }
+
+
+    public virtual List<Vector2Int> GetAttackDirection()
+    {
+        return new List<Vector2Int>();
+    }
+
+
+    public virtual bool CheckValidAttack(Vector3Int currentPosition3d, Vector2Int targetPosition2d)
+    {
+        if (SearchingMethod.IsSquareValid(targetPosition2d) == false || SearchingMethod.IsSquareEmpty(targetPosition2d))
+        {
+            return false;
+        }
+        if (SearchingMethod.FindPieceByPosition(targetPosition2d).Side == Side)
+        {
+            return false;
+        }
+
+        Vector3Int targetPosition3d = Method2.Pos2dToPos3d(targetPosition2d);
+        int diffHeight = Math.Abs(currentPosition3d.y - targetPosition3d.y);
+        if (diffHeight <= HeightRangeAttack)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     protected virtual void Move(Vector2Int newPos)
@@ -145,7 +177,8 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
 
     public void OnMouseDown()
-    {
+    { 
+        ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
         //SearchingMethod.FindSquareByPosition(Position).MoveUp(1);
         if (TurnManager.Instance.Turn() == _side) // nếu cùng side thì chuyển select
         { 
@@ -153,9 +186,24 @@ public class Piece : NewMonoBehaviour, IAnimation
 
             /// show information of piece   
             /// 
-
         }
-        ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
+        else
+        {
+            // neu mà quân cơ này đứng trên ô đỏ thì
+            List<GameObject> listHighlight = HighlightManager.Instance.highlights;
+            foreach(var hightlight in listHighlight)
+            {
+                if (hightlight.gameObject.name.Contains("HighlightA_"))
+                {
+                    Vector3Int highlightPos = hightlight.GetComponent<AbstractSquare>().Position;
+                    if (highlightPos == Position)
+                    {
+                        hightlight.GetComponent<RedHighlight>().Click();
+                    }
+                }
+            }
+        }
+       
     }
 
     public void MouseSelected()
@@ -178,13 +226,16 @@ public class Piece : NewMonoBehaviour, IAnimation
             BoardManager.Instance.SelectedPiece(this.gameObject);
             // Camera
             CameraManager.Instance.SetTarget();
-            // UI
-            SelectPieceUIManager.Instance.ShowUI();
 
-            // Highlight
+
+            // Highlight // dont change order
+            // reason: When call HighlightValidMoves() first, square will hide and we can not see and select this square
+            HighlightManager.Instance.HighlightSelf(Position);
             HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
             HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
 
+            // UI
+            SelectPieceUIManager.Instance.ShowUI();
         }
 
     }

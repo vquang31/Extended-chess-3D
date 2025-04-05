@@ -24,7 +24,7 @@ public class CameraManager : Singleton<CameraManager>
         cameraMovement.SetPositionTarget(target);
     }
 
-    public void SetTarget(Square square)
+    public void SetTarget(AbstractSquare square)
     {
         Transform target = square.gameObject.transform;
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;

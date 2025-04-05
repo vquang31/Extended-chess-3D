@@ -9,7 +9,6 @@ public class Square : AbstractSquare, IAnimation
     [SerializeField] private GameObject pieceGameObject;
     private ItemBuff itemBuff;
 
-
     public GameObject PieceGameObject
     {
         get => pieceGameObject;
@@ -38,6 +37,7 @@ public class Square : AbstractSquare, IAnimation
     protected override void OnMouseDown()
     {
         if (!canClick) return;
+        base.OnMouseDown();
         if (BoardManager.Instance.selectedPiece == null) // chua select 
         {
             if (pieceGameObject != null)
@@ -48,18 +48,20 @@ public class Square : AbstractSquare, IAnimation
                 }
                 else
                 {
-                    ClickSquare.Instance.selectSquare(this);
+                    //ClickSquare.Instance.selectSquare(this);
                 }
             } 
             else
             {
-                ClickSquare.Instance.selectSquare(this);
+                //ClickSquare.Instance.selectSquare(this);
             }
         }
         else
         {
             if (BoardManager.Instance.selectedPiece == pieceGameObject)
             {
+                // khong bao gio xay ra truong hop nay
+                //Debug.Log("111");
                 BoardManager.Instance.ReturnSelectedPosition();
                 BoardManager.Instance.CancelHighlightAndSelectedChess();
             }
@@ -73,12 +75,12 @@ public class Square : AbstractSquare, IAnimation
                     }
                     else
                     {
-                        ClickSquare.Instance.selectSquare(this);
+                        //ClickSquare.Instance.selectSquare(this);
                     }
                 }
                 else
                 {
-                    ClickSquare.Instance.selectSquare(this);
+                    //ClickSquare.Instance.selectSquare(this);
                 }
             }
         }

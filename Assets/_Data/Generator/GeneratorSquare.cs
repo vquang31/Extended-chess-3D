@@ -50,8 +50,8 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
         //GenerateMountain(new Vector3Int(6, 8, 8));
         //GenerateMountain(new Vector3Int(10, 8, 8));
 
-        GenerateMountains(24, 4, 10);
-        UpHeightSquares(10, 1, 4);
+        //GenerateMountains(24, 4, 10);
+        //UpHeightSquares(10, 1, 4);
     }
 
     protected void GenerateMountains(int n,int minHeight, int maxHeight)

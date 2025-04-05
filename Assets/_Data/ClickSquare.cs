@@ -9,8 +9,7 @@ public class ClickSquare : Singleton<ClickSquare>
 
 
     [SerializeField]
-    Square square;
-
+    AbstractSquare square;
 
     protected override void LoadComponents()
     {
@@ -19,14 +18,15 @@ public class ClickSquare : Singleton<ClickSquare>
     }
 
 
-    public void selectSquare(Square square)
+    public void selectSquare(AbstractSquare square)
     {
         if (square == null)
         {
             selectCell.UpdatePosition(square.transform.position);
             this.square = square;
+
             lastClickTime = Time.time;
-            return;
+
         }
         else
         {
@@ -39,9 +39,18 @@ public class ClickSquare : Singleton<ClickSquare>
             }
             selectCell.UpdatePosition(square.transform.position);
             this.square = square;
+
             lastClickTime = Time.time;
-            return;
         }
+        if (square is Square || square is RedHighlight || square is GreenHighlight)
+        {
+            Vector3Int position = square.Position;
+            //if (SearchingMethod.FindPieceByPosition(position) != null)
+            //{
+                BoardManager.Instance.TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
+            //}
+        }
+        return;
     }
 
     public void changeTargetCamera()

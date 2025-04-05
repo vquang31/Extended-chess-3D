@@ -18,7 +18,7 @@ public abstract class AbstractSquare : NewMonoBehaviour
     }
     protected virtual void OnMouseDown()
     {
-
+        ClickSquare.Instance.selectSquare(this);
     }
     protected override void LoadComponents()
     {

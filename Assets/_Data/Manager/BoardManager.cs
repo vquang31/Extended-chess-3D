@@ -6,6 +6,14 @@ public class BoardManager : Singleton<BoardManager>
     public GameObject selectedPiece;
     public Vector3Int selectedPosition;
 
+    public GameObject targetPiece;
+
+    public GameObject TargetPiece
+    {
+        get => targetPiece;
+        set => targetPiece = value;
+    }
+
     public void SelectedPiece(GameObject piece)
     {
         selectedPiece = piece;
@@ -38,7 +46,6 @@ public class BoardManager : Singleton<BoardManager>
     //protected PieceManager _pieceManager;
 
     protected SquareManager _squareManager;
-
 
     protected override void LoadComponents()
     {

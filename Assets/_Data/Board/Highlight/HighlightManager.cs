@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class HighlightManager : Singleton<HighlightManager>
     protected GameObject greenHighlightPrefab;
     protected GameObject blueHighlightPrefab;
     public List<GameObject> highlights = new ();
+
 
     protected override void LoadComponents()
     {
@@ -50,5 +52,13 @@ public class HighlightManager : Singleton<HighlightManager>
         highlights.Clear();
     }
 
-
+    public  void HighlightSelf(Vector3Int position)
+    {
+        SquareManager.Instance.HideSquare(position);
+        GameObject highlight = Instantiate(greenHighlightPrefab, position, Quaternion.identity);
+        highlight.GetComponent<AbstractSquare>().SetPosition(position);
+        highlight.name = "HighlightS_" + (char)('a' + position.x - 1) + position.z.ToString();
+        highlight.transform.parent = GameObject.Find("Highlights").transform;
+        highlights.Add(highlight);
+    }
 }
