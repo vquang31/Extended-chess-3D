@@ -37,6 +37,7 @@ public class Square : AbstractSquare, IAnimation
     protected override void OnMouseDown()
     {
         if (!canClick) return;
+        if (InputBlocker.IsPointerOverUI())  return; 
         base.OnMouseDown();
         if (BoardManager.Instance.selectedPiece == null) // chua select 
         {

@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class AttackButton : MonoBehaviour
+public class AttackButton : BaseButton
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void OnClick()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BoardManager.Instance.selectedPiece.GetComponent<Piece>().AttackChess();
+        base.OnClick();
     }
 }

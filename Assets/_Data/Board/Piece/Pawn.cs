@@ -151,31 +151,7 @@ public class Pawn : Piece
         //        validAttacks.Add(targetPosition3d);
         //    }
         //}
-
-
-        List<Vector3Int> validAttacks = new List<Vector3Int>();
-        List<Vector3Int> validMoves = GetValidMoves();
-        validMoves.Add(Position);
-        List<Vector2Int> attackDirections = GetAttackDirection();
-
-        for(int i = 0; i < validMoves.Count; i++)
-        {
-            Vector3Int move = validMoves[i];
-            Vector2Int move2d = Method2.Pos3dToPos2d(move);
-            for (int j = 0; j < attackDirections.Count; j++)
-            {
-                Vector2Int attackDirection = attackDirections[j];
-                Vector2Int targetPosition2d = move2d + attackDirection;
-                if(CheckValidAttack(move, targetPosition2d))
-                {
-                    Vector3Int attackPosition3d =  Method2.Pos2dToPos3d(targetPosition2d);
-                    if(!validAttacks.Contains(attackPosition3d))
-                        validAttacks.Add(attackPosition3d);
-                }
-            }
-        }
-
-        return validAttacks;
+        return base.GetValidAttacks();
     }
 
     public override List<Vector2Int> GetAttackDirection()
@@ -189,7 +165,5 @@ public class Pawn : Piece
         };
         return rangeAttacks;
     }
-
-
 }
 

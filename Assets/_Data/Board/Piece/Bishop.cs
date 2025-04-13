@@ -53,9 +53,20 @@ public class Bishop : Piece {
 
     protected override List<Vector3Int> GetValidAttacks()
     {
-        return new List<Vector3Int>();
+        return base.GetValidAttacks();
     }
 
+    public override List<Vector2Int> GetAttackDirection()
+    {
+        List<Vector2Int> rangeAttacks = new List<Vector2Int>()
+        {
+            new Vector2Int(-1, -1),
+            new Vector2Int(-1,  1),
+            new Vector2Int( 1, -1),
+            new Vector2Int( 1,  1)
+        };
+        return rangeAttacks;
+    }
 
 
 

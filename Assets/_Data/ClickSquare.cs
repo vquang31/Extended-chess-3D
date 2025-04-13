@@ -42,14 +42,18 @@ public class ClickSquare : Singleton<ClickSquare>
 
             lastClickTime = Time.time;
         }
-        if (square is Square || square is RedHighlight || square is GreenHighlight)
-        {
-            Vector3Int position = square.Position;
-            //if (SearchingMethod.FindPieceByPosition(position) != null)
-            //{
-                BoardManager.Instance.TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
-            //}
-        }
+
+        Vector3Int position = square.Position;
+
+        BoardManager.Instance.TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
+
+        ///
+        //Debug.Log("Show information of targetPiece is here");
+        ///
+        SelectPieceUIManager.Instance.attackButton.SetActive(false);
+        ///
+        SelectPieceUIManager.Instance.killButton.SetActive(false);
+
         return;
     }
 

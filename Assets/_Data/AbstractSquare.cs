@@ -18,6 +18,7 @@ public abstract class AbstractSquare : NewMonoBehaviour
     }
     protected virtual void OnMouseDown()
     {
+        //if (InputBlocker.IsPointerOverUI()) { return; }
         ClickSquare.Instance.selectSquare(this);
     }
     protected override void LoadComponents()

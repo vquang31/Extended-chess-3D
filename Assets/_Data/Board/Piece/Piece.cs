@@ -20,7 +20,7 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     protected int _maxHp;
 
-    protected int _hp;
+    [SerializeField]protected int _hp;
 
     protected int _attackPoint;
 
@@ -101,19 +101,38 @@ public class Piece : NewMonoBehaviour, IAnimation
         return new List<Vector3Int>();
     }
 
-
     // Display valid Attack
     protected virtual List<Vector3Int> GetValidAttacks()
     {
-        return new List<Vector3Int>();
-    }
+        List<Vector3Int> validAttacks = new List<Vector3Int>();
+        List<Vector3Int> validMoves = GetValidMoves();
+        validMoves.Add(Position);
+        List<Vector2Int> attackDirections = GetAttackDirection();
 
+        for (int i = 0; i < validMoves.Count; i++)
+        {
+            Vector3Int move = validMoves[i];
+            Vector2Int move2d = Method2.Pos3dToPos2d(move);
+            for (int j = 0; j < attackDirections.Count; j++)
+            {
+                Vector2Int attackDirection = attackDirections[j];
+                Vector2Int targetPosition2d = move2d + attackDirection;
+                if (CheckValidAttack(move, targetPosition2d))
+                {
+                    Vector3Int attackPosition3d = Method2.Pos2dToPos3d(targetPosition2d);
+                    if (!validAttacks.Contains(attackPosition3d))
+                        validAttacks.Add(attackPosition3d);
+                }
+            }
+        }
+
+        return validAttacks;
+    }
 
     public virtual List<Vector2Int> GetAttackDirection()
     {
         return new List<Vector2Int>();
     }
-
 
     public virtual bool CheckValidAttack(Vector3Int currentPosition3d, Vector2Int targetPosition2d)
     {
@@ -137,20 +156,6 @@ public class Piece : NewMonoBehaviour, IAnimation
             return false;
         }
     }
-
-    protected virtual void Move(Vector2Int newPos)
-    {
-
-    }
-    protected virtual void Attack(Vector2Int targetPos)
-    {
-
-    }
-    protected void Delete()
-    {
-        Destroy(gameObject);
-    }
-
 
     /// <summary>
     ///  Set _position, set transform.position of Piece
@@ -177,7 +182,8 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
 
     public void OnMouseDown()
-    { 
+    {
+        if (InputBlocker.IsPointerOverUI()) return; 
         ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
         //SearchingMethod.FindSquareByPosition(Position).MoveUp(1);
         if (TurnManager.Instance.Turn() == _side) // nếu cùng side thì chuyển select
@@ -193,7 +199,7 @@ public class Piece : NewMonoBehaviour, IAnimation
             List<GameObject> listHighlight = HighlightManager.Instance.highlights;
             foreach(var hightlight in listHighlight)
             {
-                if (hightlight.gameObject.name.Contains("HighlightA_"))
+                if (hightlight.TryGetComponent<RedHighlight>(out var redHighlight))
                 {
                     Vector3Int highlightPos = hightlight.GetComponent<AbstractSquare>().Position;
                     if (highlightPos == Position)
@@ -240,7 +246,6 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     }
 
-
     public virtual void Move()
     {
         // update physicPosition
@@ -258,6 +263,33 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
         SetPosition(newPos);
+    }
+    public virtual void AttackChess()
+    {
+        BoardManager.Instance.targetPiece.GetComponent<Piece>().TakeDamage(_attackPoint);
+        Move();
+    }
+
+    public virtual void KillChess()
+    {
+        BoardManager.Instance.targetPiece.GetComponent<Piece>().Delete();
+        FakeMove(BoardManager.Instance.targetPiece.GetComponent<Piece>().Position);
+        Move();
+    }
+
+    protected virtual void TakeDamage(int damage)
+    {
+        _hp -= damage;
+        if (_hp <= 0)
+        {
+            Delete();
+        }
+    }
+
+
+    protected void Delete()
+    {
+        Destroy(gameObject);
     }
 
     public void MoveUp(int n)
