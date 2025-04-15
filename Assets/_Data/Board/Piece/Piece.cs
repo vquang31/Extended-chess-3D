@@ -18,11 +18,31 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
     [SerializeField] private int _side;
 
-    protected int _maxHp;
+    private int _maxHp;
 
     [SerializeField]protected int _hp;
+    public int Hp
+    {
+        get => _hp;
+    }
+
+    public void BuffHp(int buff)
+    {
+        _hp += buff;
+        if (_hp > _maxHp)
+        {
+            _hp = _maxHp;
+        }
+    }
 
     protected int _attackPoint;
+
+    public int AttackPoint
+    {
+        get => _attackPoint;
+        set => _attackPoint = value;
+    }   
+
 
     protected int _jumpPoint;
 
@@ -104,7 +124,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     // Display valid Attack
     protected virtual List<Vector3Int> GetValidAttacks()
     {
-        List<Vector3Int> validAttacks = new List<Vector3Int>();
+        List<Vector3Int> validAttacks = new ();
         List<Vector3Int> validMoves = GetValidMoves();
         validMoves.Add(Position);
         List<Vector2Int> attackDirections = GetAttackDirection();
@@ -256,6 +276,12 @@ public class Piece : NewMonoBehaviour, IAnimation
 
         BoardManager.Instance.CancelHighlightAndSelectedChess();
         //SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
+        Square square = SearchingMethod.FindSquareByPosition(Position);
+        if(square._buffItem != null)
+        {
+            square._buffItem.ApplyEffect(this);
+            square._buffItem.Delete();
+        }
         TurnManager.Instance.ChangeTurn();
     }
 
@@ -286,34 +312,26 @@ public class Piece : NewMonoBehaviour, IAnimation
         }
     }
 
-
-    protected void Delete()
-    {
-        Destroy(gameObject);
-    }
-
-    public void MoveUp(int n)
+    public void ChangeHeight(int n)
     {
         _position.y += n;
-        StartCoroutine(MoveUpRoutine(n));
+        StartCoroutine(ChangeHeightRoutine(n));
     }
 
-    IEnumerator MoveUpRoutine(int n)
+
+    IEnumerator ChangeHeightRoutine(int n)
     {
         Vector3 start = transform.position;
         Vector3 target = start + Vector3.up * (float)n / 2;
         float duration = 1f;
         float elapsed = 0f;
-
         while (elapsed < duration)
         {
             transform.position = Vector3.Lerp(start, target, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null; // Chờ 1 frame trước khi tiếp tục
         }
-        transform.position = target; // Đảm bảo đạt đúng vị trí
-
+        transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
     }
-
 
 }

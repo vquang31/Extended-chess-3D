@@ -8,6 +8,6 @@ using UnityEngine;
 
 
 public interface IAnimation
-{
-     void MoveUp(int n);
+{   
+    void ChangeHeight(int n);
 }

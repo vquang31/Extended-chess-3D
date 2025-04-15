@@ -36,5 +36,8 @@ public class NewMonoBehaviour : MonoBehaviour
     {
 
     }
-
+    public void Delete()
+    {
+        Destroy(gameObject);
+    }
 }

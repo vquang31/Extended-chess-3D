@@ -34,6 +34,9 @@ public class TurnManager : Singleton<TurnManager>
             player1.Turn = !player1.Turn;
             player2.Turn = !player2.Turn;
 
+            // generate item buff
+            //if(Random.Range(0, 2) == 1)
+                GeneratorItemBuff.Instance.Generate(1);
         }
     }
 

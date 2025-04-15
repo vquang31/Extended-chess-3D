@@ -5,16 +5,17 @@ public class GeneratorManager : Singleton<GeneratorManager>
 {
     private CinemachineCamera cinemachineCamera;
 
-
-
     private GeneratorPiece generatorPiece;
     private GeneratorSquare generatorSquare;
+    private GeneratorItemBuff generatorItemBuff;
+
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         generatorPiece = GameObject.Find("Generator").GetComponent<GeneratorPiece>();
-        generatorSquare = GameObject.Find("Generator").GetComponent<GeneratorSquare>(); 
+        generatorSquare = GameObject.Find("Generator").GetComponent<GeneratorSquare>();
+        generatorItemBuff = GameObject.Find("Generator").GetComponent<GeneratorItemBuff>();
     }
     protected override void Start()
     {
@@ -22,16 +23,6 @@ public class GeneratorManager : Singleton<GeneratorManager>
         Debug.Log("Generate SQUARE");
         generatorPiece.Generate();
         Debug.Log("Generate CHESS");
-    }
-
-    protected void TrackTarget()
-    {
-
-    }
-
-    protected void CancelTrackTarget()
-    {
-
     }
 
 }

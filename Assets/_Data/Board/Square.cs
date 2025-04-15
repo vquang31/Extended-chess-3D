@@ -7,7 +7,7 @@ public class Square : AbstractSquare, IAnimation
 {
 
     [SerializeField] private GameObject pieceGameObject;
-    private ItemBuff itemBuff;
+    public BuffItem _buffItem;
 
     public GameObject PieceGameObject
     {
@@ -87,18 +87,21 @@ public class Square : AbstractSquare, IAnimation
         }
     }
 
-    public void MoveUp(int n)
+    public void ChangeHeight(int n)
     {
         _position.y += n;
-        StartCoroutine(MoveUpRoutine(n));
-        if(pieceGameObject != null)
-            pieceGameObject.GetComponent<Piece>().MoveUp(n);
-    }
+        StartCoroutine(ChangeHeightRoutine(n));
 
-    IEnumerator MoveUpRoutine(int n)
+        if(pieceGameObject != null)
+            pieceGameObject?.GetComponent<Piece>().ChangeHeight(n);
+        if(_buffItem != null)
+            _buffItem?.ChangeHeight(n);
+
+    }
+    IEnumerator ChangeHeightRoutine(int n)
     {
         Vector3 start = transform.position;
-        Vector3 target = start + Vector3.up * (float)n / 2;
+        Vector3 target = start + Vector3.up * (float) n / 2;
         float duration = 1f;
         float elapsed = 0f;
         while (elapsed < duration)
@@ -109,5 +112,6 @@ public class Square : AbstractSquare, IAnimation
         }
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
     }
+
 
 }
