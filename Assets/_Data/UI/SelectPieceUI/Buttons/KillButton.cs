@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KillButton : BaseButton
+public class KillButton : SelectButton
 {
     protected override void OnClick()
     {

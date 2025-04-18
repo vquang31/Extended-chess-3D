@@ -8,22 +8,33 @@ using static Const;
 
 public class Piece : NewMonoBehaviour, IAnimation
 {
-
-    // bishop
-    // elephant
     [SerializeField] private Vector3Int _position = Vector3Int.zero;
+    [SerializeField] private int _side;
+    private int _maxHp;
+    [SerializeField]protected int _hp;
+    protected int _jumpPoint;
+    protected int _heightRangeAttack;    // height range attack of piece
+    private int _movePoint;
+    protected int _attackPoint;
+
     public Vector3Int Position
     {
         get => _position;
     }
-    [SerializeField] private int _side;
 
-    private int _maxHp;
+    public int MaxHp
+    {
+        get => _maxHp;
+    }
 
-    [SerializeField]protected int _hp;
     public int Hp
     {
         get => _hp;
+    }
+
+    public int JumpPoint
+    {
+        get => _jumpPoint;
     }
 
     public void BuffHp(int buff)
@@ -35,21 +46,11 @@ public class Piece : NewMonoBehaviour, IAnimation
         }
     }
 
-    protected int _attackPoint;
-
     public int AttackPoint
     {
         get => _attackPoint;
         set => _attackPoint = value;
     }   
-
-
-    protected int _jumpPoint;
-
-    // height range attack of piece
-    protected int _heightRangeAttack;
-
-    private int _movePoint;
 
     public int Side
     {
@@ -61,13 +62,11 @@ public class Piece : NewMonoBehaviour, IAnimation
         get => _heightRangeAttack;
     }
 
-
     public int MovePoint
     {
         get => _movePoint;
         set => _movePoint = value;
     }
-    //protected int speed;
 
     protected List<Effect> effects;
 
@@ -185,10 +184,6 @@ public class Piece : NewMonoBehaviour, IAnimation
     public virtual void SetPosition(Vector3Int newPos)
     {
         // ???
-        //if(SearchingMethod.FindSquareByPosition(Position) != null)
-        //{
-        //    SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
-        //}
         // DO NOT CHANGE
         _position = newPos;
 
@@ -205,7 +200,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         if (InputBlocker.IsPointerOverUI()) return; 
         ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
-        //SearchingMethod.FindSquareByPosition(Position).MoveUp(1);
+
         if (TurnManager.Instance.Turn() == _side) // nếu cùng side thì chuyển select
         { 
             MouseSelected();

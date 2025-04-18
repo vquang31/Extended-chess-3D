@@ -19,8 +19,7 @@ public class BaseButton : NewMonoBehaviour
 
     protected virtual void OnClick()
     {
-        BoardManager.Instance.CancelHighlightAndSelectedChess();
-        SelectPieceUIManager.Instance.HideUI();
+
     }
 
 }

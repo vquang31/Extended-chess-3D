@@ -39,7 +39,6 @@ public class RedHighlight: Highlight
         if (InputBlocker.IsPointerOverUI()) { return; }
         base.OnMouseDown();
         Click();
-
     }
 
     public void Click()
@@ -49,7 +48,28 @@ public class RedHighlight: Highlight
         SelectPieceUIManager.Instance.moveButton.SetActive(true);
         SelectPieceUIManager.Instance.attackButton.SetActive(true);
         //
-        SelectPieceUIManager.Instance.killButton.SetActive(true);
+        // code here
+        // if hp of TargetPiece <= 10% maxHp 
+        // then show kill button
+        if(BoardManager.Instance.TargetPiece != null)
+        {
+            Piece targetPiece = BoardManager.Instance.TargetPiece.GetComponent<Piece>();
+            if (targetPiece != null)
+            {
+                if (targetPiece.Hp <= targetPiece.MaxHp * Const.PERCENTAGE_OF_MAX_HP_TO_KILL)
+                {
+                    SelectPieceUIManager.Instance.killButton.SetActive(true);
+                }
+                else
+                {
+                    SelectPieceUIManager.Instance.killButton.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            SelectPieceUIManager.Instance.killButton.SetActive(false);
+        }
         MovePieceToValidAttackPosition();
     }
 

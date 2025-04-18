@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AttackButton : BaseButton
+public class AttackButton : SelectButton
 {
     protected override void OnClick()
     {

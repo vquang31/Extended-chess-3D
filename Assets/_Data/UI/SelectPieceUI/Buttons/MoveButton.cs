@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MoveButton : BaseButton
+public class MoveButton : SelectButton
 {
     protected override void OnClick()
     {

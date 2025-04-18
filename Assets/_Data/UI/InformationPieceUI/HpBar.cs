@@ -22,6 +22,10 @@ public class HpBar : NewMonoBehaviour
         slider.value = hp;
     }
 
-
+    public void SetValue(Piece piece)
+    {
+        SetMaxHp(piece.MaxHp);
+        SetHp(piece.Hp);
+    }
 
 }

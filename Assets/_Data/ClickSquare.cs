@@ -17,7 +17,10 @@ public class ClickSquare : Singleton<ClickSquare>
         selectCell = GameObject.Find("SelectCell").GetComponent<SelectCell>();
     }
 
-
+    /// <summary>
+    ///  Hàm này sẽ được gọi đầu tiên khi click vào ô nào đó hoặc quân cờ nào đó
+    /// </summary>
+    /// <param name="square"></param>
     public void selectSquare(AbstractSquare square)
     {
         if (square == null)
@@ -48,7 +51,27 @@ public class ClickSquare : Singleton<ClickSquare>
         BoardManager.Instance.TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
 
         ///
-        //Debug.Log("Show information of targetPiece is here");
+        // set Information 
+        InfoButton.Instance.SetInformationOfGround(position.y);
+        // display table when table Information is active 
+
+        // hide tabel Information if target piece is null
+        
+        if(BoardManager.Instance.TargetPiece == null)
+        {
+            InformationPieceUIManager.Instance.HideUI();
+        }
+        else
+        {
+            if(InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
+            {
+                //InformationPieceUIManager.Instance.ShowUI();
+                // change Information of Piece for target piece
+                InformationPieceUIManager.Instance.SetInformationOfPiece(BoardManager.Instance.TargetPiece.GetComponent<Piece>());
+
+            }
+        }
+
         ///
         SelectPieceUIManager.Instance.attackButton.SetActive(false);
         ///

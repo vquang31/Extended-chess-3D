@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CancelButton : BaseButton
+public class CancelButton : SelectButton
 {
 
     protected override void OnClick()

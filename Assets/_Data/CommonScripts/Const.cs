@@ -16,6 +16,9 @@ public class Const
 
     public const int MAX_BOARD_SIZE = 16;
 
+
+    public const double PERCENTAGE_OF_MAX_HP_TO_KILL = 0.1f;
+
     public enum PieceType
     {
         Pawn = 0,
