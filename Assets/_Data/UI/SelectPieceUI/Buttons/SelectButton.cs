@@ -6,5 +6,7 @@ public class SelectButton : BaseButton
     {
         BoardManager.Instance.CancelHighlightAndSelectedChess();
         SelectPieceUIManager.Instance.HideUI();
+        InformationPieceUIManager.Instance.HideUI();
+    
     }
 }

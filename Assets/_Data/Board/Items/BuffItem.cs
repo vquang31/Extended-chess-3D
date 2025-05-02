@@ -4,8 +4,22 @@ using UnityEngine;
 public class BuffItem : NewMonoBehaviour ,IAnimation
 {
 
+    protected override void Start()
+    {
+        InitValue();
+    }
+
+    protected virtual void InitValue(){}
+
     //[SerializeField]
     //private Camera _mainCamera;
+
+    public virtual string Description()
+    {
+        return "";
+    }
+
+
 
     private Vector3Int _position;
 

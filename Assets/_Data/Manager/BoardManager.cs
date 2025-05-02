@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Splines.ExtrusionShapes;
 using UnityEngine.UIElements;
 
 public class BoardManager : Singleton<BoardManager>
@@ -6,13 +7,28 @@ public class BoardManager : Singleton<BoardManager>
     public GameObject selectedPiece;
     public Vector3Int selectedPosition;
 
-    public GameObject targetPiece;
+    private GameObject targetPiece;
+    private Vector3Int targetPosition;
+
 
     public GameObject TargetPiece
     {
         get => targetPiece;
         set => targetPiece = value;
     }
+
+    public Vector3Int TargetPosition
+    {
+        get => targetPosition;
+        set => targetPosition = value;
+    }
+
+    public void UpdateTargetPieceAndPosition(Vector3Int position)
+    {
+        TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
+        TargetPosition = position;
+    }
+
 
     public void SelectedPiece(GameObject piece)
     {

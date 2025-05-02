@@ -9,7 +9,7 @@ public class ClickSquare : Singleton<ClickSquare>
 
 
     [SerializeField]
-    AbstractSquare square;
+    public AbstractSquare square;
 
     protected override void LoadComponents()
     {
@@ -25,7 +25,6 @@ public class ClickSquare : Singleton<ClickSquare>
     {
         if (square == null)
         {
-            selectCell.UpdatePosition(square.transform.position);
             this.square = square;
 
             lastClickTime = Time.time;
@@ -40,30 +39,41 @@ public class ClickSquare : Singleton<ClickSquare>
                     changeTargetCamera();
                 }
             }
-            selectCell.UpdatePosition(square.transform.position);
+
             this.square = square;
 
             lastClickTime = Time.time;
         }
-
+        selectCell.UpdatePosition(square.transform.position);
         Vector3Int position = square.Position;
 
-        BoardManager.Instance.TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
 
+
+        BoardManager.Instance.UpdateTargetPieceAndPosition(position);
         ///
         // set Information 
         InfoButton.Instance.SetInformationOfGround(position.y);
         // display table when table Information is active 
 
-        // hide tabel Information if target piece is null
-        
-        if(BoardManager.Instance.TargetPiece == null)
+        // hide tabel Information if target piece is null or buffItem is null
+
+        if (BoardManager.Instance.TargetPiece == null)
         {
             InformationPieceUIManager.Instance.HideUI();
+            Square square2 = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
+            if (square2._buffItem != null)
+            {
+                InformationItemBuffManagerUI.Instance.ShowUI(square2._buffItem);
+            }
+            else
+            {
+                InformationItemBuffManagerUI.Instance.HideUI();
+            }
         }
         else
         {
-            if(InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
+            InformationItemBuffManagerUI.Instance.HideUI();
+            if (InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
             {
                 //InformationPieceUIManager.Instance.ShowUI();
                 // change Information of Piece for target piece

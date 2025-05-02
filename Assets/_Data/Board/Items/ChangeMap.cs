@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class ChangeMap : BuffItem
 {
-    [SerializeField] private int _amount = 10;
+    [SerializeField] private int _amount ;
 
+    protected override void InitValue()
+    {
+        base.InitValue();
+        _amount = Random.Range(2, 5);
+    }
+    public override string Description()
+    {
+        return "Change height of " + _amount + " square";
+    }
     public override void ApplyEffect(Piece piece)
     {
         base.ApplyEffect(piece);
-        _amount = Random.Range(1, _amount);
         for(int i = 0; i < _amount; i++)
         {   
             int x = Random.Range(2, Const.MAX_BOARD_SIZE);

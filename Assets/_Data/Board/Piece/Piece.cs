@@ -287,14 +287,14 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
     public virtual void AttackChess()
     {
-        BoardManager.Instance.targetPiece.GetComponent<Piece>().TakeDamage(_attackPoint);
+        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint);
         Move();
     }
 
     public virtual void KillChess()
     {
-        BoardManager.Instance.targetPiece.GetComponent<Piece>().Delete();
-        FakeMove(BoardManager.Instance.targetPiece.GetComponent<Piece>().Position);
+        BoardManager.Instance.TargetPiece.GetComponent<Piece>().Delete();
+        FakeMove(BoardManager.Instance.TargetPiece.GetComponent<Piece>().Position);
         Move();
     }
 

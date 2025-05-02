@@ -41,19 +41,21 @@ public class GeneratorItemBuff : Singleton<GeneratorItemBuff>
         int ran = Random.Range(1, 3 + 1);
         BuffItem newBuffItem = null;
         GameObject newItemBuffGameObject = Instantiate(itemBuffGameObject);
-        //switch (ran)
-        //{
-        //    case 1:
-        //        newBuffItem = newItemBuffGameObject.AddComponent<AttackBuff>();
-        //        break;
-        //    case 2:
-        //        newBuffItem = newItemBuffGameObject.AddComponent<ChangeMap>();
-        //        break;
-        //    case 3:
-        //        newBuffItem = newItemBuffGameObject.AddComponent<HpBuff>();
-        //        break;
-        //}   
-        newBuffItem = newItemBuffGameObject.AddComponent<ChangeMap>();
+        switch (ran)
+        {
+            case 1:
+                newBuffItem = newItemBuffGameObject.AddComponent<AttackBuff>();
+                //AttackBuff attackBuff = newItemBuffGameObject.GetComponent<AttackBuff>();
+
+                break;
+            case 2:
+                newBuffItem = newItemBuffGameObject.AddComponent<ChangeMap>();
+                break;
+            case 3:
+                newBuffItem = newItemBuffGameObject.AddComponent<HpBuff>();
+                break;
+        }
+        
 
         square._buffItem = newBuffItem;
         newBuffItem.SetPosition(square.Position);

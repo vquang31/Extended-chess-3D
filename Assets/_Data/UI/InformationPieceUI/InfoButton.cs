@@ -25,9 +25,9 @@ public class InfoButton : Singleton<InfoButton>
 
     protected void OnClick()
     {
-        if (BoardManager.Instance.targetPiece != null)
+        if (BoardManager.Instance.TargetPiece != null)
         {
-            if(InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
+            if (InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
             {
                 InformationPieceUIManager.Instance.HideUI();
             }
@@ -37,6 +37,23 @@ public class InfoButton : Singleton<InfoButton>
                 InformationPieceUIManager.Instance.SetInformationOfPiece(BoardManager.Instance.TargetPiece.GetComponent<Piece>());
             }
         }
+        else 
+        {
+            Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
+            if (square._buffItem != null)
+            {
+                if(InformationItemBuffManagerUI.Instance.gameObject.activeSelf == true)
+                {
+                    InformationItemBuffManagerUI.Instance.HideUI();
+                }
+                else
+                {
+                    InformationItemBuffManagerUI.Instance.ShowUI(square._buffItem);
+                }
+            }
+        }
+
+
     }
 
     public void SetInformationOfGround(int x)
