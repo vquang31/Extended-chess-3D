@@ -11,11 +11,15 @@ public class Piece : NewMonoBehaviour, IAnimation
     [SerializeField] private Vector3Int _position = Vector3Int.zero;
     [SerializeField] private int _side;
     private int _maxHp;
+    protected int _attackPoint;
     [SerializeField]protected int _hp;
     protected int _jumpPoint;
     protected int _heightRangeAttack;    // height range attack of piece
     private int _movePoint;
-    protected int _attackPoint;
+    private int _cost;
+
+    private bool _isMoving = false; // check if piece is moving or not
+
 
     public Vector3Int Position
     {
@@ -67,6 +71,12 @@ public class Piece : NewMonoBehaviour, IAnimation
         get => _movePoint;
         set => _movePoint = value;
     }
+    public int Cost
+    {
+        get => _cost;
+        set => _cost = value;
+    }
+
 
     protected List<Effect> effects;
 
@@ -85,9 +95,9 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         if (this.gameObject.name[0] == 'W')
         {
-            _side = 1;
+            _side = Const.SIDE_WHITE;
         }
-        else _side = -1;
+        else _side = Const.SIDE_BLACK;
     }
     protected override void ResetValues()
     {
@@ -112,6 +122,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         this._jumpPoint = stats.JumpPoint;
         this._heightRangeAttack = stats.RangeAttack;
         this._movePoint = stats.MovePoint;
+        this._cost = stats.Cost;
         this.effects = new List<Effect>();
     }
 
@@ -200,11 +211,45 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         if (InputBlocker.IsPointerOverUI()) return; 
         ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
+        MouseSelected();
 
-        if (TurnManager.Instance.Turn() == _side) // nếu cùng side thì chuyển select
-        { 
-            MouseSelected();
+    }
 
+    public void MouseSelected()
+    {
+        if (TurnManager.Instance.GetCurrentTurn() == _side) // nếu cùng side thì chuyển select
+        {
+            if (TurnManager.Instance.GetPlayer(_side).TurnPoint < this.Cost) return;
+            if (_isMoving == true) return;
+            if (BoardManager.Instance.selectedPiece == this.gameObject)
+            {
+                //BoardManager.Instance.ReturnSelectedPosition();
+                //BoardManager.Instance.CancelHighlightAndSelectedChess();
+            }
+            else
+            {
+                if (BoardManager.Instance.selectedPiece != null)
+                {
+                    BoardManager.Instance.ReturnSelectedPosition();
+                }
+                BoardManager.Instance.CancelHighlightAndSelectedChess();
+                // Debug
+                Debug.Log(this.gameObject.name);
+
+                BoardManager.Instance.SelectedPiece(this.gameObject);
+                // Camera
+                CameraManager.Instance.SetTarget();
+
+
+                // Highlight // dont change order
+                // reason: When call HighlightValidMoves() first, square will hide and we can not see and select this square
+                HighlightManager.Instance.HighlightSelf(Position);
+                HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
+                HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
+
+                // UI
+                SelectPieceUIManager.Instance.ShowUI();
+            }
             /// show information of piece   
             /// 
         }
@@ -212,7 +257,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         {
             // neu mà quân cơ này đứng trên ô đỏ thì
             List<GameObject> listHighlight = HighlightManager.Instance.highlights;
-            foreach(var hightlight in listHighlight)
+            foreach (var hightlight in listHighlight)
             {
                 if (hightlight.TryGetComponent<RedHighlight>(out var redHighlight))
                 {
@@ -224,41 +269,13 @@ public class Piece : NewMonoBehaviour, IAnimation
                 }
             }
         }
-       
+
     }
 
-    public void MouseSelected()
+    public virtual void FakeMove(Vector3Int newPos)
     {
-        if (BoardManager.Instance.selectedPiece == this.gameObject)
-        {
-            //BoardManager.Instance.ReturnSelectedPosition();
-            //BoardManager.Instance.CancelHighlightAndSelectedChess();
-        }
-        else
-        {
-            if (BoardManager.Instance.selectedPiece != null)
-            {
-                BoardManager.Instance.ReturnSelectedPosition();
-            }
-            BoardManager.Instance.CancelHighlightAndSelectedChess();
-            // Debug
-            Debug.Log(this.gameObject.name);
-
-            BoardManager.Instance.SelectedPiece(this.gameObject);
-            // Camera
-            CameraManager.Instance.SetTarget();
-
-
-            // Highlight // dont change order
-            // reason: When call HighlightValidMoves() first, square will hide and we can not see and select this square
-            HighlightManager.Instance.HighlightSelf(Position);
-            HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
-            HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
-
-            // UI
-            SelectPieceUIManager.Instance.ShowUI();
-        }
-
+        SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
+        SetPosition(newPos);
     }
 
     public virtual void Move()
@@ -277,25 +294,22 @@ public class Piece : NewMonoBehaviour, IAnimation
             square._buffItem.ApplyEffect(this);
             square._buffItem.Delete();
         }
-        TurnManager.Instance.ChangeTurn();
+        _isMoving = true;
+        TurnManager.Instance.EndPieceTurn(this.Cost);
     }
 
-    public virtual void FakeMove(Vector3Int newPos)
-    {
-        SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
-        SetPosition(newPos);
-    }
     public virtual void AttackChess()
     {
-        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint);
         Move();
+        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint);
     }
 
     public virtual void KillChess()
     {
-        BoardManager.Instance.TargetPiece.GetComponent<Piece>().Delete();
         FakeMove(BoardManager.Instance.TargetPiece.GetComponent<Piece>().Position);
         Move();
+        BoardManager.Instance.TargetPiece.GetComponent<Piece>().Delete();
+
     }
 
     protected virtual void TakeDamage(int damage)
@@ -306,12 +320,24 @@ public class Piece : NewMonoBehaviour, IAnimation
             Delete();
         }
     }
+    public void ResetMove(){
+        _isMoving = false;
+    }
+
+    public new void Delete()
+    {
+        GameManager.Instance.pieces.Remove(this);
+        Destroy(gameObject);
+    }
+
+
 
     public void ChangeHeight(int n)
     {
         _position.y += n;
         StartCoroutine(ChangeHeightRoutine(n));
     }
+
 
 
     IEnumerator ChangeHeightRoutine(int n)

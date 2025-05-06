@@ -58,7 +58,8 @@ public class InformationPieceUIManager : Singleton<InformationPieceUIManager>
         _BaseInformation.GetComponent<TextMeshProUGUI>().text = "Attack: " + piece.AttackPoint.ToString() + "\n" +
             "Jump point: " + piece.JumpPoint.ToString() + "\n" +
             "Range Attack: " + piece.HeightRangeAttack.ToString() + "\n" +
-            "MovePoint: " + piece.MovePoint.ToString();
+            "MovePoint: " + piece.MovePoint.ToString() + "\n " +
+            "Cost: " + piece.Cost.ToString() ;
     }
 
 

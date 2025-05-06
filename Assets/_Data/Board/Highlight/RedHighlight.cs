@@ -56,7 +56,8 @@ public class RedHighlight: Highlight
             Piece targetPiece = BoardManager.Instance.TargetPiece.GetComponent<Piece>();
             if (targetPiece != null)
             {
-                if (targetPiece.Hp <= targetPiece.MaxHp * Const.PERCENTAGE_OF_MAX_HP_TO_KILL)
+                if (targetPiece.Hp <= targetPiece.MaxHp * Const.PERCENTAGE_OF_MAX_HP_TO_KILL 
+                    || targetPiece.Hp <=  BoardManager.Instance.selectedPiece.gameObject.GetComponent<Piece>().AttackPoint)
                 {
                     SelectPieceUIManager.Instance.killButton.SetActive(true);
                 }

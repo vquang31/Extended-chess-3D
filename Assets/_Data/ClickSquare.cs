@@ -48,6 +48,12 @@ public class ClickSquare : Singleton<ClickSquare>
         Vector3Int position = square.Position;
 
 
+        //Square square3 = SearchingMethod.FindSquareByPosition(position);
+        //if (square3.pieceGameObject != null)
+        //{
+        //    square3.pieceGameObject.GetComponent<Piece>().MouseSelected();
+        //}
+
 
         BoardManager.Instance.UpdateTargetPieceAndPosition(position);
         ///

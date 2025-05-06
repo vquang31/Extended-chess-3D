@@ -42,6 +42,10 @@ public class BoardManager : Singleton<BoardManager>
         selectedPosition = Vector3Int.zero;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     public void ReturnSelectedPosition()
     {
         selectedPiece.GetComponent<Piece>().FakeMove(selectedPosition);

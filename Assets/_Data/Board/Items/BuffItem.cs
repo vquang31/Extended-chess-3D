@@ -36,9 +36,9 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
 
     public void SetPosition(Vector3Int pos)
     {
-        _position = pos;
+        Position = pos;
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
-        transform.position = new Vector3(0, 1, 0) * (height) + new Vector3(_position.x, (float)_position.y / 2 + 0.1f, _position.z);
+        transform.position = new Vector3(0, 1, 0) * (height) + new Vector3(Position.x, (float)Position.y / 2 + 0.1f, Position.z);
     }
 
     public virtual void ApplyEffect(Piece piece)
@@ -46,7 +46,7 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
         // Apply effect to the piece
         // For example, increase the piece's attack power or defense
         // This is just a placeholder for the actual effect logic
-        Debug.Log($"Applying effect to {piece.name} at position {_position}");
+        Debug.Log($"Applying effect to {piece.name} at position {Position}");
     }
 
 
@@ -81,5 +81,9 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
     }
 
-
+    protected void OnMouseDown()
+    {
+        if (InputBlocker.IsPointerOverUI()) return;
+        ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
+    }
 }

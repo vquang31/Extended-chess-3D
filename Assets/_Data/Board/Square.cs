@@ -39,51 +39,9 @@ public class Square : AbstractSquare, IAnimation
         if (!canClick) return;
         if (InputBlocker.IsPointerOverUI())  return; 
         base.OnMouseDown();
-        if (BoardManager.Instance.selectedPiece == null) // chua select 
+        if (pieceGameObject != null)
         {
-            if (pieceGameObject != null)
-            { 
-                if(pieceGameObject.GetComponent<Piece>().Side == TurnManager.Instance.Turn())
-                {
-                    pieceGameObject.GetComponent<Piece>().MouseSelected();
-                }
-                else
-                {
-                    //ClickSquare.Instance.selectSquare(this);
-                }
-            } 
-            else
-            {
-                //ClickSquare.Instance.selectSquare(this);
-            }
-        }
-        else
-        {
-            if (BoardManager.Instance.selectedPiece == pieceGameObject)
-            {
-                // khong bao gio xay ra truong hop nay
-                //Debug.Log("111");
-                BoardManager.Instance.ReturnSelectedPosition();
-                BoardManager.Instance.CancelHighlightAndSelectedChess();
-            }
-            else
-            {
-                if(pieceGameObject != null)
-                {
-                    if(pieceGameObject.GetComponent<Piece>().Side == TurnManager.Instance.Turn())
-                    {
-                        pieceGameObject.GetComponent<Piece>().MouseSelected();
-                    }
-                    else
-                    {
-                        //ClickSquare.Instance.selectSquare(this);
-                    }
-                }
-                else
-                {
-                    //ClickSquare.Instance.selectSquare(this);
-                }
-            }
+            pieceGameObject.GetComponent<Piece>().MouseSelected();
         }
     }
 

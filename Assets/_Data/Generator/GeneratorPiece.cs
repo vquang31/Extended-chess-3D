@@ -113,5 +113,6 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
         newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
         Vector3Int newPos3D = Method2.Pos2dToPos3d(newPos2D);
         piece.SetPosition(newPos3D);
+        GameManager.Instance.pieces.Add(piece);   
     }
 }
