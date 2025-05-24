@@ -41,7 +41,7 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
             }
             isWhite = !isWhite;
         }
-        //GenerateMap();
+        GenerateMap();
 
     }
     protected void GenerateMap()

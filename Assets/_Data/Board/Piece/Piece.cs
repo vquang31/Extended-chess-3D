@@ -200,7 +200,6 @@ public class Piece : NewMonoBehaviour, IAnimation
 
         // Đặt piece lên trên Square
         // kể cả khi Prefab_Square thay đổi height(localScale.y) thì piece vẫn nằm ở trên Square(sàn)
-        // transform.position.y = Square.localScale.y/2 + _position.y/2
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
         transform.position = new Vector3(0,1,0) * (height) + new Vector3(_position.x, (float)_position.y / 2, _position.z);
 

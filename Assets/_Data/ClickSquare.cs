@@ -48,19 +48,11 @@ public class ClickSquare : Singleton<ClickSquare>
         Vector3Int position = square.Position;
 
 
-        //Square square3 = SearchingMethod.FindSquareByPosition(position);
-        //if (square3.pieceGameObject != null)
-        //{
-        //    square3.pieceGameObject.GetComponent<Piece>().MouseSelected();
-        //}
-
-
         BoardManager.Instance.UpdateTargetPieceAndPosition(position);
         ///
         // set Information 
         InfoButton.Instance.SetInformationOfGround(position.y);
         // display table when table Information is active 
-
         // hide tabel Information if target piece is null or buffItem is null
 
         if (BoardManager.Instance.TargetPiece == null)

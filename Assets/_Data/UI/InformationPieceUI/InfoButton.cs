@@ -27,7 +27,7 @@ public class InfoButton : Singleton<InfoButton>
     {
         if (BoardManager.Instance.TargetPiece != null)
         {
-            if (InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
+            if (InformationPieceUIManager.Instance._showUI == true)
             {
                 InformationPieceUIManager.Instance.HideUI();
             }

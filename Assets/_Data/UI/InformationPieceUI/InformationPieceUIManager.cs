@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class InformationPieceUIManager : Singleton<InformationPieceUIManager>
 {
+
+    public bool _showUI = true;
+
+    public Animator _animator;
+
     private GameObject _informationPieceUI;
 
     private GameObject _namePiece;
@@ -23,14 +28,15 @@ public class InformationPieceUIManager : Singleton<InformationPieceUIManager>
     protected override void Start()
     {
         base.Start();
-        HideUI();
+        //HideUI();
+
     }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
 
-
+        _animator = GetComponent<Animator>();
         _informationPieceUI = GameObject.Find("InformationPieceUI");
 
         _namePiece = transform.Find("NamePiece_IP").gameObject;
@@ -42,12 +48,16 @@ public class InformationPieceUIManager : Singleton<InformationPieceUIManager>
 
     public void ShowUI()
     {
-        _informationPieceUI.SetActive(true);
+        //_informationPieceUI.SetActive(true);
+        _animator.SetBool("MoveOut", false);
+        _showUI = true;
     }
 
     public void HideUI()
     {
-        _informationPieceUI.SetActive(false);
+        //_informationPieceUI.SetActive(false);
+        _animator.SetBool("MoveOut", true);
+        _showUI = false;
     }
 
     public void SetInformationOfPiece(Piece piece)

@@ -16,7 +16,7 @@ public class CameraZoom : NewMonoBehaviour
     {
         if(Input.mouseScrollDelta.y != 0)
         {
-            if(cinemachineFollowZoom.Width - Input.mouseScrollDelta.y >= 0 && cinemachineFollowZoom.Width - Input.mouseScrollDelta.y <= 10)
+            if(cinemachineFollowZoom.Width - Input.mouseScrollDelta.y >= 3 && cinemachineFollowZoom.Width - Input.mouseScrollDelta.y <= 15)
                 cinemachineFollowZoom.Width -= Input.mouseScrollDelta.y;
         }
     }
