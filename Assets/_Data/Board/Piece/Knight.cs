@@ -18,12 +18,12 @@ public class Knight : Piece
             for(int x = -tmp; x<=tmp; x++)
             {
                 Vector2Int newDirectionMove = new Vector2Int(x,z);
-                Vector2Int newPosition2d = Method2.Pos3dToPos2d(Position) + newDirectionMove;
+                Vector2Int newPosition2d = ConvertMethod.Pos3dToPos2d(Position) + newDirectionMove;
                 if (SearchingMethod.IsSquareValid(newPosition2d) == false || SearchingMethod.IsSquareEmpty(newPosition2d) == false)
                 {
                     continue;
                 }
-                Vector3Int newPosition3d = Method2.Pos2dToPos3d(newPosition2d);
+                Vector3Int newPosition3d = ConvertMethod.Pos2dToPos3d(newPosition2d);
                 int diffHeight = Math.Abs(Position.y - newPosition3d.y);
                 if (diffHeight <= _jumpPoint)
                 {

@@ -111,7 +111,7 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
     private void SaveData(Piece piece,Vector2Int newPos2D,GameObject newPieceGameObject)
     {
         newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
-        Vector3Int newPos3D = Method2.Pos2dToPos3d(newPos2D);
+        Vector3Int newPos3D = ConvertMethod.Pos2dToPos3d(newPos2D);
         piece.SetPosition(newPos3D);
         GameManager.Instance.pieces.Add(piece);   
     }

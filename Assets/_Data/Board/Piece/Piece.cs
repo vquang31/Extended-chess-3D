@@ -142,14 +142,14 @@ public class Piece : NewMonoBehaviour, IAnimation
         for (int i = 0; i < validMoves.Count; i++)
         {
             Vector3Int move = validMoves[i];
-            Vector2Int move2d = Method2.Pos3dToPos2d(move);
+            Vector2Int move2d = ConvertMethod.Pos3dToPos2d(move);
             for (int j = 0; j < attackDirections.Count; j++)
             {
                 Vector2Int attackDirection = attackDirections[j];
                 Vector2Int targetPosition2d = move2d + attackDirection;
                 if (CheckValidAttack(move, targetPosition2d))
                 {
-                    Vector3Int attackPosition3d = Method2.Pos2dToPos3d(targetPosition2d);
+                    Vector3Int attackPosition3d = ConvertMethod.Pos2dToPos3d(targetPosition2d);
                     if (!validAttacks.Contains(attackPosition3d))
                         validAttacks.Add(attackPosition3d);
                 }
@@ -175,7 +175,7 @@ public class Piece : NewMonoBehaviour, IAnimation
             return false;
         }
 
-        Vector3Int targetPosition3d = Method2.Pos2dToPos3d(targetPosition2d);
+        Vector3Int targetPosition3d = ConvertMethod.Pos2dToPos3d(targetPosition2d);
         int diffHeight = Math.Abs(currentPosition3d.y - targetPosition3d.y);
         if (diffHeight <= HeightRangeAttack)
         {
@@ -331,19 +331,18 @@ public class Piece : NewMonoBehaviour, IAnimation
 
 
 
-    public void ChangeHeight(int n)
+    public void ChangeHeight(int n, float duration)
     {
         _position.y += n;
-        StartCoroutine(ChangeHeightRoutine(n));
+        StartCoroutine(ChangeHeightRoutine(n, duration));
     }
 
 
 
-    IEnumerator ChangeHeightRoutine(int n)
+    IEnumerator ChangeHeightRoutine(int n , float duration)
     {
         Vector3 start = transform.position;
         Vector3 target = start + Vector3.up * (float)n / 2;
-        float duration = 1f;
         float elapsed = 0f;
         while (elapsed < duration)
         {

@@ -6,7 +6,7 @@ public class InformationPieceUIManager : Singleton<InformationPieceUIManager>
 
     public bool _showUI = true;
 
-    public Animator _animator;
+    private Animator _animator;
 
     private GameObject _informationPieceUI;
 
@@ -68,7 +68,7 @@ public class InformationPieceUIManager : Singleton<InformationPieceUIManager>
         _BaseInformation.GetComponent<TextMeshProUGUI>().text = "Attack: " + piece.AttackPoint.ToString() + "\n" +
             "Jump point: " + piece.JumpPoint.ToString() + "\n" +
             "Range Attack: " + piece.HeightRangeAttack.ToString() + "\n" +
-            "MovePoint: " + piece.MovePoint.ToString() + "\n " +
+            "MovePoint: " + piece.MovePoint.ToString() + "\n" +
             "Cost: " + piece.Cost.ToString() ;
     }
 

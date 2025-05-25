@@ -29,7 +29,9 @@ public class Square : AbstractSquare, IAnimation
 
     public override void SetPosition(Vector3Int pos)
     {
-       base.SetPosition(pos);
+        base.SetPosition(pos);
+        //if (pieceGameObject != null)
+        //    pieceGameObject?.GetComponent<Piece>().SetPosition(pos);
     }
 
 
@@ -45,22 +47,22 @@ public class Square : AbstractSquare, IAnimation
         }
     }
 
-    public void ChangeHeight(int n)
+    public void ChangeHeight(int n , float duration)
     {
         _position.y += n;
-        StartCoroutine(ChangeHeightRoutine(n));
+        StartCoroutine(ChangeHeightRoutine(n,duration));
 
         if(pieceGameObject != null)
-            pieceGameObject?.GetComponent<Piece>().ChangeHeight(n);
+            pieceGameObject?.GetComponent<Piece>().ChangeHeight(n, duration);
         if(_buffItem != null)
-            _buffItem?.ChangeHeight(n);
+            _buffItem?.ChangeHeight(n, duration);
 
     }
-    IEnumerator ChangeHeightRoutine(int n)
+    IEnumerator ChangeHeightRoutine(int n , float duration)
     {
         Vector3 start = transform.position;
         Vector3 target = start + Vector3.up * (float) n / 2;
-        float duration = 1f;
+
         float elapsed = 0f;
         while (elapsed < duration)
         {
@@ -69,6 +71,7 @@ public class Square : AbstractSquare, IAnimation
             yield return null; // Chờ 1 frame trước khi tiếp tục
         }
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
+
     }
 
 

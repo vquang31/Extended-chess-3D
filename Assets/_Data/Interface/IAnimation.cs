@@ -9,5 +9,6 @@ using UnityEngine;
 
 public interface IAnimation
 {   
-    void ChangeHeight(int n);
+    void ChangeHeight(int n, float duration);
+
 }

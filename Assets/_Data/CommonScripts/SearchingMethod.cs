@@ -41,19 +41,19 @@ public class SearchingMethod
     /// 3D -> 2D
     static public bool IsSquareValid(Vector3Int pos)
     {
-        return IsSquareValid(Method2.Pos3dToPos2d(pos));
+        return IsSquareValid(ConvertMethod.Pos3dToPos2d(pos));
     }
     static public bool IsSquareEmpty(Vector3Int pos)
     {
-        return IsSquareEmpty(Method2.Pos3dToPos2d(pos));
+        return IsSquareEmpty(ConvertMethod.Pos3dToPos2d(pos));
     }
     static public Square FindSquareByPosition(Vector3Int pos)
     {
-        return FindSquareByPosition(Method2.Pos3dToPos2d(pos)).GetComponent<Square>();
+        return FindSquareByPosition(ConvertMethod.Pos3dToPos2d(pos)).GetComponent<Square>();
     }
     static public Piece FindPieceByPosition(Vector3Int pos)
     {
-        return FindPieceByPosition(Method2.Pos3dToPos2d(pos));
+        return FindPieceByPosition(ConvertMethod.Pos3dToPos2d(pos));
     }
 
 }

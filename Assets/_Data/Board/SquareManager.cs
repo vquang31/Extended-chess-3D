@@ -18,7 +18,7 @@ public class SquareManager : Singleton<SquareManager>
 
     public void HideSquare(Vector3Int pos)
     {
-        HideSquare(Method2.Pos3dToPos2d(pos));
+        HideSquare(ConvertMethod.Pos3dToPos2d(pos));
     }
 
     public void DisplayAll()

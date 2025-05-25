@@ -20,9 +20,9 @@ public class RedHighlight: Highlight
         {
             foreach(var attackDirection in attackDirections)
             {
-                Vector2Int targetPosition2d = Method2.Pos3dToPos2d(move) + attackDirection;
+                Vector2Int targetPosition2d = ConvertMethod.Pos3dToPos2d(move) + attackDirection;
                 if(SearchingMethod.IsSquareValid(targetPosition2d) == false) continue;
-                if (Method2.Pos2dToPos3d(targetPosition2d) == Position)
+                if (ConvertMethod.Pos2dToPos3d(targetPosition2d) == Position)
                 {
                     if (piece.CheckValidAttack(move, targetPosition2d))
                     {

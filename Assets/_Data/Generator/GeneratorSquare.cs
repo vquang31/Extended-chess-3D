@@ -1,4 +1,7 @@
 ﻿using Mono.Cecil;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class GeneratorSquare : Singleton<GeneratorSquare>
@@ -22,7 +25,7 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
 
     public void Generate()
     {
-        if(log) Debug.Log("Generate Square"); 
+        if(log) UnityEngine.Debug.Log("Generate Square"); 
         // Generate square
         bool isWhite = false;
         for (int z = 1; z <= Const.MAX_BOARD_SIZE; z++)
@@ -41,30 +44,41 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
             }
             isWhite = !isWhite;
         }
-        GenerateMap();
 
     }
-    protected void GenerateMap()
+    public void GenerateMap()
     {
         //GenerateMountain(new Vector3Int(8, 8, 8));
         //GenerateMountain(new Vector3Int(6, 8, 8));
         //GenerateMountain(new Vector3Int(10, 8, 8));
 
-        GenerateMountains(5, 4, 10);
-        UpHeightSquares(10, 1, 4);
+
+        List<Vector3Int> listPosition1 = GenerateMountains(10, 4, 10);
+
+        List<Vector3Int> listPostion2 = GenerateUpHeightSquares(10, 1, 4);
+
+        listPosition1.AddRange(listPostion2);
+
+        listPosition1 = Filter(listPosition1);
+
+        UpHeightSquares(listPosition1);
+
     }
 
-    protected void GenerateMountains(int n,int minHeight, int maxHeight)
+    private List<Vector3Int> GenerateMountains(int n,int minHeight, int maxHeight)
     {
-        if (log) Debug.Log("Generate Mountain");
+        List<Vector3Int> listPosition = new List<Vector3Int>();
+        if (log) UnityEngine.Debug.Log("Generate Mountain");
         for (int i = 1; i <= n; i++)
         {
             int x = Random.Range(2, Const.MAX_BOARD_SIZE -1 + 1);
             int z = Random.Range(2, Const.MAX_BOARD_SIZE -1 + 1);
             int y = Random.Range(minHeight, maxHeight + 1);
-            if(log)Debug.Log(Method2.NameSquare(new Vector2Int(x, z)));
-            GenerateMountain(new Vector3Int(x, y, z));
+            if(log)UnityEngine.Debug.Log(Method2.NameSquare(new Vector2Int(x, z)));
+            List<Vector3Int> listPosition1 = GenerateMountain(new Vector3Int(x, y, z));
+            listPosition.AddRange(listPosition1);
         }
+        return listPosition;
     }
 
 
@@ -75,8 +89,9 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
     ///  pos.z: y 
     /// </summary>
     /// <param name="pos"></param>
-    protected void GenerateMountain(Vector3Int pos)
+    private List<Vector3Int> GenerateMountain(Vector3Int pos)
     {
+        List<Vector3Int> listPosition = new List<Vector3Int>();
         int maxHeight = pos.y;
         int height = 0;
         for (int x = -maxHeight + 1; x < maxHeight; x++)
@@ -98,60 +113,108 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
 
                 if (!SearchingMethod.IsSquareValid(new Vector2Int(pos.x + x, pos.z + z)))
                     continue;
-                Square square = GameObject.Find(Method2.NameSquare(new Vector2Int(pos.x + x, pos.z + z))).GetComponent<Square>();
+                        
+                Square square = SearchingMethod.FindSquareByPosition(new Vector2Int(pos.x + x, pos.z + z));
                 // Do not change this agolrithm
                 if (square.Position.y < currentHeight)
                 {
+                    //Debug.Log(square.Position.x + " " + square.Position.z);
                     if (square.Position.y + currentHeight <= maxHeight && square.Position.y != 1)
                     {
-                        square.SetPosition(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z));
+                        listPosition.Add(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z));
+                        
+                        // cách này đúng nhưng không có animation
+                        //square.SetPosition(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z)); 
+
+                        // cách này sai do hàm ChangeHeightRoutine bị ghi đè 
+                        // tăng (square.Position.y + currentHeight) / 2 - square.Position.y  đơn vị
+                        // -> giá trị mới = (square.Position.y + currentHeight) / 2
+                        //square.ChangeHeight((square.Position.y + currentHeight) / 2 - square.Position.y, Const.TIME_TO_CHANGE_HEIGHT_INIT);  
                     }
                     else
                     {
-                        square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
+                        listPosition.Add(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
+                        // cách này sai do hàm ChangeHeightRoutine bị ghi đè
+                        //square.ChangeHeight(currentHeight - square.Position.y, Const.TIME_TO_CHANGE_HEIGHT_INIT); // giá trị mới = currentHeight đơn vị
+                        
+                       
+                        // cách này đúng nhưng không có animation
+                        //square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z)); 
+
+
                     }
                 }
-
-                //if (square.Position.y < currentHeight)
-                //{
-                //    square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
-                //}
-
-                //if (square.Position.y < currentHeight)
-                //{
-                //    if (square.Position.y != 1)
-                //    {
-                //        square.SetPosition(new Vector3Int(pos.x + x, (square.Position.y + currentHeight) / 2, pos.z + z));
-                //    }
-                //    else
-                //    {
-                //        square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
-                //    }
-                //}
-
-
             }
         }
+        return listPosition;
     }
 
-    protected void UpHeightSquares(int n,int minHeight, int maxHeight)
+
+    private List<Vector3Int> GenerateUpHeightSquares(int n,int minHeight, int maxHeight)
     {
-        if(log) Debug.Log("Up Height Square");
+        List<Vector3Int> listPosition = new List<Vector3Int>();
+        if (log) UnityEngine.Debug.Log("Up Height Square");
         for (int i = 1; i <= n; i++)
         {
             int x = Random.Range(1, Const.MAX_BOARD_SIZE + 1);
             int z = Random.Range(1, Const.MAX_BOARD_SIZE + 1);
             int y = Random.Range(minHeight, maxHeight + 1);
-            if(log) Debug.Log(Method2.NameSquare(new Vector2Int(x, z)));
-            UpHeightSquare(new Vector2Int(x, z), y);
+            if(log) UnityEngine.Debug.Log(Method2.NameSquare(new Vector2Int(x, z)));
+            listPosition.Add(new Vector3Int(x, y,z));
+        }
+        return listPosition;
+    }
+
+    private List<Vector3Int> Filter (List<Vector3Int> listPosition)
+    {        
+        static Vector3Int Find(Vector3Int pos ,List<Vector3Int> listPosition1)
+        {
+            Vector3Int result = new Vector3Int(-1, -1, -1); 
+            foreach (Vector3Int pos1 in listPosition1)
+            {
+                if (pos.x == pos1.x && pos.z == pos1.z)
+                {
+                     return pos1;
+                }
+            }
+            return result;
+        }
+
+        List<Vector3Int> listPosition1 = new List<Vector3Int>();
+        foreach (Vector3Int pos in listPosition)
+        {
+            Vector3Int pos1 = Find(pos, listPosition1);
+            if (pos1 == new Vector3Int(-1, -1, -1))
+            {
+                listPosition1.Add(pos);
+            }
+            else
+            {
+                if(pos.y > pos1.y)
+                {
+                    listPosition1.Remove(pos1);
+                    listPosition1.Add(pos);
+                }
+            }
+        }
+        return listPosition1;
+    }
+
+    private void UpHeightSquares(List<Vector3Int> listPosition1)
+    {
+        foreach (Vector3Int pos in listPosition1)
+        {
+            if (log) UnityEngine.Debug.Log(Method2.NameSquare(new Vector2Int(pos.x, pos.z)) + " " + pos.y);
+            UpHeightSquare(pos);
         }
     }
 
-
-    protected void UpHeightSquare(Vector2Int pos, int upHeight)
+    private void UpHeightSquare(Vector3Int pos)
     {
-        Square square = GameObject.Find(Method2.NameSquare(pos)).GetComponent<Square>();
-        square.SetPosition(new Vector3Int(pos.x, square.Position.y + upHeight, pos.y));
+        Square square = SearchingMethod.FindSquareByPosition(pos);
+        //square.SetPosition(new Vector3Int(pos.x, pos.y - 1, pos.z));
+        square.ChangeHeight(pos.y - 1, Const.TIME_TO_CHANGE_HEIGHT_INIT);
+
     }
 
 }

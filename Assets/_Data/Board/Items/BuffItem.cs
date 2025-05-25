@@ -59,18 +59,17 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
     //}
 
 
-    public void ChangeHeight(int n)
+    public void ChangeHeight(int n, float duration)
     {
         _position.y += n;
-        StartCoroutine(ChangeHeightRoutine(n));
+        StartCoroutine(ChangeHeightRoutine(n, duration));
     }
 
 
-    IEnumerator ChangeHeightRoutine(int n)
+    IEnumerator ChangeHeightRoutine(int n, float duration)
     {
         Vector3 start = transform.position;
         Vector3 target = start + Vector3.up * (float)n / 2;
-        float duration = 1f;
         float elapsed = 0f;
         while (elapsed < duration)
         {

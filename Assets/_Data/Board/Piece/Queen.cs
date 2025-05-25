@@ -24,13 +24,13 @@ public class Queen : Piece
             Vector3Int currentPosition = Position;
             while (movePoint >= 1)
             {
-                Vector2Int nextPosition2d = Method2.Pos3dToPos2d(currentPosition) + directionMoves[i];
+                Vector2Int nextPosition2d = ConvertMethod.Pos3dToPos2d(currentPosition) + directionMoves[i];
 
                 if (SearchingMethod.IsSquareValid(nextPosition2d) == false || SearchingMethod.IsSquareEmpty(nextPosition2d) == false)
                 {
                     break;
                 }
-                Vector3Int nextPosition3d = Method2.Pos2dToPos3d(nextPosition2d);
+                Vector3Int nextPosition3d = ConvertMethod.Pos2dToPos3d(nextPosition2d);
                 int diffHeight = Math.Abs(nextPosition3d.y - currentPosition.y);
 
                 if (diffHeight > _jumpPoint)

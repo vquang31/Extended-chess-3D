@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class TurnManager : Singleton<TurnManager>   
 {
+
+    [SerializeField] private double minTimePerTurn = 2100;
+    private double _lastTurnTime = 0f;
+
     private Player player1;
     private Player player2;
 
     protected PointTurnBar pointTurnBar;
-
+    protected GameObject announcementTurnUI;
 
 
     protected override void LoadComponents()
@@ -15,7 +19,7 @@ public class TurnManager : Singleton<TurnManager>
         player1 = GameObject.Find("Player1").GetComponent<Player>();
         player2 = GameObject.Find("Player2").GetComponent<Player>();
         pointTurnBar = GameObject.Find("SliderTurnPoint").GetComponent<PointTurnBar>();
-
+        announcementTurnUI = GameObject.Find("AnnouncementTurnUI");
     }
 
     protected override void Start()
@@ -23,12 +27,19 @@ public class TurnManager : Singleton<TurnManager>
         base.Start();
         player1.Turn = true;
         player2.Turn = false;
-        
+        _lastTurnTime = Time.time * 1000;
     }
 
-    public void ChangeTurn()
+public void ChangeTurn()
     {
+
+        // 
+        // get current time
+        _lastTurnTime = Time.time * 1000; // convert to milliseconds
+
+
         BoardManager.Instance.CancelHighlightAndSelectedChess();
+        // switch turn
         if (GetCurrentTurn() == Const.SIDE_WHITE)
         {
             player1.EndTurn();
@@ -47,8 +58,10 @@ public class TurnManager : Singleton<TurnManager>
         // reset point turn bar
         Player currentPlayer = GetPlayer(GetCurrentTurn());
         pointTurnBar.SetMaxPoint(currentPlayer.MaxTurnPoint);
-        pointTurnBar.SetPoint(currentPlayer.TurnPoint); 
-
+        pointTurnBar.SetPoint(currentPlayer.TurnPoint);
+        
+        //announcement
+        announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn(GetCurrentTurn());
 
         // generate item buff
         //if(Random.Range(0, 2) == 1)
@@ -84,6 +97,13 @@ public class TurnManager : Singleton<TurnManager>
     {
         if (side == Const.SIDE_WHITE) return player1;
         return player2;
+    }
+
+    public bool CanSwitchTurn()
+    {
+        // check if enough time has passed
+        double currentTime = Time.time * 1000; // convert to milliseconds
+        return (currentTime - _lastTurnTime) >= minTimePerTurn;
     }
 
 
