@@ -1,5 +1,4 @@
-﻿using Mono.Cecil;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -55,9 +54,9 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
 
         List<Vector3Int> listPosition1 = GenerateMountains(10, 4, 10);
 
-        List<Vector3Int> listPostion2 = GenerateUpHeightSquares(10, 1, 4);
+        List<Vector3Int> listPosition2 = GenerateUpHeightSquares(10, 1, 4);
 
-        listPosition1.AddRange(listPostion2);
+        listPosition1.AddRange(listPosition2);
 
         listPosition1 = Filter(listPosition1);
 
@@ -169,7 +168,7 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
     {        
         static Vector3Int Find(Vector3Int pos ,List<Vector3Int> listPosition1)
         {
-            Vector3Int result = new Vector3Int(-1, -1, -1); 
+            Vector3Int result = new(-1, -1, -1); 
             foreach (Vector3Int pos1 in listPosition1)
             {
                 if (pos.x == pos1.x && pos.z == pos1.z)

@@ -16,12 +16,8 @@ public class Const
 
     public const int MAX_BOARD_SIZE = 16;
 
-    public const float TIME_TO_CHANGE_HEIGHT_INIT = 2f;
+    public const float TIME_TO_CHANGE_HEIGHT_INIT = 1.5f;
     public const float TIME_TO_CHANGE_HEIGHT_EFFECT = 1f;
-
-
-
-
 
 
     public const double PERCENTAGE_OF_MAX_HP_TO_KILL = 0.1f;
