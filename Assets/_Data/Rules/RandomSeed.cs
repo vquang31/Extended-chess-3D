@@ -10,4 +10,7 @@ public class RandomSeed : NewMonoBehaviour
         Random.InitState(seed); // Khởi tạo seed tại đầu chương trình
     }
 
+
+
+
 }

@@ -7,6 +7,7 @@ public class HighlightManager : Singleton<HighlightManager>
     protected GameObject redHighlightPrefab;
     protected GameObject greenHighlightPrefab;
     protected GameObject blueHighlightPrefab;
+    protected GameObject purpleHighlightPrefab;
     public List<GameObject> highlights = new ();
 
 
@@ -16,6 +17,7 @@ public class HighlightManager : Singleton<HighlightManager>
         redHighlightPrefab = GameObject.Find("Prefab_RedSquare");
         greenHighlightPrefab = GameObject.Find("Prefab_GreenSquare");
         blueHighlightPrefab = GameObject.Find("Prefab_BlueSquare");
+        purpleHighlightPrefab = GameObject.Find("Prefab_PurpleSquare");
     }
 
     public void HighlightValidMoves(List<Vector3Int> positions)
@@ -61,4 +63,16 @@ public class HighlightManager : Singleton<HighlightManager>
         highlight.transform.parent = GameObject.Find("Highlights").transform;
         highlights.Add(highlight);
     }
+
+    public void HighlightMagic(Vector3Int position)
+    {
+        SquareManager.Instance.HideSquare(position);
+        GameObject highlight = Instantiate(purpleHighlightPrefab, position, Quaternion.identity);
+        highlight.GetComponent<AbstractSquare>().SetPosition(position);
+        highlight.name = "HighlightM_" + (char)('a' + position.x - 1) + position.z.ToString();
+        highlight.transform.parent = GameObject.Find("Highlights").transform;
+        highlights.Add(highlight);
+    }
+
+
 }

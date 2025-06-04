@@ -23,7 +23,7 @@ public class GeneratorManager : Singleton<GeneratorManager>
         Debug.Log("Generate SQUARE");
         generatorPiece.Generate();
         Debug.Log("Generate CHESS");
-        generatorSquare.GenerateMap();
+        //generatorSquare.GenerateMap();
         Debug.Log("Generate MAP");
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BlueHightlight : Highlight
+public class BlueHighlight : Highlight
 {
     protected override void OnMouseDown()
     {

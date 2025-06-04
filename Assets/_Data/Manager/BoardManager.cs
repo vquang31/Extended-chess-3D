@@ -11,7 +11,22 @@ public class BoardManager : Singleton<BoardManager>
     private Vector3Int targetPosition;
 
 
-    public GameObject TargetPiece
+    /// <summary>
+    ///  this class is used to manage the board 
+    ///  contains: square 
+    ///            hightlight
+    ///            piece 
+    ///  
+    /// </summary>
+    protected GameObject BoardGameObject;
+
+    protected HighlightManager _highlightManager;
+  
+    protected SquareManager _squareManager;
+
+    //protected PieceManager _pieceManager;
+
+  public GameObject TargetPiece
     {
         get => targetPiece;
         set => targetPiece = value;
@@ -48,24 +63,11 @@ public class BoardManager : Singleton<BoardManager>
     /// </summary>
     public void ReturnSelectedPosition()
     {
-        selectedPiece.GetComponent<Piece>().FakeMove(selectedPosition);
+        if(selectedPiece == null) return;
+        selectedPiece?.GetComponent<Piece>().FakeMove(selectedPosition);
     }
 
 
-    /// <summary>
-    ///  this class is used to manage the board 
-    ///  contains: square 
-    ///            hightlight
-    ///            piece 
-    ///  
-    /// </summary>
-    protected GameObject BoardGameObject;
-
-    protected HighlightManager _highlightManager;
-
-    //protected PieceManager _pieceManager;
-
-    protected SquareManager _squareManager;
 
     protected override void LoadComponents()
     {

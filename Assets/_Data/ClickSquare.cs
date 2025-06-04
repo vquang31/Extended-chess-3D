@@ -21,14 +21,12 @@ public class ClickSquare : Singleton<ClickSquare>
     ///  Hàm này sẽ được gọi đầu tiên khi click vào ô nào đó hoặc quân cờ nào đó
     /// </summary>
     /// <param name="square"></param>
-    public void selectSquare(AbstractSquare square)
+    public void SelectSquare(AbstractSquare square)
     {
         if (square == null)
         {
             this.square = square;
-
             lastClickTime = Time.time;
-
         }
         else
         {
@@ -39,9 +37,7 @@ public class ClickSquare : Singleton<ClickSquare>
                     changeTargetCamera();
                 }
             }
-
             this.square = square;
-
             lastClickTime = Time.time;
         }
         selectCell.UpdatePosition(square.transform.position);
@@ -76,11 +72,8 @@ public class ClickSquare : Singleton<ClickSquare>
                 //InformationPieceUIManager.Instance.ShowUI();
                 // change Information of Piece for target piece
                 InformationPieceUIManager.Instance.SetInformationOfPiece(BoardManager.Instance.TargetPiece.GetComponent<Piece>());
-
             }
         }
-
-        ///
         SelectPieceUIManager.Instance.attackButton.SetActive(false);
         ///
         SelectPieceUIManager.Instance.killButton.SetActive(false);

@@ -130,6 +130,11 @@ public class Piece : NewMonoBehaviour, IAnimation
         return new List<Vector3Int>();
     }
 
+    public virtual List<Vector2Int> GetAttackDirection()
+    {
+        return new List<Vector2Int>();
+    }
+
     // Display valid Attack
     protected virtual List<Vector3Int> GetValidAttacks()
     {
@@ -156,11 +161,6 @@ public class Piece : NewMonoBehaviour, IAnimation
         }
 
         return validAttacks;
-    }
-
-    public virtual List<Vector2Int> GetAttackDirection()
-    {
-        return new List<Vector2Int>();
     }
 
     public virtual bool CheckValidAttack(Vector3Int currentPosition3d, Vector2Int targetPosition2d)
@@ -195,6 +195,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         // ???
         // DO NOT CHANGE
+
         _position = newPos;
 
         // Đặt piece lên trên Square
@@ -207,10 +208,7 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     public void OnMouseDown()
     {
-        if (InputBlocker.IsPointerOverUI()) return; 
-        ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
-        MouseSelected();
-
+        SearchingMethod.FindSquareByPosition(_position).MouseSelected();
     }
 
     public void MouseSelected()
@@ -307,10 +305,9 @@ public class Piece : NewMonoBehaviour, IAnimation
         FakeMove(BoardManager.Instance.TargetPiece.GetComponent<Piece>().Position);
         Move();
         BoardManager.Instance.TargetPiece.GetComponent<Piece>().Delete();
-
     }
 
-    protected virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         _hp -= damage;
         if (_hp <= 0)

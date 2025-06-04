@@ -83,6 +83,6 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
     protected void OnMouseDown()
     {
         if (InputBlocker.IsPointerOverUI()) return;
-        ClickSquare.Instance.selectSquare(SearchingMethod.FindSquareByPosition(Position));
+        ClickSquare.Instance.SelectSquare(SearchingMethod.FindSquareByPosition(Position));
     }
 }

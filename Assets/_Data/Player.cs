@@ -6,6 +6,8 @@ public class Player : NewMonoBehaviour
 
     private int _turnPoint = Const.MAX_POINT_PER_TURN;
     private int _maxTurnPoint = Const.MAX_POINT_PER_TURN;   
+
+    [SerializeField]private int _mana = Const.MAX_MANA / 2;
     public int TurnPoint
     {
         get => _turnPoint;
@@ -24,6 +26,14 @@ public class Player : NewMonoBehaviour
         set => _turn = value;
     }
 
+    public int Mana
+    {
+        get => _mana;
+    }
+
+
+
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -38,7 +48,18 @@ public class Player : NewMonoBehaviour
     public void StartTurn()
     {
         _turnPoint = _maxTurnPoint;
+
+        IncreaseMana(Const.INCREASE_MANA_PER_TURN);
         _turn = true;
+    }
+
+    public void IncreaseMana(int mana)
+    {
+        _mana += mana;
+        if (_mana > Const.MAX_MANA)
+        {
+            _mana = Const.MAX_MANA;
+        }
     }
 
 

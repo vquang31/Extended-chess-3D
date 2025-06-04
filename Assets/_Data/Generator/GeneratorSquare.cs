@@ -51,8 +51,7 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
         //GenerateMountain(new Vector3Int(6, 8, 8));
         //GenerateMountain(new Vector3Int(10, 8, 8));
 
-
-        List<Vector3Int> listPosition1 = GenerateMountains(10, 4, 10);
+        List<Vector3Int> listPosition1 = GenerateMountains(4, 4, 10);
 
         List<Vector3Int> listPosition2 = GenerateUpHeightSquares(10, 1, 4);
 
@@ -147,7 +146,6 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
         }
         return listPosition;
     }
-
 
     private List<Vector3Int> GenerateUpHeightSquares(int n,int minHeight, int maxHeight)
     {

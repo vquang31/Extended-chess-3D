@@ -7,7 +7,8 @@ using TMPro;
 
 public class MenuNetworkManager : MonoBehaviour
 {
-    [SerializeField] private int maxPlayers = 2;
+
+    [SerializeField] private int maxPlayers = 3;
     public TMP_InputField ipInput;
     public TMP_InputField portInput;
     public GameObject statusText;
@@ -50,6 +51,8 @@ public class MenuNetworkManager : MonoBehaviour
 
         serverButton.onClick.AddListener(() =>
         {
+            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+            NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
             NetworkManager.Singleton.StartServer();
         });
 
@@ -66,8 +69,9 @@ public class MenuNetworkManager : MonoBehaviour
         SetConnectionData();
 
         // Gắn callback để phê duyệt kết nối
-        NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-
+        //NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+        //NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+        //NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true; // <<< BẮT BUỘC PHẢI BẬT
         bool started = NetworkManager.Singleton.StartHost();
         statusText.GetComponent<TextMeshProUGUI>().text = started ? "Hosting..." : "Host failed!";
 
@@ -98,19 +102,28 @@ public class MenuNetworkManager : MonoBehaviour
     {
         int connectedClients = NetworkManager.Singleton.ConnectedClients.Count;
 
-        if (connectedClients >= maxPlayers)
+        Debug.Log($"[APPROVAL] Số client hiện tại: {connectedClients}");
+
+        if (connectedClients >= maxPlayers - 1)
         {
-            // Từ chối kết nối
             response.Approved = false;
+            response.CreatePlayerObject = false;
             response.Reason = "Đã đầy người chơi!";
+            response.Pending = false;
+            Debug.LogWarning($"[APPROVAL] Từ chối client vì đã đủ số lượng: {response.Reason}");
         }
         else
         {
             response.Approved = true;
             response.CreatePlayerObject = true;
             response.Pending = false;
+            Debug.Log("[APPROVAL] Chấp nhận client.");
         }
+
+       
     }
+
+
 
 
     void OnClientConnected(ulong clientId)

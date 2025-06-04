@@ -56,7 +56,7 @@ public void ChangeTurn()
             piece.ResetMove();
         }
         // reset point turn bar
-        Player currentPlayer = GetPlayer(GetCurrentTurn());
+        Player currentPlayer = GetCurrentPlayer();
         pointTurnBar.SetMaxPoint(currentPlayer.MaxTurnPoint);
         pointTurnBar.SetPoint(currentPlayer.TurnPoint);
         
@@ -70,7 +70,7 @@ public void ChangeTurn()
 
     public void EndPieceTurn(int cost)
     {
-        Player currentPlayer = GetPlayer(GetCurrentTurn()); 
+        Player currentPlayer = GetCurrentPlayer();
         currentPlayer.TurnPoint -= cost;
         pointTurnBar.SetPoint(currentPlayer.TurnPoint);
         foreach (var piece in GameManager.Instance.pieces)
@@ -93,7 +93,7 @@ public void ChangeTurn()
         return Const.SIDE_BLACK;
     }
 
-    public Player GetPlayer(int side)
+     public Player GetPlayer(int side)
     {
         if (side == Const.SIDE_WHITE) return player1;
         return player2;
@@ -106,5 +106,11 @@ public void ChangeTurn()
         return (currentTime - _lastTurnTime) >= minTimePerTurn;
     }
 
+
+    public Player GetCurrentPlayer()
+    {
+        if (player1.Turn) return player1;
+        return player2;
+    }
 
 }

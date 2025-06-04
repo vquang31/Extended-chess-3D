@@ -38,9 +38,29 @@ public class Square : AbstractSquare, IAnimation
 
     protected override void OnMouseDown()
     {
+        MouseSelected();
+    }
+    
+    public void MouseSelected()
+    {
         if (!canClick) return;
-        if (InputBlocker.IsPointerOverUI())  return; 
+        if (InputBlocker.IsPointerOverUI()) return;
         base.OnMouseDown();
+
+        //////////// Cast Magic
+        if (MagicCastManager.Instance.IsCasting > 0) {
+            if(MagicCastManager.Instance.IsCasting == 2)
+            {
+                if(MagicCastManager.Instance.Quantity < MagicCastManager.Instance.SelectedMagic.MaxQuantity &&
+                    (MagicCastManager.Instance.Quantity + 1) * MagicCastManager.Instance.SelectedMagic.Cost <= TurnManager.Instance.GetCurrentPlayer().Mana)
+                {
+                    MagicCastManager.Instance.PrepareCast(Position);
+                }
+            }
+        
+            return; // nếu đang cast phép thuật thì không cho click
+        } 
+        //////
         if (pieceGameObject != null)
         {
             pieceGameObject.GetComponent<Piece>().MouseSelected();

@@ -16,7 +16,7 @@ public class ChangeMap : BuffItem
     public override void ApplyEffect(Piece piece)
     {
         base.ApplyEffect(piece);
-        for(int i = 0; i < _amount; i++)
+        for(int i = 0; i < _amount; )
         {   
             int x = Random.Range(2, Const.MAX_BOARD_SIZE);
             int z = Random.Range(2, Const.MAX_BOARD_SIZE);
@@ -24,12 +24,19 @@ public class ChangeMap : BuffItem
             
             if(Random.Range(1, 2+1) == 1)
             {
-                square.ChangeHeight(Random.Range(1, Const.MAX_HEIGHT_GROUND - square.Position.y + 1 ), Const.TIME_TO_CHANGE_HEIGHT_EFFECT);
+                if(square.Position.y < Const.MAX_HEIGHT_GROUND )
+                {
+                    square.ChangeHeight(Random.Range(1, Const.MAX_HEIGHT_GROUND - square.Position.y + 1 ), Const.TIME_TO_CHANGE_HEIGHT_EFFECT);
+                    i++;
+                }
             }
             else
             {
                 if(square.Position.y > 1)
+                {
                     square.ChangeHeight(-Random.Range(1, square.Position.y ), Const.TIME_TO_CHANGE_HEIGHT_EFFECT);
+                    i++;
+                }
             }
         }
 

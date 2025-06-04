@@ -7,6 +7,7 @@ public class Const
     public const int SIDE_WHITE = 1;
     public const int SIDE_BLACK = -1;
 
+ 
 
     public const int MAX_HEIGHT_GROUND = 10;
 
@@ -43,4 +44,11 @@ public class Const
             { PieceType.King,   (500, 100, 2, 2, 2, 225) }
         };
     public const int MAX_POINT_PER_TURN = 500;
+
+    public const int MAX_MANA = 200;
+
+    public const int INCREASE_MANA_PER_TURN = 20;
+
+    public const int LIGHTNING_DAMAGE = 100;
+
 }
