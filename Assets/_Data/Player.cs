@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : NewMonoBehaviour
@@ -60,7 +61,12 @@ public class Player : NewMonoBehaviour
         {
             _mana = Const.MAX_MANA;
         }
+        TurnManager.Instance.UpdateManaPointBar();
     }
 
-
+    public void IncreaseTurnPoint(int cost)
+    {
+        TurnPoint += cost;
+        TurnManager.Instance.UpdateTurnPointBar(); 
+    }
 }

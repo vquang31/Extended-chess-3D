@@ -11,6 +11,7 @@ public class PurpleHighlight : Highlight
         if (!canClick) return;
         if (InputBlocker.IsPointerOverUI()) { return; }
 
+        MagicCastManager.Instance.RemoveCast(Position);
 
         base.OnMouseDown();
     }

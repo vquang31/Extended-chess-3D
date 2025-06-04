@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TurnManager : Singleton<TurnManager>   
@@ -9,7 +10,8 @@ public class TurnManager : Singleton<TurnManager>
     private Player player1;
     private Player player2;
 
-    protected PointTurnBar pointTurnBar;
+    protected TurnPointBar pointTurnBar;
+    protected ManaPointBar manaPointBar;
     protected GameObject announcementTurnUI;
 
 
@@ -18,7 +20,8 @@ public class TurnManager : Singleton<TurnManager>
         base.LoadComponents();
         player1 = GameObject.Find("Player1").GetComponent<Player>();
         player2 = GameObject.Find("Player2").GetComponent<Player>();
-        pointTurnBar = GameObject.Find("SliderTurnPoint").GetComponent<PointTurnBar>();
+        pointTurnBar = GameObject.Find("SliderTurnPoint").GetComponent<TurnPointBar>();
+        manaPointBar = GameObject.Find("SliderManaPoint").GetComponent<ManaPointBar>();
         announcementTurnUI = GameObject.Find("AnnouncementTurnUI");
     }
 
@@ -32,8 +35,6 @@ public class TurnManager : Singleton<TurnManager>
 
 public void ChangeTurn()
     {
-
-        // 
         // get current time
         _lastTurnTime = Time.time * 1000; // convert to milliseconds
 
@@ -57,9 +58,11 @@ public void ChangeTurn()
         }
         // reset point turn bar
         Player currentPlayer = GetCurrentPlayer();
-        pointTurnBar.SetMaxPoint(currentPlayer.MaxTurnPoint);
         pointTurnBar.SetPoint(currentPlayer.TurnPoint);
-        
+
+
+        // update mana point bar    
+        UpdateManaPointBar();
         //announcement
         announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn(GetCurrentTurn());
 
@@ -68,11 +71,20 @@ public void ChangeTurn()
         GeneratorItemBuff.Instance.Generate(1);
     }
 
+    public void UpdateManaPointBar()
+    {
+        manaPointBar.SetPoint(GetCurrentPlayer().Mana);
+    }
+
+    public void UpdateTurnPointBar()
+    {
+        pointTurnBar.SetPoint(GetCurrentPlayer().TurnPoint);
+    }
+
     public void EndPieceTurn(int cost)
     {
         Player currentPlayer = GetCurrentPlayer();
-        currentPlayer.TurnPoint -= cost;
-        pointTurnBar.SetPoint(currentPlayer.TurnPoint);
+        currentPlayer.IncreaseTurnPoint(-cost);
         foreach (var piece in GameManager.Instance.pieces)
         {
             if (piece.Side == GetCurrentTurn())

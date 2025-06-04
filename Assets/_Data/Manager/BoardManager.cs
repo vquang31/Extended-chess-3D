@@ -10,7 +10,6 @@ public class BoardManager : Singleton<BoardManager>
     private GameObject targetPiece;
     private Vector3Int targetPosition;
 
-
     /// <summary>
     ///  this class is used to manage the board 
     ///  contains: square 
@@ -43,9 +42,7 @@ public class BoardManager : Singleton<BoardManager>
         TargetPiece = SearchingMethod.FindPieceByPosition(position)?.gameObject;
         TargetPosition = position;
     }
-
-
-    public void SelectedPiece(GameObject piece)
+    public void SelectPiece(GameObject piece)
     {
         selectedPiece = piece;
         selectedPosition = piece.GetComponent<Piece>().Position;

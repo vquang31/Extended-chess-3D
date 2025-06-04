@@ -27,7 +27,8 @@ public class LightningMagic : Magic
     }
     public override string Description()
     {
-        return $"Lightning deals {Damage} damage to a target piece.";
+        return $"Lightning deals {Damage} damage to a target piece." +
+            $"\nCost: {Cost} mana";
     }
 
     protected override void ApplyEffectToSquare(Vector3Int position)

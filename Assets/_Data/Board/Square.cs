@@ -33,9 +33,6 @@ public class Square : AbstractSquare, IAnimation
         //if (pieceGameObject != null)
         //    pieceGameObject?.GetComponent<Piece>().SetPosition(pos);
     }
-
-
-
     protected override void OnMouseDown()
     {
         MouseSelected();
@@ -51,8 +48,8 @@ public class Square : AbstractSquare, IAnimation
         if (MagicCastManager.Instance.IsCasting > 0) {
             if(MagicCastManager.Instance.IsCasting == 2)
             {
-                if(MagicCastManager.Instance.Quantity < MagicCastManager.Instance.SelectedMagic.MaxQuantity &&
-                    (MagicCastManager.Instance.Quantity + 1) * MagicCastManager.Instance.SelectedMagic.Cost <= TurnManager.Instance.GetCurrentPlayer().Mana)
+                if(MagicCastManager.Instance.PositionCasts.Count < MagicCastManager.Instance.SelectedMagic.MaxQuantity &&
+                    (MagicCastManager.Instance.PositionCasts.Count + 1) * MagicCastManager.Instance.SelectedMagic.Cost <= TurnManager.Instance.GetCurrentPlayer().Mana)
                 {
                     MagicCastManager.Instance.PrepareCast(Position);
                 }

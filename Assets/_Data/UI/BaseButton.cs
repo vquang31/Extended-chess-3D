@@ -10,7 +10,6 @@ public class BaseButton : NewMonoBehaviour
         base.LoadComponents();
         _button = GetComponent<Button>();
     }
-
     protected override void Start()
     {
         base.Start();

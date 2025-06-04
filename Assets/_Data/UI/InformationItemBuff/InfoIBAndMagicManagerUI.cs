@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class InformationItemBuffManagerUI : Singleton<InformationItemBuffManagerUI>
+public class InfoIBAndMagicManagerUI : Singleton<InfoIBAndMagicManagerUI>
 {
     private GameObject _descriptionGameObject;
 
@@ -23,6 +23,12 @@ public class InformationItemBuffManagerUI : Singleton<InformationItemBuffManager
         SetInformationOfItemBuff(buffItem);
         this.gameObject.SetActive(true);
     }
+
+    public void ShowUI(Magic magic)
+    {
+        SetInformationOfMagic(magic);
+        this.gameObject.SetActive(true);
+    }
     public void HideUI()
     {
         this.gameObject.SetActive(false);
@@ -31,5 +37,10 @@ public class InformationItemBuffManagerUI : Singleton<InformationItemBuffManager
     public void SetInformationOfItemBuff(BuffItem buffItem)
     {
         _descriptionGameObject.GetComponent<TextMeshProUGUI>().text = buffItem.Description();
+    }
+
+    public void SetInformationOfMagic(Magic magic)
+    {
+        _descriptionGameObject.GetComponent<TextMeshProUGUI>().text = magic.Description();
     }
 }

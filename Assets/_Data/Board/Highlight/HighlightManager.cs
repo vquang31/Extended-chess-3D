@@ -74,5 +74,16 @@ public class HighlightManager : Singleton<HighlightManager>
         highlights.Add(highlight);
     }
 
+    public void ClearHighlightAt(Vector3Int position)
+    {
+        GameObject highlightToRemove = highlights.Find(h => h.GetComponent<AbstractSquare>().Position == position);
+        if (highlightToRemove != null)
+        {
+            highlights.Remove(highlightToRemove);
+            Destroy(highlightToRemove);
+        }
+    }
+
+
 
 }

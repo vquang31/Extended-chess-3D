@@ -24,22 +24,18 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         get => _position;
     }
-
     public int MaxHp
     {
         get => _maxHp;
     }
-
     public int Hp
     {
         get => _hp;
     }
-
     public int JumpPoint
     {
         get => _jumpPoint;
     }
-
     public void BuffHp(int buff)
     {
         _hp += buff;
@@ -48,23 +44,19 @@ public class Piece : NewMonoBehaviour, IAnimation
             _hp = _maxHp;
         }
     }
-
     public int AttackPoint
     {
         get => _attackPoint;
         set => _attackPoint = value;
     }   
-
     public int Side
     {
         get => _side;
     }
-
     public int HeightRangeAttack
     {
         get => _heightRangeAttack;
     }
-
     public int MovePoint
     {
         get => _movePoint;
@@ -76,9 +68,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         set => _cost = value;
     }
 
-
     protected List<Effect> effects;
-
     protected override void Reset()
     {
         this.LoadComponents();
@@ -89,7 +79,6 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         this.Reset();
     }
-
     protected virtual void LoadSide()
     {
         if (this.gameObject.name[0] == 'W')
@@ -124,17 +113,15 @@ public class Piece : NewMonoBehaviour, IAnimation
         this._cost = stats.Cost;
         this.effects = new List<Effect>();
     }
-
     public virtual List<Vector3Int> GetValidMoves()
     {
         return new List<Vector3Int>();
     }
-
     public virtual List<Vector2Int> GetAttackDirection()
     {
         return new List<Vector2Int>();
     }
-
+    
     // Display valid Attack
     protected virtual List<Vector3Int> GetValidAttacks()
     {
@@ -162,7 +149,6 @@ public class Piece : NewMonoBehaviour, IAnimation
 
         return validAttacks;
     }
-
     public virtual bool CheckValidAttack(Vector3Int currentPosition3d, Vector2Int targetPosition2d)
     {
         if (SearchingMethod.IsSquareValid(targetPosition2d) == false || SearchingMethod.IsSquareEmpty(targetPosition2d))
@@ -232,7 +218,7 @@ public class Piece : NewMonoBehaviour, IAnimation
                 // Debug
                 Debug.Log(this.gameObject.name);
 
-                BoardManager.Instance.SelectedPiece(this.gameObject);
+                BoardManager.Instance.SelectPiece(this.gameObject);
                 // Camera
                 CameraManager.Instance.SetTarget();
 
@@ -318,23 +304,16 @@ public class Piece : NewMonoBehaviour, IAnimation
     public void ResetMove(){
         _isMoving = false;
     }
-
     public new void Delete()
     {
         GameManager.Instance.pieces.Remove(this);
         Destroy(gameObject);
     }
-
-
-
     public void ChangeHeight(int n, float duration)
     {
         _position.y += n;
         StartCoroutine(ChangeHeightRoutine(n, duration));
     }
-
-
-
     IEnumerator ChangeHeightRoutine(int n , float duration)
     {
         Vector3 start = transform.position;

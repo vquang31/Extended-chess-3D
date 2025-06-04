@@ -42,13 +42,13 @@ public class InfoButton : Singleton<InfoButton>
             Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
             if (square._buffItem != null)
             {
-                if(InformationItemBuffManagerUI.Instance.gameObject.activeSelf == true)
+                if(InfoIBAndMagicManagerUI.Instance.gameObject.activeSelf == true)
                 {
-                    InformationItemBuffManagerUI.Instance.HideUI();
+                    InfoIBAndMagicManagerUI.Instance.HideUI();
                 }
                 else
                 {
-                    InformationItemBuffManagerUI.Instance.ShowUI(square._buffItem);
+                    InfoIBAndMagicManagerUI.Instance.ShowUI(square._buffItem);
                 }
             }
         }

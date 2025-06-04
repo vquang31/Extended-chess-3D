@@ -14,5 +14,6 @@ public class SelectMagicBtn : BaseButton
     {
         MagicCastManager.Instance.SetSelectedMagic(_magic);
         CastMagicUIManager.Instance.ShowCastingUI();
+        InfoIBAndMagicManagerUI.Instance.ShowUI(_magic);
     }
 }

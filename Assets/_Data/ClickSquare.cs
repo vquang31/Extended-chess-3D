@@ -57,16 +57,16 @@ public class ClickSquare : Singleton<ClickSquare>
             Square square2 = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
             if (square2._buffItem != null)
             {
-                InformationItemBuffManagerUI.Instance.ShowUI(square2._buffItem);
+                InfoIBAndMagicManagerUI.Instance.ShowUI(square2._buffItem);
             }
             else
             {
-                InformationItemBuffManagerUI.Instance.HideUI();
+                InfoIBAndMagicManagerUI.Instance.HideUI();
             }
         }
         else
         {
-            InformationItemBuffManagerUI.Instance.HideUI();
+            InfoIBAndMagicManagerUI.Instance.HideUI();
             if (InformationPieceUIManager.Instance.InformationPieceUI.activeSelf == true)
             {
                 //InformationPieceUIManager.Instance.ShowUI();
@@ -75,7 +75,6 @@ public class ClickSquare : Singleton<ClickSquare>
             }
         }
         SelectPieceUIManager.Instance.attackButton.SetActive(false);
-        ///
         SelectPieceUIManager.Instance.killButton.SetActive(false);
 
         return;

@@ -36,7 +36,7 @@ public class Magic : NewMonoBehaviour
     public virtual void Cast()
     {
         Player player = TurnManager.Instance.GetCurrentPlayer();
-        player.IncreaseMana(-Cost * MagicCastManager.Instance.Quantity);
+        player.IncreaseMana(-Cost * MagicCastManager.Instance.PositionCasts.Count);
         ApplyEffect();
     }
 

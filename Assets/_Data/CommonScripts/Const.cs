@@ -34,7 +34,7 @@ public class Const
     }
 
     public static readonly Dictionary<PieceType, (int MaxHp, int AttackPoint, int JumpPoint, int RangeAttack, int MovePoint, int Cost)> 
-        DEFAULT_STATS = new Dictionary<PieceType, (int, int, int,int,int,int )>
+        DEFAULT_STATS = new()
         {
             { PieceType.Pawn,   (100,  30, 2, 1, 3, 125) },
             { PieceType.Rook,   (200,  50, 1, 2, 5, 175) },
@@ -45,10 +45,14 @@ public class Const
         };
     public const int MAX_POINT_PER_TURN = 500;
 
-    public const int MAX_MANA = 200;
+    public const int MAX_MANA = 500;
 
     public const int INCREASE_MANA_PER_TURN = 20;
 
     public const int LIGHTNING_DAMAGE = 100;
+
+    public const int HEIGHT_INCREASE_MAGIC = 2;
+
+
 
 }

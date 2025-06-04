@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Splines.ExtrusionShapes;
 using UnityEngine.UIElements;
 
 public class MagicCastManager : Singleton<MagicCastManager>
@@ -15,7 +16,6 @@ public class MagicCastManager : Singleton<MagicCastManager>
     ///  2: Casting magic
     /// </summary>
     [SerializeField] private int _isCasting = 0;
-    [SerializeField] private int _quantity = 0;
     [SerializeField] private Magic selectedMagic;
     [SerializeField] private List<Vector3Int> _positionCast = new();
 
@@ -24,12 +24,6 @@ public class MagicCastManager : Singleton<MagicCastManager>
     {
         get => _isCasting;
         set => _isCasting = value;
-    }
-
-    public int Quantity
-    {
-        get => _quantity;
-        set => _quantity = value;
     }
 
     public Magic SelectedMagic
@@ -46,7 +40,6 @@ public class MagicCastManager : Singleton<MagicCastManager>
     protected override void ResetValues()
     {
         base.ResetValues();
-        _quantity = 0;
         selectedMagic = null;
         _positionCast.Clear();
     }
@@ -70,16 +63,28 @@ public class MagicCastManager : Singleton<MagicCastManager>
     {
         CastMagicUIManager.Instance.ShowCastButton();
         HighlightManager.Instance.HighlightMagic(position);
-        Quantity += 1;
         _positionCast.Add(position);
 
     }
      
+    public void RemoveCast(Vector3Int position)
+    {
+
+        _positionCast.Remove(position);
+        HighlightManager.Instance.ClearHighlightAt(position);
+        SquareManager.Instance.DisplayAll();
+
+        //HighlightManager.Instance.ClearHighlights();
+        //foreach (var pos in _positionCast)
+        //{
+        //    HighlightManager.Instance.HighlightMagic(pos);
+        //}
+
+    }
 
     public void CastMagic()
     {
         selectedMagic.Cast();
-   
     }
 
 
