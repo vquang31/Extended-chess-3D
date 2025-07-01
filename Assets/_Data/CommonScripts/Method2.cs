@@ -19,7 +19,7 @@ public class Method2
 
     static public string NameItemBuff(Vector3Int pos)
     {
-        return "BuffItem_" + (char)('a' - 1 + pos.x) + pos.y.ToString();
+        return "BuffItem_" + (char)('a' - 1 + pos.x) + pos.z.ToString();
     }
 
 

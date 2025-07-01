@@ -283,7 +283,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     public virtual void AttackChess()
     {
         Move();
-        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint);
+        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint ,  0f);
     }
 
     public virtual void KillChess()
@@ -293,21 +293,21 @@ public class Piece : NewMonoBehaviour, IAnimation
         BoardManager.Instance.TargetPiece.GetComponent<Piece>().Delete();
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage, float timeDie)
     {
         _hp -= damage;
         if (_hp <= 0)
         {
-            Delete();
+            Delete(timeDie);
         }
     }
     public void ResetMove(){
         _isMoving = false;
     }
-    public new void Delete()
+    public new void Delete( float timeDie)
     {
         GameManager.Instance.pieces.Remove(this);
-        Destroy(gameObject);
+        Destroy(gameObject , timeDie );
     }
     public void ChangeHeight(int n, float duration)
     {

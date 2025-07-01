@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class TurnPointBar : SliderBar
 {
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -17,7 +16,6 @@ public class TurnPointBar : SliderBar
         base.Start();
         SetMaxPoint();
     }   
-
 
     public override void SetMaxPoint()
     {

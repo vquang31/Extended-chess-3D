@@ -37,9 +37,8 @@ public void ChangeTurn()
     {
         // get current time
         _lastTurnTime = Time.time * 1000; // convert to milliseconds
-
-
         BoardManager.Instance.CancelHighlightAndSelectedChess();
+
         // switch turn
         if (GetCurrentTurn() == Const.SIDE_WHITE)
         {
@@ -56,6 +55,20 @@ public void ChangeTurn()
         {
             piece.ResetMove();
         }
+
+
+        // Update and Reset UI
+        UpdateAndResetUI();
+
+        // generate item buff
+        //if(Random.Range(0, 2) == 1)
+        GeneratorItemBuff.Instance.Generate(1);
+    }
+
+    private void UpdateAndResetUI()
+    {
+
+
         // reset point turn bar
         Player currentPlayer = GetCurrentPlayer();
         pointTurnBar.SetPoint(currentPlayer.TurnPoint);
@@ -66,10 +79,12 @@ public void ChangeTurn()
         //announcement
         announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn(GetCurrentTurn());
 
-        // generate item buff
-        //if(Random.Range(0, 2) == 1)
-        GeneratorItemBuff.Instance.Generate(1);
+
+        MagicCastManager.Instance.EndCasting();
+
+
     }
+
 
     public void UpdateManaPointBar()
     {

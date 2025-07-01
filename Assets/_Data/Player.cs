@@ -32,9 +32,6 @@ public class Player : NewMonoBehaviour
         get => _mana;
     }
 
-
-
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -49,7 +46,6 @@ public class Player : NewMonoBehaviour
     public void StartTurn()
     {
         _turnPoint = _maxTurnPoint;
-
         IncreaseMana(Const.INCREASE_MANA_PER_TURN);
         _turn = true;
     }

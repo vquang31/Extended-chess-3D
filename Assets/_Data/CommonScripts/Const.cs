@@ -55,4 +55,12 @@ public class Const
 
 
 
+
+    /////////////// VFX
+    
+
+    public const int VFX_LIGHTNING_MAGIC = 0;
+    public const float VFX_LIGHTNING_MAGIC_DURATION = 0.75f; // Duration for the lightning magic VFX
+
+
 }

@@ -45,7 +45,8 @@ public class GeneratorItemBuff : Singleton<GeneratorItemBuff>
         switch (ran)
         {
             case 1:
-                newBuffItem = newItemBuffGameObject.AddComponent<AttackBuff>();                break;
+                newBuffItem = newItemBuffGameObject.AddComponent<AttackBuff>();
+                break;
             case 2:
                 newBuffItem = newItemBuffGameObject.AddComponent<ChangeMap>();
                 break;
@@ -58,7 +59,6 @@ public class GeneratorItemBuff : Singleton<GeneratorItemBuff>
         }
         
 
-        square._buffItem = newBuffItem;
         newBuffItem.SetPosition(square.Position);
         newBuffItem.transform.SetParent(GameObject.Find("BuffItems").transform);
         newBuffItem.name  = Method2.NameItemBuff(square.Position);

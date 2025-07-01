@@ -8,7 +8,8 @@ using UnityEngine;
 
 public class LightningMagic : Magic
 {
-   private int _damage = Const.LIGHTNING_DAMAGE;
+    private int _damage = Const.LIGHTNING_DAMAGE;
+
 
     public int Damage
     {
@@ -19,6 +20,12 @@ public class LightningMagic : Magic
     {
         InitValue();
     }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+    }
+
     protected override void InitValue()
     {
         Cost = 100;
@@ -34,10 +41,12 @@ public class LightningMagic : Magic
     protected override void ApplyEffectToSquare(Vector3Int position)
     {
         base.ApplyEffectToSquare(position);
+
+        VFXManager.Instance.PlayVFXMagic(Const.VFX_LIGHTNING_MAGIC, position);
         ///
         Square square = SearchingMethod.FindSquareByPosition(position);
         if (square.PieceGameObject == null) return;
-            square.PieceGameObject?.GetComponent<Piece>()?.TakeDamage(Damage);
+            square.PieceGameObject?.GetComponent<Piece>()?.TakeDamage(Damage, Const.VFX_LIGHTNING_MAGIC_DURATION );
     }
 }
 

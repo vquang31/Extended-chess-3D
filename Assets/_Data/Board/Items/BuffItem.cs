@@ -19,8 +19,6 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
         return "";
     }
 
-
-
     private Vector3Int _position;
 
     public Vector3Int Position
