@@ -15,7 +15,8 @@ public class ChangeMapMagic : Magic
     protected override void InitValue()
     {
         Cost = 100;
-        MaxQuantity = 3; 
+        MaxQuantity = 3;
+        Type = Const.FX_CHANGE_HEIGHT;
     }
     public override string Description()
     {
@@ -27,6 +28,6 @@ public class ChangeMapMagic : Magic
         base.ApplyEffectToSquare(position);
         ///
         Square square = SearchingMethod.FindSquareByPosition(position);
-        square.ChangeHeight(Const.HEIGHT_INCREASE_MAGIC,Const.TIME_TO_CHANGE_HEIGHT_EFFECT);
+        square.ChangeHeight(Const.HEIGHT_INCREASE_MAGIC,Const.CHANGE_HEIGHT_EFFECT_DURATION);
     }
 }

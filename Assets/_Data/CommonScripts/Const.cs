@@ -17,8 +17,7 @@ public class Const
 
     public const int MAX_BOARD_SIZE = 16;
 
-    public const float TIME_TO_CHANGE_HEIGHT_INIT = 1.5f;
-    public const float TIME_TO_CHANGE_HEIGHT_EFFECT = 1f;
+    public const float CHANGE_HEIGHT_INIT_DURATION = 1.5f;
 
 
     public const double PERCENTAGE_OF_MAX_HP_TO_KILL = 0.1f;
@@ -57,10 +56,16 @@ public class Const
 
 
     /////////////// VFX
-    
 
-    public const int VFX_LIGHTNING_MAGIC = 0;
-    public const float VFX_LIGHTNING_MAGIC_DURATION = 0.75f; // Duration for the lightning magic VFX
 
+    public const int FX_MOVE_PIECE = 0;
+    public const int FX_ATTACK_PIECE = 1;
+    public const int FX_LIGHTNING_MAGIC = 2;
+    public const int FX_CHANGE_HEIGHT = 3;
+
+
+    public const float VFX_LIGHTNING_MAGIC_DURATION = (float) 35 / 60 + 0.01f; // Duration for the lightning magic VFX
+
+    public const float CHANGE_HEIGHT_EFFECT_DURATION = 1f; // 1s 
 
 }

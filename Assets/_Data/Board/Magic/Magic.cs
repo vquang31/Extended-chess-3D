@@ -10,7 +10,13 @@ public class Magic : NewMonoBehaviour
 {
     private int _cost;
     private int _maxQuanity;
+    private int _type;
 
+    public int Type
+    {
+        get => _type;
+        set => _type = value;
+    }
     public int Cost
     {
         get => _cost;
@@ -50,6 +56,7 @@ public class Magic : NewMonoBehaviour
 
     protected virtual void ApplyEffectToSquare(Vector3Int position)
     {
+        EffectManager.Instance.PlayEffect(Type, position);
         return;
     }
 }

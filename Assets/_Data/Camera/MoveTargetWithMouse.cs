@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-public class MoveTargetWithMouse : NewMonoBehaviour
+public class MoveTargetWithMouse : Singleton<MoveTargetWithMouse>
 {
+
     public Transform targetObject; // Đối tượng cần di chuyển
     public float moveFactor = 0.8f; // Biên độ di chuyển
 
@@ -68,4 +69,16 @@ public class MoveTargetWithMouse : NewMonoBehaviour
         mousePoint.z = Camera.main.WorldToScreenPoint(targetObject.position).z;
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
+
+
+
+    public void MoveToPosition(Vector3 position)
+    {
+        targetObject.position = new Vector3(
+            Mathf.Clamp(position.x, 0, Const.MAX_BOARD_SIZE),
+            targetObject.position.y,
+            Mathf.Clamp(position.z, 0, Const.MAX_BOARD_SIZE)
+        );
+    }
+
 }

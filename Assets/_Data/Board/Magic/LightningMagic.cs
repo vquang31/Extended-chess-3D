@@ -31,6 +31,7 @@ public class LightningMagic : Magic
         Cost = 100;
         MaxQuantity = 1;
         Damage = Const.LIGHTNING_DAMAGE;
+        Type = Const.FX_LIGHTNING_MAGIC;
     }
     public override string Description()
     {
@@ -41,8 +42,6 @@ public class LightningMagic : Magic
     protected override void ApplyEffectToSquare(Vector3Int position)
     {
         base.ApplyEffectToSquare(position);
-
-        VFXManager.Instance.PlayVFXMagic(Const.VFX_LIGHTNING_MAGIC, position);
         ///
         Square square = SearchingMethod.FindSquareByPosition(position);
         if (square.PieceGameObject == null) return;

@@ -26,7 +26,7 @@ public class ChangeMap : BuffItem
             {
                 if(square.Position.y < Const.MAX_HEIGHT_GROUND )
                 {
-                    square.ChangeHeight(Random.Range(1, Const.MAX_HEIGHT_GROUND - square.Position.y + 1 ), Const.TIME_TO_CHANGE_HEIGHT_EFFECT);
+                    square.ChangeHeight(Random.Range(1, Const.MAX_HEIGHT_GROUND - square.Position.y + 1 ), Const.CHANGE_HEIGHT_EFFECT_DURATION);
                     i++;
                 }
             }
@@ -34,7 +34,7 @@ public class ChangeMap : BuffItem
             {
                 if(square.Position.y > 1)
                 {
-                    square.ChangeHeight(-Random.Range(1, square.Position.y ), Const.TIME_TO_CHANGE_HEIGHT_EFFECT);
+                    square.ChangeHeight(-Random.Range(1, square.Position.y ), Const.CHANGE_HEIGHT_EFFECT_DURATION);
                     i++;
                 }
             }

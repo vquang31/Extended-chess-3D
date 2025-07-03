@@ -6,11 +6,11 @@ public class VFX_2D : NewMonoBehaviour
     [SerializeField]
     private Camera _mainCamera;
 
-
     protected override void LoadComponents()
     {
         _mainCamera = Camera.main;
-    }
+
+    } 
 
     private void LateUpdate()
     {

@@ -127,13 +127,13 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
                         // cách này sai do hàm ChangeHeightRoutine bị ghi đè 
                         // tăng (square.Position.y + currentHeight) / 2 - square.Position.y  đơn vị
                         // -> giá trị mới = (square.Position.y + currentHeight) / 2
-                        //square.ChangeHeight((square.Position.y + currentHeight) / 2 - square.Position.y, Const.TIME_TO_CHANGE_HEIGHT_INIT);  
+                        //square.ChangeHeight((square.Position.y + currentHeight) / 2 - square.Position.y, Const.CHANGE_HEIGHT_INIT_DURATION);  
                     }
                     else
                     {
                         listPosition.Add(new Vector3Int(pos.x + x, currentHeight, pos.z + z));
                         // cách này sai do hàm ChangeHeightRoutine bị ghi đè
-                        //square.ChangeHeight(currentHeight - square.Position.y, Const.TIME_TO_CHANGE_HEIGHT_INIT); // giá trị mới = currentHeight đơn vị
+                        //square.ChangeHeight(currentHeight - square.Position.y, Const.CHANGE_HEIGHT_INIT_DURATION); // giá trị mới = currentHeight đơn vị
                         
                        
                         // cách này đúng nhưng không có animation
@@ -210,7 +210,7 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
     {
         Square square = SearchingMethod.FindSquareByPosition(pos);
         //square.SetPosition(new Vector3Int(pos.x, pos.y - 1, pos.z));
-        square.ChangeHeight(pos.y - 1, Const.TIME_TO_CHANGE_HEIGHT_INIT);
+        square.ChangeHeight(pos.y - 1, Const.CHANGE_HEIGHT_INIT_DURATION);
 
     }
 

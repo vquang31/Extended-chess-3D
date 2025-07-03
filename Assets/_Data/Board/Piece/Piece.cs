@@ -268,6 +268,8 @@ public class Piece : NewMonoBehaviour, IAnimation
         // update data board
         // update data square
 
+        MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);
+
         BoardManager.Instance.CancelHighlightAndSelectedChess();
         //SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
         Square square = SearchingMethod.FindSquareByPosition(Position);
@@ -304,7 +306,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     public void ResetMove(){
         _isMoving = false;
     }
-    public new void Delete( float timeDie)
+    public void Delete( float timeDie)
     {
         GameManager.Instance.pieces.Remove(this);
         Destroy(gameObject , timeDie );
