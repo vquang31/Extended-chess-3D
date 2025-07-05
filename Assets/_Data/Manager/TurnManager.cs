@@ -10,7 +10,7 @@ public class TurnManager : Singleton<TurnManager>
     private Player player1;
     private Player player2;
 
-    protected TurnPointBar pointTurnBar;
+    protected ActionPointBar pointTurnBar;
     protected ManaPointBar manaPointBar;
     protected GameObject announcementTurnUI;
 
@@ -20,7 +20,7 @@ public class TurnManager : Singleton<TurnManager>
         base.LoadComponents();
         player1 = GameObject.Find("Player1").GetComponent<Player>();
         player2 = GameObject.Find("Player2").GetComponent<Player>();
-        pointTurnBar = GameObject.Find("SliderTurnPoint").GetComponent<TurnPointBar>();
+        pointTurnBar = GameObject.Find("SliderActionPoint").GetComponent<ActionPointBar>();
         manaPointBar = GameObject.Find("SliderManaPoint").GetComponent<ManaPointBar>();
         announcementTurnUI = GameObject.Find("AnnouncementTurnUI");
     }
@@ -71,7 +71,7 @@ public void ChangeTurn()
 
         // reset point turn bar
         Player currentPlayer = GetCurrentPlayer();
-        pointTurnBar.SetPoint(currentPlayer.TurnPoint);
+        pointTurnBar.SetPoint(currentPlayer.ActionPoint);
 
 
         // update mana point bar    
@@ -91,20 +91,20 @@ public void ChangeTurn()
         manaPointBar.SetPoint(GetCurrentPlayer().Mana);
     }
 
-    public void UpdateTurnPointBar()
+    public void UpdateActionPointBar()
     {
-        pointTurnBar.SetPoint(GetCurrentPlayer().TurnPoint);
+        pointTurnBar.SetPoint(GetCurrentPlayer().ActionPoint);
     }
 
     public void EndPieceTurn(int cost)
     {
         Player currentPlayer = GetCurrentPlayer();
-        currentPlayer.IncreaseTurnPoint(-cost);
+        currentPlayer.IncreaseActionPoint(-cost);
         foreach (var piece in GameManager.Instance.pieces)
         {
             if (piece.Side == GetCurrentTurn())
             {
-                if (piece.Cost <= currentPlayer.TurnPoint)
+                if (piece.Cost <= currentPlayer.ActionPoint)
                 {
                     return;
                 }

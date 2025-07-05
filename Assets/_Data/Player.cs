@@ -5,19 +5,19 @@ public class Player : NewMonoBehaviour
 {
     private bool _turn;
 
-    private int _turnPoint = Const.MAX_POINT_PER_TURN;
-    private int _maxTurnPoint = Const.MAX_POINT_PER_TURN;   
+    private int _actionPoint = Const.MAX_POINT_PER_TURN;
+    private int _maxActionPoint = Const.MAX_POINT_PER_TURN;   
 
     [SerializeField]private int _mana = Const.MAX_MANA / 2;
-    public int TurnPoint
+    public int ActionPoint
     {
-        get => _turnPoint;
-        set => _turnPoint = value;
+        get => _actionPoint;
+        set => _actionPoint = value;
     }
-    public int MaxTurnPoint
+    public int MaxActionPoint
     {
-        get => _maxTurnPoint;
-        set => _maxTurnPoint = value;
+        get => _maxActionPoint;
+        set => _maxActionPoint = value;
     }   
 
 
@@ -45,7 +45,7 @@ public class Player : NewMonoBehaviour
 
     public void StartTurn()
     {
-        _turnPoint = _maxTurnPoint;
+        _actionPoint = _maxActionPoint;
         IncreaseMana(Const.INCREASE_MANA_PER_TURN);
         _turn = true;
     }
@@ -60,9 +60,9 @@ public class Player : NewMonoBehaviour
         TurnManager.Instance.UpdateManaPointBar();
     }
 
-    public void IncreaseTurnPoint(int cost)
+    public void IncreaseActionPoint(int cost)
     {
-        TurnPoint += cost;
-        TurnManager.Instance.UpdateTurnPointBar(); 
+        ActionPoint += cost;
+        TurnManager.Instance.UpdateActionPointBar(); 
     }
 }

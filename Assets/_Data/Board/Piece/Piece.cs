@@ -201,7 +201,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         if (TurnManager.Instance.GetCurrentTurn() == _side) // nếu cùng side thì chuyển select
         {
-            if (TurnManager.Instance.GetPlayer(_side).TurnPoint < this.Cost) return;
+            if (TurnManager.Instance.GetPlayer(_side).ActionPoint < this.Cost) return;
             if (_isMoving == true) return;
             if (BoardManager.Instance.selectedPiece == this.gameObject)
             {

@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class TurnPointBar : SliderBar
+public class ActionPointBar : SliderBar
 {
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        _pointText = transform.Find("TurnPointText").gameObject;
+        _pointText = transform.Find("ActionPointText").gameObject;
     }
 
     protected override void Start()

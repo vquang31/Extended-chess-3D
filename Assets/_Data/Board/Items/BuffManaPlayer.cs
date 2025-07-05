@@ -12,7 +12,7 @@ public class BuffManaPlayer : BuffItem
 
     public override string Description()
     {
-        return "Player gain " + _manaBuff + " point ";
+        return "Player gain " + _manaBuff + "mana point ";
     }
 
     public override void ApplyEffect(Piece piece)
