@@ -18,6 +18,13 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
     protected GameObject BlackQueenGameObject;
     protected GameObject BlackKingGameObject;
 
+    [SerializeField] protected GameObject WhitepieceVFX_Prefab;
+    [SerializeField] private Animator WhitePieceVFXAnimator;
+    [SerializeField] protected GameObject BlackPieceVFX_Prefab;
+    [SerializeField] private Animator BlackPieceVFXAnimator;
+
+
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -35,6 +42,14 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
         this.BlackBishopGameObject = GameObject.Find("Prefab_BlackBishop");
         this.BlackQueenGameObject = GameObject.Find("Prefab_BlackQueen");
         this.BlackKingGameObject = GameObject.Find("Prefab_BlackKing");
+
+        this.WhitepieceVFX_Prefab = GameObject.Find("Prefab_WhitePieceVFX");
+        WhitePieceVFXAnimator = WhitepieceVFX_Prefab.GetComponent<Animator>();
+
+
+        this.BlackPieceVFX_Prefab = GameObject.Find("Prefab_BlackPieceVFX");
+        BlackPieceVFXAnimator = BlackPieceVFX_Prefab.GetComponent<Animator>();
+
 
     }
 
@@ -111,6 +126,7 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
     private void SaveData(Piece piece,Vector2Int newPos2D,GameObject newPieceGameObject)
     {
         newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
+        newPieceGameObject.AddComponent<Animator>().runtimeAnimatorController = (piece.Side == Const.SIDE_WHITE) ? WhitePieceVFXAnimator.runtimeAnimatorController  : BlackPieceVFXAnimator.runtimeAnimatorController; 
         Vector3Int newPos3D = ConvertMethod.Pos2dToPos3d(newPos2D);
         piece.SetPosition(newPos3D);
         GameManager.Instance.pieces.Add(piece);   

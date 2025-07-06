@@ -8,7 +8,8 @@ public class GeneratorManager : Singleton<GeneratorManager>
     private GeneratorPiece generatorPiece;
     private GeneratorSquare generatorSquare;
     private GeneratorItemBuff generatorItemBuff;
-
+    
+    public bool generateMap = true;
 
     protected override void LoadComponents()
     {
@@ -23,8 +24,12 @@ public class GeneratorManager : Singleton<GeneratorManager>
         Debug.Log("Generate SQUARE");
         generatorPiece.Generate();
         Debug.Log("Generate CHESS");
-        //generatorSquare.GenerateMap();
-        Debug.Log("Generate MAP");
+
+        if (generateMap)
+        {
+            generatorSquare.GenerateMap();
+            Debug.Log("Generate MAP");
+        }
     }
 
 }

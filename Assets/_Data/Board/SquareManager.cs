@@ -13,7 +13,7 @@ public class SquareManager : Singleton<SquareManager>
     {
         Square square = SearchingMethod.FindSquareByPosition(pos);   
         square.gameObject.GetComponent<Renderer>().enabled = false;
-        square.CanClick = false;
+        //square.CanClick = false;
     }
 
     public void HideSquare(Vector3Int pos)

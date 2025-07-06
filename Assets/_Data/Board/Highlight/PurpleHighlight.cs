@@ -8,7 +8,6 @@ public class PurpleHighlight : Highlight
 {
     protected override void OnMouseDown()
     {
-        if (!canClick) return;
         if (InputBlocker.IsPointerOverUI()) { return; }
 
         MagicCastManager.Instance.RemoveCast(Position);

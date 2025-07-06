@@ -16,7 +16,7 @@ public class SoundFXMananger : Singleton<SoundFXMananger>
         _soundFXParent = GameObject.Find("SoundFX");
     }
 
-    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
+    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform)
     {
         GameObject soundFXGameObject = Instantiate(_soundFXObject, spawnTransform.position, Quaternion.identity);
 
@@ -24,7 +24,7 @@ public class SoundFXMananger : Singleton<SoundFXMananger>
 
         audioSource.clip = audioClip;
 
-        audioSource.volume = volume;
+
 
         soundFXGameObject.GetComponent<SoundEffect>().PlaySound();
 
@@ -35,7 +35,7 @@ public class SoundFXMananger : Singleton<SoundFXMananger>
     }
 
 
-    public void PlaySoundFX(int  typeEffect, Transform spawnTransform, float volume)
+    public void PlaySoundFX(int  typeEffect, Transform spawnTransform)
     {
         GameObject soundFXGameObject = Instantiate(_soundFXObject, spawnTransform.position, Quaternion.identity);
         soundFXGameObject.transform.parent = _soundFXParent.transform; // Ensure the sound effect is parented to the SoundFX GameObject
@@ -44,7 +44,7 @@ public class SoundFXMananger : Singleton<SoundFXMananger>
 
         audioSource.clip = _audioClips[typeEffect];
 
-        audioSource.volume = volume;
+
 
         soundFXGameObject.GetComponent<SoundEffect>().PlaySound();
 

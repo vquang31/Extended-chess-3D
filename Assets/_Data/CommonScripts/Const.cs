@@ -64,6 +64,7 @@ public class Const
     public const int FX_CHANGE_HEIGHT = 3;
 
 
+    public const float VFX_ATTACK_PIECE_DURATION = (float) 120 / 60 + 0.01f; // Duration for the attack piece VFX
     public const float VFX_LIGHTNING_MAGIC_DURATION = (float) 35 / 60 + 0.01f; // Duration for the lightning magic VFX
 
     public const float CHANGE_HEIGHT_EFFECT_DURATION = 1f; // 1s 

@@ -35,7 +35,7 @@ public class RedHighlight: Highlight
 
     protected override void OnMouseDown()
     {
-        if (!canClick) return;
+
         if (InputBlocker.IsPointerOverUI()) { return; }
         base.OnMouseDown();
         Click();

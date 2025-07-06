@@ -19,6 +19,7 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     private bool _isMoving = false; // check if piece is moving or not
 
+    private Animator animator;
 
     public Vector3Int Position
     {
@@ -69,19 +70,33 @@ public class Piece : NewMonoBehaviour, IAnimation
     }
 
     protected List<Effect> effects;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        this.LoadComponents();
+        this.LoadSide();
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        animator = GetComponent<Animator>();
+    }
+
+    protected override void Start()
+    {
+        this.Reset();
+    }
+    
     protected override void Reset()
     {
         this.LoadComponents();
         this.ResetValues();
     }
-     
-    protected override void Start()
-    {
-        this.Reset();
-    }
     protected virtual void LoadSide()
     {
-        if (this.gameObject.name[0] == 'W')
+        if (this.gameObject.name.Contains("White"))
         {
             _side = Const.SIDE_WHITE;
         }
@@ -237,6 +252,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         }
         else
         {
+
             // neu mà quân cơ này đứng trên ô đỏ thì
             List<GameObject> listHighlight = HighlightManager.Instance.highlights;
             foreach (var hightlight in listHighlight)
@@ -285,6 +301,11 @@ public class Piece : NewMonoBehaviour, IAnimation
     public virtual void AttackChess()
     {
         Move();
+
+        Vector3Int direction = BoardManager.Instance.TargetPiece.GetComponent<Piece>().Position - this.Position;
+        Debug.Log(direction);
+        EffectManager.Instance.PlayEffect(Const.FX_ATTACK_PIECE, this.Position, direction);
+        
         BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint ,  0f);
     }
 
@@ -298,6 +319,9 @@ public class Piece : NewMonoBehaviour, IAnimation
     public virtual void TakeDamage(int damage, float timeDie)
     {
         _hp -= damage;
+
+        animator.SetTrigger("TakeDamage");
+
         if (_hp <= 0)
         {
             Delete(timeDie);
