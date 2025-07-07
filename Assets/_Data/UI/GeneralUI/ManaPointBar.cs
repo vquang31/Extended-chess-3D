@@ -15,7 +15,7 @@ public class ManaPointBar : SliderBar
     protected override void Start()
     {
         base.Start();
-
+        SetMaxPoint();
     }
 
 

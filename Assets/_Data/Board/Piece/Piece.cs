@@ -291,6 +291,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         Square square = SearchingMethod.FindSquareByPosition(Position);
         if(square._buffItem != null)
         {
+            animator.SetTrigger("ReceiveBuff");
             square._buffItem.ApplyEffect(this);
             square._buffItem.Delete();
         }
@@ -306,7 +307,7 @@ public class Piece : NewMonoBehaviour, IAnimation
         Debug.Log(direction);
         EffectManager.Instance.PlayEffect(Const.FX_ATTACK_PIECE, this.Position, direction);
         
-        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint ,  0f);
+        BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint ,  Const.VFX_PIECE_TAKE_DAMAGE_DURATION);
     }
 
     public virtual void KillChess()

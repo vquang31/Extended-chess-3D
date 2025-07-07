@@ -56,7 +56,7 @@ public class EffectManager : Singleton<EffectManager>
 
             if(direction != Vector3Int.zero)
             {
-                vfxInstance.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+                vfxInstance.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x,direction.y, direction.z));
             }
             else
             {

@@ -45,7 +45,7 @@ public class LightningMagic : Magic
         ///
         Square square = SearchingMethod.FindSquareByPosition(position);
         if (square.PieceGameObject == null) return;
-            square.PieceGameObject?.GetComponent<Piece>()?.TakeDamage(Damage, Const.VFX_LIGHTNING_MAGIC_DURATION );
+            square.PieceGameObject?.GetComponent<Piece>()?.TakeDamage(Damage, Const.VFX_PIECE_TAKE_DAMAGE_DURATION );
     }
 }
 

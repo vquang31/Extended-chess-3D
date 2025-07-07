@@ -126,7 +126,8 @@ public class GeneratorPiece: Singleton<GeneratorPiece>
     private void SaveData(Piece piece,Vector2Int newPos2D,GameObject newPieceGameObject)
     {
         newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
-        newPieceGameObject.AddComponent<Animator>().runtimeAnimatorController = (piece.Side == Const.SIDE_WHITE) ? WhitePieceVFXAnimator.runtimeAnimatorController  : BlackPieceVFXAnimator.runtimeAnimatorController; 
+        newPieceGameObject.AddComponent<Animator>().runtimeAnimatorController = (piece.Side == Const.SIDE_WHITE) ? WhitePieceVFXAnimator.runtimeAnimatorController  : BlackPieceVFXAnimator.runtimeAnimatorController;
+
         Vector3Int newPos3D = ConvertMethod.Pos2dToPos3d(newPos2D);
         piece.SetPosition(newPos3D);
         GameManager.Instance.pieces.Add(piece);   

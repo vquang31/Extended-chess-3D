@@ -44,7 +44,7 @@ public class Const
         };
     public const int MAX_POINT_PER_TURN = 500;
 
-    public const int MAX_MANA = 500;
+    public const int MAX_MANA = 5000;
 
     public const int INCREASE_MANA_PER_TURN = 20;
 
@@ -65,7 +65,11 @@ public class Const
 
 
     public const float VFX_ATTACK_PIECE_DURATION = (float) 120 / 60 + 0.01f; // Duration for the attack piece VFX
-    public const float VFX_LIGHTNING_MAGIC_DURATION = (float) 35 / 60 + 0.01f; // Duration for the lightning magic VFX
+    public const float VFX_LIGHTNING_MAGIC_DURATION =  3f + 0.01f; // Duration for the lightning magic VFX
+
+
+    public const float VFX_PIECE_TAKE_DAMAGE_DURATION = 0.5f; // Duration for the piece take damage VFX
+
 
     public const float CHANGE_HEIGHT_EFFECT_DURATION = 1f; // 1s 
 
