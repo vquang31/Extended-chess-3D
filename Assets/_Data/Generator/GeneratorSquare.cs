@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class GeneratorSquare : Singleton<GeneratorSquare>
+public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
 {
     [SerializeField] public bool log = false;
     // White

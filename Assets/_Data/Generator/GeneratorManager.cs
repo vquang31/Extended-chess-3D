@@ -1,7 +1,8 @@
+using Mirror;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class GeneratorManager : Singleton<GeneratorManager>
+public class GeneratorManager : NetworkSingleton<GeneratorManager>
 {
     private CinemachineCamera cinemachineCamera;
 
@@ -10,7 +11,6 @@ public class GeneratorManager : Singleton<GeneratorManager>
     private GeneratorItemBuff generatorItemBuff;
     
     public bool generateMap = true;
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -18,12 +18,11 @@ public class GeneratorManager : Singleton<GeneratorManager>
         generatorSquare = GameObject.Find("Generator").GetComponent<GeneratorSquare>();
         generatorItemBuff = GameObject.Find("Generator").GetComponent<GeneratorItemBuff>();
     }
-    protected override void Start()
+    
+    public void Generate()
     {
-        generatorSquare.Generate();
-        Debug.Log("Generate SQUARE");
-        generatorPiece.Generate();
-        Debug.Log("Generate CHESS");
+        GenerateSquare();
+        GeneratePiece();
 
         if (generateMap)
         {
@@ -31,5 +30,20 @@ public class GeneratorManager : Singleton<GeneratorManager>
             Debug.Log("Generate MAP");
         }
     }
+
+    public void GenerateSquare()
+    {
+        generatorSquare.Generate();
+        Debug.Log("Generate SQUARE");
+    }
+
+    [Server]
+    public void GeneratePiece()
+    {
+        generatorPiece.Generate();
+        Debug.Log("Generate CHESS");
+    }
+
+
 
 }

@@ -4,39 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Const;
+using Mirror;
 
-public class Piece : NewMonoBehaviour, IAnimation
+public class Piece : NewNetworkBehaviour, IAnimation
 {
-    [SerializeField] private Vector3Int _position = Vector3Int.zero;
-    [SerializeField] private int _side;
-    private int _maxHp;
-    protected int _attackPoint;
-    [SerializeField]protected int _hp;
-    protected int _jumpPoint;
-    protected int _heightRangeAttack;    // height range attack of piece
-    private int _movePoint;
-    private int _cost;
+    [SerializeField]
+    [SyncVar] private Vector3Int _position = Vector3Int.zero;
+    [SerializeField] 
+    [SyncVar] private int _side;
+    [SyncVar] private int _maxHp;
+    [SyncVar] protected int _attackPoint;
+    [SerializeField]
+    [SyncVar] protected int _hp;
+    [SyncVar] protected int _jumpPoint;
+    [SyncVar] protected int _heightRangeAttack;    // height range attack of piece
+    [SyncVar] private int _movePoint;
+    [SyncVar] private int _cost;
 
-    private bool _isMoving = false; // check if piece is moving or not
+    [SyncVar]private bool _isMoving = false; // check if piece is moving or not
 
     private Animator animator;
 
-    public Vector3Int Position
-    {
-        get => _position;
-    }
-    public int MaxHp
-    {
-        get => _maxHp;
-    }
-    public int Hp
-    {
-        get => _hp;
-    }
-    public int JumpPoint
-    {
-        get => _jumpPoint;
-    }
+    public Vector3Int Position => _position;
+    public int MaxHp => _maxHp;
+    public int Hp => _hp;
+    public int JumpPoint => _jumpPoint;
     public void BuffHp(int buff)
     {
         _hp += buff;
@@ -50,14 +42,10 @@ public class Piece : NewMonoBehaviour, IAnimation
         get => _attackPoint;
         set => _attackPoint = value;
     }   
-    public int Side
-    {
-        get => _side;
-    }
-    public int HeightRangeAttack
-    {
-        get => _heightRangeAttack;
-    }
+    public int Side => _side;
+
+    public int HeightRangeAttack  => _heightRangeAttack;
+
     public int MovePoint
     {
         get => _movePoint;
@@ -71,11 +59,17 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     protected List<Effect> effects;
 
-    protected override void Awake()
+    public void Update()
     {
-        base.Awake();
-        this.LoadComponents();
-        this.LoadSide();
+        if (_side < -100)
+        {
+            TestUpdate();
+        }
+    }
+
+    public void TestUpdate()
+    {
+        _side = 1000;
     }
 
     protected override void LoadComponents()
@@ -87,8 +81,21 @@ public class Piece : NewMonoBehaviour, IAnimation
     protected override void Start()
     {
         this.Reset();
+        //Debug.Log("Piece OnStart" + this.gameObject.name);
     }
-    
+
+    public override void OnStartClient()
+    {
+        //Debug.Log("Piece OnStartClient" + this.gameObject.name);
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        //Debug.Log("Piece OnStartServer" + this.gameObject.name);
+
+    }
+
     protected override void Reset()
     {
         this.LoadComponents();

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public class GeneratorItemBuff : Singleton<GeneratorItemBuff>
+public class GeneratorItemBuff : NetworkSingleton<GeneratorItemBuff>
 {
     protected GameObject itemBuffGameObject;
 
@@ -10,10 +10,6 @@ public class GeneratorItemBuff : Singleton<GeneratorItemBuff>
         base.LoadComponents();
 
         this.itemBuffGameObject = GameObject.Find("Prefab_ItemBuff");
-    }
-    protected override void Start()
-    {
-        base.Start();
     }
 
     public void Generate(int n)

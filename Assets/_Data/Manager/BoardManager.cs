@@ -17,7 +17,7 @@ public class BoardManager : Singleton<BoardManager>
     ///            piece 
     ///  
     /// </summary>
-    protected GameObject BoardGameObject;
+
 
     protected HighlightManager _highlightManager;
   
@@ -69,7 +69,6 @@ public class BoardManager : Singleton<BoardManager>
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        BoardGameObject = GameObject.Find("Board");
         _highlightManager = gameObject.GetComponent<HighlightManager>();
         _squareManager = gameObject.GetComponent<SquareManager>();  
     }
