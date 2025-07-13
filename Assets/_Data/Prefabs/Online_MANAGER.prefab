@@ -102,8 +102,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  generateMap: 0
-  generate: 0
+  generateMap: 1
 --- !u!1 &6371579463984509419
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +168,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  WhitePawnPrefab: {fileID: 0}
   WhitepieceVFX_Prefab: {fileID: 0}
   WhitePieceVFXAnimator: {fileID: 0}
   BlackPieceVFX_Prefab: {fileID: 0}

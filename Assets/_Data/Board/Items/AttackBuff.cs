@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public class AttackBuff : BuffItem
@@ -16,6 +17,7 @@ public class AttackBuff : BuffItem
     }
 
 
+    [Command(requiresAuthority = false)]
     public override void ApplyEffect(Piece piece)
     {
         base.ApplyEffect(piece);

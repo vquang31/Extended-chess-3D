@@ -1,4 +1,5 @@
-using Mirror;
+﻿using Mirror;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -18,11 +19,22 @@ public class GeneratorManager : NetworkSingleton<GeneratorManager>
         generatorSquare = GameObject.Find("Generator").GetComponent<GeneratorSquare>();
         generatorItemBuff = GameObject.Find("Generator").GetComponent<GeneratorItemBuff>();
     }
-    
+
+    [Server]
     public void Generate()
     {
+        StartCoroutine(GenerateRoutine());
+    }
+
+    [Server]
+    private IEnumerator GenerateRoutine()
+    {
         GenerateSquare();
+
+        yield return new WaitForSeconds(0.2f);
+
         GeneratePiece();
+        yield return new WaitForSeconds(0.2f);
 
         if (generateMap)
         {
@@ -31,14 +43,13 @@ public class GeneratorManager : NetworkSingleton<GeneratorManager>
         }
     }
 
-    public void GenerateSquare()
+    private void GenerateSquare() 
     {
         generatorSquare.Generate();
         Debug.Log("Generate SQUARE");
     }
 
-    [Server]
-    public void GeneratePiece()
+    private void GeneratePiece()
     {
         generatorPiece.Generate();
         Debug.Log("Generate CHESS");

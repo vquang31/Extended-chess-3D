@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SquareManager : Singleton<SquareManager> 
 {
@@ -8,13 +8,29 @@ public class SquareManager : Singleton<SquareManager>
         base.LoadComponents();
         SquaresGameObject = GameObject.Find("BoardSquare");
     }
-
     public void HideSquare(Vector2Int pos)
     {
-        Square square = SearchingMethod.FindSquareByPosition(pos);   
-        square.gameObject.GetComponent<Renderer>().enabled = false;
-        square.transform.transform.localScale = Vector3.zero; // Hide the square by scaling it down
-        //square.CanClick = false;
+        //Debug.Log("Hide square at position: " + pos);
+        Square square = SearchingMethod.FindSquareByPosition(pos);
+        //Debug.Log(square.name);
+        if (square == null)
+        {
+            Debug.LogWarning("Square not found at position: " + pos);
+            return;
+        }
+
+        Renderer renderer = square.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.enabled = false;
+        }
+        else
+        {
+            Debug.LogWarning("Renderer not found on square at position: " + pos);
+        }
+
+        square.transform.localScale = Vector3.zero;
+        //square.CanClick = false; // Nếu cần vô hiệu hóa tương tác
     }
 
     public void HideSquare(Vector3Int pos)

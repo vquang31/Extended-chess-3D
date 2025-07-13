@@ -24,13 +24,14 @@ public class CameraManager : Singleton<CameraManager>
         cameraMovement.SetPositionTarget(target);
     }
 
-    public void SetTarget(AbstractSquare square)
+    public void SetTarget(Square square)
     {
         Transform target = square.gameObject.transform;
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
         Vector3 pos = new Vector3(0, 1, 0) * (height) + target.transform.position;
         cameraMovement.SetPositionTarget(pos);
     }
+
 
     public void CancelTarget() { 
         //cameraMovement.SetTarget(null);

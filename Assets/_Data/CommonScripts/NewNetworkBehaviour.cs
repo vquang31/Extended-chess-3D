@@ -38,8 +38,24 @@ public class NewNetworkBehaviour : NetworkBehaviour
     {
 
     }
+
+    
     public void Delete()
     {
         Destroy(gameObject);
     }
+
+
+    ////
+    ///
+    /*
+     *   [Command]  Client (has authority - isOnwer) -> Server (call n times)
+     *   [ClientRpc] Server -> All Clients
+     *   [Client]  anyone -> Client only
+     *   [Server]  anyone -> Server only (call 1 time )
+     * 
+     */
+
+
+
 }

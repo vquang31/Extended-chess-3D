@@ -9,7 +9,7 @@ public class Player : NetworkBehaviour
     public bool playable = false;
     //[SyncVar(hook = nameof(OnHealthChanged))]
     [SyncVar] public  int _side; // 1: trắng, -1: đen
-    //[SyncVar] public  bool _turn = false;
+
     [SyncVar] public int _actionPoint = Const.MAX_POINT_PER_TURN;
     [SyncVar] public int _mana = Const.MAX_MANA / 2;
 
@@ -18,7 +18,7 @@ public class Player : NetworkBehaviour
     public int ActionPoint => _actionPoint;
     public int MaxActionPoint => _maxActionPoint;
     public int Mana => _mana;
-    //public bool Turn => _turn;
+
     public int Side => _side;
 
 
@@ -68,7 +68,7 @@ public class Player : NetworkBehaviour
     public void InitSide(int side)
     {
         _side = side;
-        //_turn = (side == Const.SIDE_WHITE);
+
     }
 
 
@@ -76,13 +76,13 @@ public class Player : NetworkBehaviour
     public void StartTurn()
     {
         _actionPoint = _maxActionPoint;
-        //_turn = true;
+
         IncreaseMana(Const.INCREASE_MANA_PER_TURN);
     }
 
    [Server] public void EndTurn()
     {
-        //_turn = false;
+
     }
     public void IncreaseMana(int mana)
     {
@@ -94,7 +94,6 @@ public class Player : NetworkBehaviour
         TurnManager.Instance.UpdateManaPointBar();
     }
 
-    [Server]
     public void IncreaseActionPoint(int value)
     {
         _actionPoint += value;
@@ -118,5 +117,11 @@ public class Player : NetworkBehaviour
     {
         if (isOwned) TurnManager.Instance?.UpdateManaPointBar();
     }
+
+    public bool IsPlayable()
+    {
+        return playable;
+    }
+
 
 }

@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Square : AbstractSquare, IAnimation 
+public class Square : AbstractNetworkSquare, IAnimation 
 {
 
-    [SerializeField] private GameObject pieceGameObject;
+    [SyncVar][SerializeField] private GameObject pieceGameObject;
     public BuffItem _buffItem;
 
     public GameObject PieceGameObject
@@ -15,6 +16,7 @@ public class Square : AbstractSquare, IAnimation
         set => pieceGameObject = value;
     }
 
+    [ServerCallback]
     public void InitHeight(Vector2Int pos)
     {
         _position.y = 1;
@@ -40,10 +42,11 @@ public class Square : AbstractSquare, IAnimation
     
     public void MouseSelected()
     {
+
         if (!canClick) return;
         if (InputBlocker.IsPointerOverUI()) return;
         base.OnMouseDown();
-
+        if (TurnManager.Instance.GetCurrentPlayer().IsPlayable() == false) return;
         //////////// Cast Magic
         if (MagicCastManager.Instance.IsCasting > 0) {
             if(MagicCastManager.Instance.IsCasting == 2)
@@ -64,16 +67,17 @@ public class Square : AbstractSquare, IAnimation
         }
     }
 
+    [Server]
     public void ChangeHeight(int n , float duration)
     {
-        _position.y += n;
         StartCoroutine(ChangeHeightRoutine(n,duration));
 
         if(pieceGameObject != null)
+        {
             pieceGameObject?.GetComponent<Piece>().ChangeHeight(n, duration);
+        }
         if(_buffItem != null)
             _buffItem?.ChangeHeight(n, duration);
-
     }
     IEnumerator ChangeHeightRoutine(int n , float duration)
     {
@@ -88,7 +92,7 @@ public class Square : AbstractSquare, IAnimation
             yield return null; // Chờ 1 frame trước khi tiếp tục
         }
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
-
+        SetPosition(new Vector3Int(Position.x, Position.y + n, Position.z));
     }
 
 

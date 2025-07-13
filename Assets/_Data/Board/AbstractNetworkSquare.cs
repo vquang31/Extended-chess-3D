@@ -1,6 +1,7 @@
+using Mirror;
 using UnityEngine;
 
-public abstract class AbstractSquare : NewMonoBehaviour
+public class AbstractNetworkSquare : NewNetworkBehaviour
 {
     protected bool canClick = true;
 
@@ -10,7 +11,7 @@ public abstract class AbstractSquare : NewMonoBehaviour
         set { canClick = value; }
     }
 
-    [SerializeField] public  Vector3Int _position;
+    [SyncVar] public Vector3Int _position;
     public Vector3Int Position
     {
         get => _position;
@@ -18,19 +19,18 @@ public abstract class AbstractSquare : NewMonoBehaviour
     }
     protected virtual void OnMouseDown()
     {
-        //if (InputBlocker.IsPointerOverUI()) { return; }
         ClickSquare.Instance.SelectSquare(this.Position);
     }
     protected override void LoadComponents()
     {
         base.LoadComponents();
-    
+
     }
     public virtual void SetPosition(Vector3Int pos)
     {
         _position = pos;
         // transform.position.y = Square._position.y/2
         transform.position = new Vector3(pos.x, (float)pos.y / 2, pos.z);
-       
+
     }
 }

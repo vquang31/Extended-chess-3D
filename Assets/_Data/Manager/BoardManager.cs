@@ -23,8 +23,6 @@ public class BoardManager : Singleton<BoardManager>
   
     protected SquareManager _squareManager;
 
-    //protected PieceManager _pieceManager;
-
   public GameObject TargetPiece
     {
         get => targetPiece;
@@ -61,7 +59,7 @@ public class BoardManager : Singleton<BoardManager>
     public void ReturnSelectedPosition()
     {
         if(selectedPiece == null) return;
-        selectedPiece?.GetComponent<Piece>().FakeMove(selectedPosition);
+        selectedPiece.GetComponent<Piece>().FakeMove(selectedPosition);
     }
 
 
@@ -72,6 +70,7 @@ public class BoardManager : Singleton<BoardManager>
         _highlightManager = gameObject.GetComponent<HighlightManager>();
         _squareManager = gameObject.GetComponent<SquareManager>();  
     }
+
 
     public void CancelHighlightAndSelectedChess()
     {

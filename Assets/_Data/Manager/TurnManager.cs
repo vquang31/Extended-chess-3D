@@ -36,6 +36,8 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     {
         _lastTurnTime = Time.time * 1000;
     }
+
+    [Command (requiresAuthority = false)]
     public void EndPieceTurn(int cost)
     {
         Player currentPlayer = GetCurrentPlayer();
@@ -50,19 +52,28 @@ public class TurnManager  : NetworkSingleton<TurnManager>
                 }
             }
         }
-        
         ChangeTurn();
     }
 
+
+    [Command(requiresAuthority = false)]
     public void ChangeTurn()
+    {
+        //if (!isServer) return;
+        Debug.Log("ChangeTurn called on server");
+        RpcChangeTurn(); // gọi hàm RpcChangeTurn trên tất cả client
+    }
+
+
+    [ClientRpc] // cả 2 server và client đều chạy hàm này
+    public void RpcChangeTurn()
     {
         // get current time
         _lastTurnTime = Time.time * 1000; // convert to milliseconds
-        BoardManager.Instance.CancelHighlightAndSelectedChess();
+        BoardManager.Instance.CancelHighlightAndSelectedChess();   // cả 2 
 
         // switch turn
-        SwitchTurn();
-
+        SwitchTurn();  // server
         foreach (var piece in GameManager.Instance.pieces)
         {
             piece.ResetMove();
@@ -70,15 +81,17 @@ public class TurnManager  : NetworkSingleton<TurnManager>
 
         //RpcUpdateClientUI();
         // Update and Reset UI
-        UpdateAndResetUI(); //
+        UpdateAndResetUI(); // cả 2
 
         // generate item buff
-        //if(Random.Range(0, 2) == 1)
-        GeneratorItemBuff.Instance.Generate(1);
+        GeneratorItemBuff.Instance.Generate(10); //server
     }
 
+    [ServerCallback]
+    //[Server]
     private void SwitchTurn()
     {
+        Debug.Log("SwitchTurn called on server");
         if (GetCurrentTurn() == Const.SIDE_WHITE)
         {
             _currentTurn = Const.SIDE_BLACK;

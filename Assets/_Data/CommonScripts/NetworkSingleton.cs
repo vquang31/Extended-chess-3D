@@ -32,4 +32,9 @@ public abstract class NetworkSingleton<T> : NewNetworkBehaviour where T : NewNet
         if (_instance != this) Debug.LogError("Another instance of SingletonExample already exists!");
     }
 
+
+
+
+
+
 }

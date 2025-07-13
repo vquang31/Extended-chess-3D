@@ -1,20 +1,25 @@
-﻿using UnityEngine;
+﻿using Mirror;
+using UnityEngine;
+using UnityEngine.Splines.ExtrusionShapes;
 
 
 public class GeneratorItemBuff : NetworkSingleton<GeneratorItemBuff>
 {
-    protected GameObject itemBuffGameObject;
+    protected GameObject itemBuffPrefab;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
 
-        this.itemBuffGameObject = GameObject.Find("Prefab_ItemBuff");
+        this.itemBuffPrefab = SearchingMethod.FindRegisteredPrefab("Prefab_ItemBuff");
     }
 
+    [ServerCallback]
+    //[Server]
     public void Generate(int n)
     {
-        for(int i = 0; i < n; i++)
+
+        for (int i = 0; i < n; i++)
         {
             for (int attempts = 0; attempts < 100; attempts++) // Limit attempts to avoid infinite loop
             {
@@ -24,7 +29,7 @@ public class GeneratorItemBuff : NetworkSingleton<GeneratorItemBuff>
                 if (square.PieceGameObject == null && square._buffItem == null)
                 {
                     // Create new itemBuff on Square
-                    GenerateItemBuff(square);
+                    GenerateItemBuff(new Vector2Int(x,z));
                     break;
                 }
             }
@@ -32,32 +37,16 @@ public class GeneratorItemBuff : NetworkSingleton<GeneratorItemBuff>
         }
     }
 
-    public void GenerateItemBuff(Square square)
+    public void GenerateItemBuff(Vector2Int pos)
     {
-        int ran = Random.Range(1, 4 + 1);
-        //ran = 2;
-        BuffItem newBuffItem = null;
-        GameObject newItemBuffGameObject = Instantiate(itemBuffGameObject);
-        switch (ran)
-        {
-            case 1:
-                newBuffItem = newItemBuffGameObject.AddComponent<AttackBuff>();
-                break;
-            case 2:
-                newBuffItem = newItemBuffGameObject.AddComponent<ChangeMap>();
-                break;
-            case 3:
-                newBuffItem = newItemBuffGameObject.AddComponent<HpBuff>();
-                break;
-            case 4:
-                newBuffItem = newItemBuffGameObject.AddComponent<BuffManaPlayer>();
-                break;
-        }
-        
 
-        newBuffItem.SetPosition(square.Position);
-        newBuffItem.transform.SetParent(GameObject.Find("BuffItems").transform);
-        newBuffItem.name  = Method2.NameItemBuff(square.Position);
-        square._buffItem = newBuffItem;
+        int ran = Random.Range(1, 4 + 1);
+        ran = 2;
+        GameObject newItemBuffGameObject = Instantiate(itemBuffPrefab);
+        NetworkServer.Spawn(newItemBuffGameObject);
+        GameManager.Instance.RpcSaveItemBuff(newItemBuffGameObject.GetComponent<NetworkIdentity>(), pos, ran);
     }
+
+
+
 }

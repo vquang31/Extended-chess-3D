@@ -52,7 +52,6 @@ public class GeneratorPiece: NetworkSingleton<GeneratorPiece>
         this.BlackPieceVFX_Prefab = GameObject.Find("Prefab_BlackPieceVFX");
         BlackPieceVFXAnimator = BlackPieceVFX_Prefab.GetComponent<Animator>();
 
-
     }
 
 
@@ -66,11 +65,10 @@ public class GeneratorPiece: NetworkSingleton<GeneratorPiece>
             {
                 GameObject newPieceGameObject;
                 newPieceGameObject = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhitePawnPrefab : BlackPawnPrefab);
-                newPieceGameObject.name = Method2.NamePiece(i,"Pawn", j);
-                Pawn pawn = newPieceGameObject.GetComponent<Pawn>();
+
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8 ) / 2 + j
                                         , (i == Const.SIDE_WHITE) ? 1 + Random.Range(1,3 + 1) : Const.MAX_BOARD_SIZE - Random.Range(1,3 + 1));
-                SaveData(pawn,newPos2D, newPieceGameObject, i);
+                SaveData(newPos2D, newPieceGameObject, i, Method2.NamePiece(i, "Pawn", j));
             }
 
             for (int j = 1; j <= 2; j++)
@@ -79,42 +77,28 @@ public class GeneratorPiece: NetworkSingleton<GeneratorPiece>
                 GameObject newKnight = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhiteKnightPrefab : BlackKnightPrefab);
                 GameObject newBishop = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhiteBishopPrefab : BlackBishopPrefab);
                 
-                newRook.name = Method2.NamePiece(i, "Rook", j);
-                newKnight.name = Method2.NamePiece(i, "Knight", j);
-                newBishop.name = Method2.NamePiece(i, "Bishop", j);
-
-                Rook rook = newRook.GetComponent<Rook>();
-                Knight knight = newKnight.GetComponent<Knight>();
-                Bishop bishop = newBishop.GetComponent<Bishop>();
-
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + ((j == 1) ? 1 : 8)
                                                     , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-                SaveData(rook, newPos2D, newRook, i );
+                SaveData(newPos2D, newRook, i, Method2.NamePiece(i, "Rook", j));
 
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + ((j == 1) ? 2 : 7)
                                     , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-                SaveData(knight, newPos2D, newKnight, i);
+                SaveData(newPos2D, newKnight, i, Method2.NamePiece(i, "Knight", j));
 
                 newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + ((j == 1) ? 3 : 6)
                                     , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-                SaveData(bishop, newPos2D, newBishop, i);
+                SaveData(newPos2D, newBishop, i, Method2.NamePiece(i, "Bishop", j));
             }
             GameObject newQueen = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhiteQueenPrefab : BlackQueenPrefab);
             GameObject newKing  = GameObject.Instantiate((i == Const.SIDE_WHITE) ? WhiteKingPrefab : BlackKingPrefab);
-            
-            newQueen.name = Method2.NamePiece(i, "Queen", 1);
-            newKing.name = Method2.NamePiece(i, "King", 0);
-
-            Queen queen = newQueen.GetComponent<Queen>();
-            King king = newKing.GetComponent<King>();
 
             newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + 4
                                 , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-            SaveData(queen, newPos2D, newQueen, i );
+            SaveData(newPos2D, newQueen, i , Method2.NamePiece(i, "Queen", 1));
 
             newPos2D = new Vector2Int((Const.MAX_BOARD_SIZE - 8) / 2 + 5
                                 , (i == Const.SIDE_WHITE) ? 1 : Const.MAX_BOARD_SIZE);
-            SaveData(king, newPos2D, newKing , i);
+            SaveData( newPos2D, newKing , i, Method2.NamePiece(i, "King", 0));
 
         }
     }
@@ -126,17 +110,35 @@ public class GeneratorPiece: NetworkSingleton<GeneratorPiece>
     /// <param name="piece"></param>
     /// <param name="newPos2D"></param>
     /// <param name="newPieceGameObject"></param>
-    private void SaveData(Piece piece,Vector2Int newPos2D,GameObject newPieceGameObject, int side)
+    private void SaveData(Vector2Int newPos2D,GameObject newPieceGameObject, int side, string nameGO)
     {
-        //newPieceGameObject.transform.parent = GameObject.Find("Pieces").transform;
-        newPieceGameObject.AddComponent<Animator>().runtimeAnimatorController
-            = (side == Const.SIDE_WHITE) ? WhitePieceVFXAnimator.runtimeAnimatorController  : BlackPieceVFXAnimator.runtimeAnimatorController;
-
         Vector3Int newPos3D = ConvertMethod.Pos2dToPos3d(newPos2D);
-        piece.SetPosition(newPos3D);
-
         NetworkServer.Spawn(newPieceGameObject);
-        GameManager.Instance.RpcSetPieceParent(newPieceGameObject.GetComponent<NetworkIdentity>());
-        GameManager.Instance.pieces.Add(piece);   
+        RpcSetPieceParentAndPosition(newPieceGameObject.GetComponent<NetworkIdentity>() , newPos3D, side, nameGO);
     }
+
+    [ClientRpc]
+    public void RpcSetPieceParentAndPosition(NetworkIdentity pieceNetId, Vector3Int newPos3D, int side, string nameGO)
+    {
+        GameObject pieceGO = pieceNetId.gameObject;
+
+        Transform parent = GameObject.Find("Pieces")?.transform;
+        if (parent != null)
+        {
+            pieceGO.transform.SetParent(parent);
+        }
+
+        pieceGO.name = nameGO;
+
+        pieceGO.AddComponent<Animator>().runtimeAnimatorController
+    = (side == Const.SIDE_WHITE) ? WhitePieceVFXAnimator.runtimeAnimatorController : BlackPieceVFXAnimator.runtimeAnimatorController;
+
+
+        Piece piece = pieceGO.GetComponent<Piece>();
+        piece.SetPosition(newPos3D);
+        GameManager.Instance.pieces.Add(piece);
+    }
+
+
+
 }

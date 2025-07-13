@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public class ChangeMap : BuffItem
@@ -13,6 +14,7 @@ public class ChangeMap : BuffItem
     {
         return "Change height of " + _amount + " square";
     }
+    [Command(requiresAuthority = false)]
     public override void ApplyEffect(Piece piece)
     {
         base.ApplyEffect(piece);
