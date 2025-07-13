@@ -32,6 +32,7 @@ public class NewMonoBehaviour : MonoBehaviour
 
     }
 
+
     protected virtual void ResetValues()
     {
 

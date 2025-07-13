@@ -17,13 +17,11 @@ public class BoardManager : Singleton<BoardManager>
     ///            piece 
     ///  
     /// </summary>
-    protected GameObject BoardGameObject;
+
 
     protected HighlightManager _highlightManager;
   
     protected SquareManager _squareManager;
-
-    //protected PieceManager _pieceManager;
 
   public GameObject TargetPiece
     {
@@ -61,7 +59,7 @@ public class BoardManager : Singleton<BoardManager>
     public void ReturnSelectedPosition()
     {
         if(selectedPiece == null) return;
-        selectedPiece?.GetComponent<Piece>().FakeMove(selectedPosition);
+        selectedPiece.GetComponent<Piece>().FakeMove(selectedPosition);
     }
 
 
@@ -69,10 +67,10 @@ public class BoardManager : Singleton<BoardManager>
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        BoardGameObject = GameObject.Find("Board");
         _highlightManager = gameObject.GetComponent<HighlightManager>();
         _squareManager = gameObject.GetComponent<SquareManager>();  
     }
+
 
     public void CancelHighlightAndSelectedChess()
     {

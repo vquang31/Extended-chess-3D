@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public class BuffManaPlayer : BuffItem
@@ -15,6 +16,7 @@ public class BuffManaPlayer : BuffItem
         return "Player gain " + _manaBuff + "mana point ";
     }
 
+    [Command(requiresAuthority = false)]
     public override void ApplyEffect(Piece piece)
     {
         TurnManager.Instance.GetPlayer(piece.Side).IncreaseMana(_manaBuff);

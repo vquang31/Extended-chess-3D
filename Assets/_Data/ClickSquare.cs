@@ -9,7 +9,7 @@ public class ClickSquare : Singleton<ClickSquare>
 
 
     [SerializeField]
-    public AbstractSquare square;
+    public Square square;
 
     protected override void LoadComponents()
     {
@@ -21,23 +21,24 @@ public class ClickSquare : Singleton<ClickSquare>
     ///  Hàm này sẽ được gọi đầu tiên khi click vào ô nào đó hoặc quân cờ nào đó
     /// </summary>
     /// <param name="square"></param>
-    public void SelectSquare(AbstractSquare square)
+    public void SelectSquare(Vector3Int positionSquare)
     {
+        Square newSquare = SearchingMethod.FindSquareByPosition(positionSquare);
         if (square == null)
         {
-            this.square = square;
+            this.square = newSquare;
             lastClickTime = Time.time;
         }
         else
         {
-            if(square == this.square)
+            if(newSquare == this.square)
             {
                 if(Time.time - lastClickTime < doubleClickThreshold)
                 {
-                    changeTargetCamera();
+                    ChangeTargetCamera();
                 }
             }
-            this.square = square;
+            this.square = newSquare;
             lastClickTime = Time.time;
         }
         selectCell.UpdatePosition(square.transform.position);
@@ -80,7 +81,7 @@ public class ClickSquare : Singleton<ClickSquare>
         return;
     }
 
-    public void changeTargetCamera()
+    public void ChangeTargetCamera()
     {
         CameraManager.Instance.SetTarget(square);
     }

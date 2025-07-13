@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public class HpBuff : BuffItem
@@ -14,6 +15,7 @@ public class HpBuff : BuffItem
         return "Heal for piece " + _hpBuff + " HP" ;
     }
 
+    [Command(requiresAuthority = false)]
     public override void ApplyEffect(Piece piece)
     {
         base.ApplyEffect(piece);

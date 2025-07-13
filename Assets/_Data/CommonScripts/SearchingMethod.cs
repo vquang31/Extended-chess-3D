@@ -1,6 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
-
+using Mirror;
 public class SearchingMethod
 {
 
@@ -55,5 +55,17 @@ public class SearchingMethod
     {
         return FindPieceByPosition(ConvertMethod.Pos3dToPos2d(pos));
     }
+    /// NetworkManager
+    /// 
+    static public GameObject FindRegisteredPrefab(string prefabName)
+    {
+        foreach (GameObject prefab in NetworkManager.singleton.spawnPrefabs)
+        {
+            if (prefab.name == prefabName)
+                return prefab;
+        }
+        return null;
+    }
+
 
 }

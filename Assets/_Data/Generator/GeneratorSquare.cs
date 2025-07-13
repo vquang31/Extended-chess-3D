@@ -1,9 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Mirror;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class GeneratorSquare : Singleton<GeneratorSquare>
+public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
 {
     [SerializeField] public bool log = false;
     // White
@@ -18,13 +19,12 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
 
     protected override void LoadComponents()
     {
-        this._squarePrefab1 = GameObject.Find("Prefab_WhiteSquare");
-        this._squarePrefab2 = GameObject.Find("Prefab_BlackSquare");
+        _squarePrefab1 = SearchingMethod.FindRegisteredPrefab("Prefab_WhiteSquare");
+        _squarePrefab2 = SearchingMethod.FindRegisteredPrefab("Prefab_BlackSquare");
     }
 
     public void Generate()
     {
-        if(log) UnityEngine.Debug.Log("Generate Square"); 
         // Generate square
         bool isWhite = false;
         for (int z = 1; z <= Const.MAX_BOARD_SIZE; z++)
@@ -32,12 +32,10 @@ public class GeneratorSquare : Singleton<GeneratorSquare>
             for (int x = 1; x <= Const.MAX_BOARD_SIZE; x++)
             {
                 GameObject newSquareGameObject;
-                newSquareGameObject = GameObject.Instantiate((isWhite) ? _squarePrefab1 : _squarePrefab2);
-                newSquareGameObject.name = Method2.NameSquare(x, z);
-                newSquareGameObject.transform.parent = GameObject.Find("BoardSquare").transform;
-                
-                Square square = newSquareGameObject.GetComponent<Square>();   
-                square.InitHeight(new Vector2Int(x,z));
+                newSquareGameObject = Instantiate((isWhite) ? _squarePrefab1 : _squarePrefab2);
+                NetworkServer.Spawn(newSquareGameObject);
+                GameManager.Instance.RpcSpawnSquare
+                    (newSquareGameObject.GetComponent<NetworkIdentity>(), new Vector2Int(x, z));
 
                 isWhite = !isWhite;
             }

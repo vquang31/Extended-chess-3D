@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,6 +61,7 @@ public class Knight : Piece
 
 
 
+    [Command(requiresAuthority = false)]
     public override void SetPosition(Vector3Int pos)
     {
         base.SetPosition(pos);

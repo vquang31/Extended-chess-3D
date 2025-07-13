@@ -4,39 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Const;
+using Mirror;
 
-public class Piece : NewMonoBehaviour, IAnimation
+public class Piece : NewNetworkBehaviour, IAnimation
 {
-    [SerializeField] private Vector3Int _position = Vector3Int.zero;
-    [SerializeField] private int _side;
-    private int _maxHp;
-    protected int _attackPoint;
-    [SerializeField]protected int _hp;
-    protected int _jumpPoint;
-    protected int _heightRangeAttack;    // height range attack of piece
-    private int _movePoint;
-    private int _cost;
 
-    private bool _isMoving = false; // check if piece is moving or not
+    [SyncVar] private Vector3Int _position = Vector3Int.zero;
+    [SyncVar] private int _side;
+    [SyncVar] private int _maxHp;
+    [SyncVar] protected int _attackPoint;
+    [SyncVar] protected int _hp;
+    [SyncVar] protected int _jumpPoint;
+    [SyncVar] protected int _heightRangeAttack;    // height range attack of piece
+    [SyncVar] private int _movePoint;
+    [SyncVar] private int _cost;
+
+    [SyncVar]private bool _isMoving = false; // check if piece is moving or not
 
     private Animator animator;
 
-    public Vector3Int Position
-    {
-        get => _position;
-    }
-    public int MaxHp
-    {
-        get => _maxHp;
-    }
-    public int Hp
-    {
-        get => _hp;
-    }
-    public int JumpPoint
-    {
-        get => _jumpPoint;
-    }
+    public Vector3Int Position => _position;
+    public int MaxHp => _maxHp;
+    public int Hp => _hp;
+    public int JumpPoint => _jumpPoint;
     public void BuffHp(int buff)
     {
         _hp += buff;
@@ -50,14 +40,10 @@ public class Piece : NewMonoBehaviour, IAnimation
         get => _attackPoint;
         set => _attackPoint = value;
     }   
-    public int Side
-    {
-        get => _side;
-    }
-    public int HeightRangeAttack
-    {
-        get => _heightRangeAttack;
-    }
+    public int Side => _side;
+
+    public int HeightRangeAttack  => _heightRangeAttack;
+
     public int MovePoint
     {
         get => _movePoint;
@@ -71,11 +57,17 @@ public class Piece : NewMonoBehaviour, IAnimation
 
     protected List<Effect> effects;
 
-    protected override void Awake()
+    public void Update()
     {
-        base.Awake();
-        this.LoadComponents();
-        this.LoadSide();
+        if (_side < -100)
+        {
+            TestUpdate();
+        }
+    }
+
+    public void TestUpdate()
+    {
+        _side = 1000;
     }
 
     protected override void LoadComponents()
@@ -87,8 +79,21 @@ public class Piece : NewMonoBehaviour, IAnimation
     protected override void Start()
     {
         this.Reset();
+        //Debug.Log("Piece OnStart" + this.gameObject.name);
     }
-    
+
+    public override void OnStartClient()
+    {
+        //Debug.Log("Piece OnStartClient" + this.gameObject.name);
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        //Debug.Log("Piece OnStartServer" + this.gameObject.name);
+
+    }
+
     protected override void Reset()
     {
         this.LoadComponents();
@@ -187,6 +192,8 @@ public class Piece : NewMonoBehaviour, IAnimation
         }
     }
 
+
+    [Command (requiresAuthority = false)]
     /// <summary>
     ///  Set _position, set transform.position of Piece
     ///  and set PieceGameObject of Square
@@ -194,15 +201,11 @@ public class Piece : NewMonoBehaviour, IAnimation
     /// <param name="pos"> new Position </param>
     public virtual void SetPosition(Vector3Int newPos)
     {
-        // ???
-        // DO NOT CHANGE
-
         _position = newPos;
-
         // Đặt piece lên trên Square
         // kể cả khi Prefab_Square thay đổi height(localScale.y) thì piece vẫn nằm ở trên Square(sàn)
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
-        transform.position = new Vector3(0,1,0) * (height) + new Vector3(_position.x, (float)_position.y / 2, _position.z);
+        transform.position = new Vector3(0, 1, 0) * (height) + new Vector3(_position.x, (float)_position.y / 2, _position.z);
 
         SearchingMethod.FindSquareByPosition(newPos).PieceGameObject = this.gameObject;
     }
@@ -225,10 +228,7 @@ public class Piece : NewMonoBehaviour, IAnimation
             }
             else
             {
-                if (BoardManager.Instance.selectedPiece != null)
-                {
-                    BoardManager.Instance.ReturnSelectedPosition();
-                }
+                BoardManager.Instance.ReturnSelectedPosition();
                 BoardManager.Instance.CancelHighlightAndSelectedChess();
                 // Debug
                 Debug.Log(this.gameObject.name);
@@ -237,22 +237,14 @@ public class Piece : NewMonoBehaviour, IAnimation
                 // Camera
                 CameraManager.Instance.SetTarget();
 
-
-                // Highlight // dont change order
-                // reason: When call HighlightValidMoves() first, square will hide and we can not see and select this square
-                HighlightManager.Instance.HighlightSelf(Position);
-                HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
-                HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
+                StartCoroutine(HighlightPiece());
 
                 // UI
                 SelectPieceUIManager.Instance.ShowUI();
             }
-            /// show information of piece   
-            /// 
         }
         else
         {
-
             // neu mà quân cơ này đứng trên ô đỏ thì
             List<GameObject> listHighlight = HighlightManager.Instance.highlights;
             foreach (var hightlight in listHighlight)
@@ -269,7 +261,18 @@ public class Piece : NewMonoBehaviour, IAnimation
         }
 
     }
+    private IEnumerator HighlightPiece()
+    {
+        yield return new WaitForSeconds(0.05f);
+        // Đảm bảo oardManager.Instance.ReturnSelectedPosition(); chạy trước
+        // Highlight // dont change order
+        // reason: When call HighlightValidMoves() first, square will hide and we can not see and select this square
+        HighlightManager.Instance.HighlightSelf(Position);
+        HighlightManager.Instance.HighlightValidMoves(GetValidMoves());
+        HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
+    }
 
+    [Command(requiresAuthority = false)]
     public virtual void FakeMove(Vector3Int newPos)
     {
         SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
@@ -284,14 +287,13 @@ public class Piece : NewMonoBehaviour, IAnimation
         // update data board
         // update data square
 
-        MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);
+        MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);    /// offline
 
-        BoardManager.Instance.CancelHighlightAndSelectedChess();
-        //SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
+        BoardManager.Instance.CancelHighlightAndSelectedChess();                 /// offline
         Square square = SearchingMethod.FindSquareByPosition(Position);
         if(square._buffItem != null)
         {
-            animator.SetTrigger("ReceiveBuff");
+            CmdAnimatorSetTrigger("ReceiveBuff");
             square._buffItem.ApplyEffect(this);
             square._buffItem.Delete();
         }
@@ -321,7 +323,7 @@ public class Piece : NewMonoBehaviour, IAnimation
     {
         _hp -= damage;
 
-        animator.SetTrigger("TakeDamage");
+        CmdAnimatorSetTrigger("TakeDamage");
 
         if (_hp <= 0)
         {
@@ -336,9 +338,10 @@ public class Piece : NewMonoBehaviour, IAnimation
         GameManager.Instance.pieces.Remove(this);
         Destroy(gameObject , timeDie );
     }
+    
+    
     public void ChangeHeight(int n, float duration)
     {
-        _position.y += n;
         StartCoroutine(ChangeHeightRoutine(n, duration));
     }
     IEnumerator ChangeHeightRoutine(int n , float duration)
@@ -353,6 +356,19 @@ public class Piece : NewMonoBehaviour, IAnimation
             yield return null; // Chờ 1 frame trước khi tiếp tục
         }
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
+        SetPosition(new Vector3Int(Position.x, Position.y + n, Position.z));
+
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdAnimatorSetTrigger(string nameTrigger)
+    {
+        RpcAnimatorSetTrigger(nameTrigger);
+    }
+    [ClientRpc]
+    private void RpcAnimatorSetTrigger(string nameTrigger)
+    {
+        animator.SetTrigger(nameTrigger);
     }
 
 }

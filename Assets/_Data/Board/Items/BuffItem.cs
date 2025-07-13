@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using UnityEngine;
 
-public class BuffItem : NewMonoBehaviour ,IAnimation
+public class BuffItem : NewNetworkBehaviour ,IAnimation
 {
-
+    [SyncVar]private Vector3Int _position;
     protected override void Start()
     {
         InitValue();
@@ -19,7 +20,7 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
         return "";
     }
 
-    private Vector3Int _position;
+
 
     public Vector3Int Position
     {
@@ -29,9 +30,9 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
 
     protected override void LoadComponents()
     {
-        //_mainCamera = Camera.main;
     }
 
+    [ServerCallback]
     public void SetPosition(Vector3Int pos)
     {
         Position = pos;
@@ -39,6 +40,7 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
         transform.position = new Vector3(0, 1, 0) * (height) + new Vector3(Position.x, (float)Position.y / 2 + 0.1f, Position.z);
     }
 
+    [Command(requiresAuthority = false)]
     public virtual void ApplyEffect(Piece piece)
     {
         // Apply effect to the piece
@@ -56,10 +58,8 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
     //    transform.Rotate(0, 180f, 0);
     //}
 
-
     public void ChangeHeight(int n, float duration)
     {
-        _position.y += n;
         StartCoroutine(ChangeHeightRoutine(n, duration));
     }
 
@@ -76,11 +76,18 @@ public class BuffItem : NewMonoBehaviour ,IAnimation
             yield return null; // Chờ 1 frame trước khi tiếp tục
         }
         transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
+        SetPosition(new Vector3Int(Position.x, Position.y + n, Position.z));
     }
 
     protected void OnMouseDown()
     {
         if (InputBlocker.IsPointerOverUI()) return;
-        ClickSquare.Instance.SelectSquare(SearchingMethod.FindSquareByPosition(Position));
+        ClickSquare.Instance.SelectSquare(Position);
+    }
+
+    [Command(requiresAuthority = false)]
+    public new void Delete()
+    {
+        Destroy(gameObject);
     }
 }

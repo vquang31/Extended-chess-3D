@@ -8,6 +8,6 @@ public class Prefabs : NewMonoBehaviour
     }
     protected override void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }
