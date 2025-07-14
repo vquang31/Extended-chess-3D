@@ -48,8 +48,14 @@ public class ChessNetworkManager : NetworkManager
             }
             //turnManager.TargetSetActiveOfflineManager(conn);
         }
-
-        nextTeam = Const.SIDE_BLACK;
+        if(nextTeam == Const.SIDE_WHITE)
+        {
+            nextTeam = Const.SIDE_BLACK;
+        }
+        else
+        {
+            nextTeam = Const.SIDE_WHITE;
+        }
     }
 
 

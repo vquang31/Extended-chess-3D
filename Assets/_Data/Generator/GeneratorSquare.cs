@@ -208,7 +208,7 @@ public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
     {
         Square square = SearchingMethod.FindSquareByPosition(pos);
         //square.SetPosition(new Vector3Int(pos.x, pos.y - 1, pos.z));
-        square.ChangeHeight(pos.y - 1, Const.CHANGE_HEIGHT_INIT_DURATION);
+        square.CmdChangeHeight(pos.y - 1, Const.CHANGE_HEIGHT_INIT_DURATION);
 
     }
 

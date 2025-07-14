@@ -72,7 +72,7 @@ public class Player : NetworkBehaviour
     }
 
 
-    [Server]
+    [Command (requiresAuthority = false)]
     public void StartTurn()
     {
         _actionPoint = _maxActionPoint;
@@ -80,7 +80,8 @@ public class Player : NetworkBehaviour
         IncreaseMana(Const.INCREASE_MANA_PER_TURN);
     }
 
-   [Server] public void EndTurn()
+    [Command(requiresAuthority = false)]
+    public void EndTurn()
     {
 
     }
@@ -98,7 +99,7 @@ public class Player : NetworkBehaviour
     {
         _actionPoint += value;
         if (_actionPoint > _maxActionPoint) _actionPoint = _maxActionPoint;
-        //TurnManager.Instance.UpdateActionPointBar(); // ?
+        TurnManager.Instance.UpdateActionPointBar(); // ?
     }
 
 
