@@ -306,8 +306,8 @@ public class Piece : NewNetworkBehaviour, IAnimation
         Move();
 
         Vector3Int direction = BoardManager.Instance.TargetPiece.GetComponent<Piece>().Position - this.Position;
-        Debug.Log(direction);
-        EffectManager.Instance.PlayEffect(Const.FX_ATTACK_PIECE, this.Position, direction);
+
+        EffectManager.Instance.CmdPlayEffect(Const.FX_ATTACK_PIECE, this.Position, direction);
         
         BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint ,  Const.VFX_PIECE_TAKE_DAMAGE_DURATION);
     }
@@ -319,6 +319,7 @@ public class Piece : NewNetworkBehaviour, IAnimation
         BoardManager.Instance.TargetPiece.GetComponent<Piece>().Delete();
     }
 
+    [Command(requiresAuthority = false)]
     public virtual void TakeDamage(int damage, float timeDie)
     {
         _hp -= damage;
@@ -338,8 +339,8 @@ public class Piece : NewNetworkBehaviour, IAnimation
         GameManager.Instance.pieces.Remove(this);
         Destroy(gameObject , timeDie );
     }
-    
-    
+
+
     public void ChangeHeight(int n, float duration)
     {
         StartCoroutine(ChangeHeightRoutine(n, duration));

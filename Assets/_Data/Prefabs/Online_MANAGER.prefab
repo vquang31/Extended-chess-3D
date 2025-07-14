@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4904923256470286729}
   - component: {fileID: 2289374526874422507}
   - component: {fileID: 2159690300220945428}
+  - component: {fileID: -1206322049810747174}
   m_Layer: 0
   m_Name: Online_MANAGER
   m_TagString: Untagged
@@ -102,7 +103,22 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  generateMap: 1
+  generateMap: 0
+--- !u!114 &-1206322049810747174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257733890542226663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282c8c8f02f0f3e4d81b94d9d7c19e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &6371579463984509419
 GameObject:
   m_ObjectHideFlags: 0

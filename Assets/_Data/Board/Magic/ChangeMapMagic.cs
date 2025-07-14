@@ -28,6 +28,6 @@ public class ChangeMapMagic : Magic
         base.ApplyEffectToSquare(position);
         ///
         Square square = SearchingMethod.FindSquareByPosition(position);
-        square.ChangeHeight(Const.HEIGHT_INCREASE_MAGIC,Const.CHANGE_HEIGHT_EFFECT_DURATION);
+        square.CmdChangeHeight(Const.HEIGHT_INCREASE_MAGIC,Const.CHANGE_HEIGHT_EFFECT_DURATION);
     }
 }

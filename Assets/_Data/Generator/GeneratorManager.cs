@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GeneratorManager : NetworkSingleton<GeneratorManager>
 {
-    private CinemachineCamera cinemachineCamera;
 
     private GeneratorPiece generatorPiece;
     private GeneratorSquare generatorSquare;

@@ -47,6 +47,9 @@ public class Square : AbstractNetworkSquare, IAnimation
         if (InputBlocker.IsPointerOverUI()) return;
         base.OnMouseDown();
         if (TurnManager.Instance.GetCurrentPlayer().IsPlayable() == false) return;
+        if (TurnManager.Instance.GetPlayablePlayer().Side != TurnManager.Instance.GetCurrentTurn()) return;
+        // 2 điều kiện giống nhau
+
         //////////// Cast Magic
         if (MagicCastManager.Instance.IsCasting > 0) {
             if(MagicCastManager.Instance.IsCasting == 2)
@@ -66,6 +69,13 @@ public class Square : AbstractNetworkSquare, IAnimation
             pieceGameObject.GetComponent<Piece>().MouseSelected();
         }
     }
+
+    [Command(requiresAuthority = false)]
+    public void CmdChangeHeight(int n, float duration)
+    {
+        ChangeHeight(n, duration);
+    }
+
 
     [Server]
     public void ChangeHeight(int n , float duration)

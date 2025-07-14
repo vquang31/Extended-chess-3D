@@ -17,6 +17,7 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     protected ActionPointBar pointTurnBar;
     protected ManaPointBar manaPointBar;
     protected GameObject announcementTurnUI;
+    protected GameObject playable_UIGameObject;
 
     public override void OnStartServer()
     {
@@ -29,7 +30,7 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         pointTurnBar = GameObject.Find("SliderActionPoint").GetComponent<ActionPointBar>();
         manaPointBar = GameObject.Find("SliderManaPoint").GetComponent<ManaPointBar>();
         announcementTurnUI = GameObject.Find("AnnouncementTurnUI");
-    
+        playable_UIGameObject = GameObject.Find("Playable_UI");
     }
 
     protected override void Start()
@@ -72,6 +73,15 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         _lastTurnTime = Time.time * 1000; // convert to milliseconds
         BoardManager.Instance.CancelHighlightAndSelectedChess();   // cả 2 
 
+        if(GetCurrentTurn() == Const.SIDE_WHITE)
+        {
+            _currentTurn = Const.SIDE_BLACK;
+        }
+        else
+        {
+            _currentTurn = Const.SIDE_WHITE;
+        }
+
         // switch turn
         SwitchTurn();  // server
         foreach (var piece in GameManager.Instance.pieces)
@@ -84,7 +94,7 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         UpdateAndResetUI(); // cả 2
 
         // generate item buff
-        GeneratorItemBuff.Instance.Generate(10); //server
+        GeneratorItemBuff.Instance.Generate(2); //server
     }
 
     [ServerCallback]
@@ -94,16 +104,13 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         Debug.Log("SwitchTurn called on server");
         if (GetCurrentTurn() == Const.SIDE_WHITE)
         {
-            _currentTurn = Const.SIDE_BLACK;
-            player1.EndTurn();
-            player2.StartTurn();
-
+            player1.StartTurn();
+            player2.EndTurn();
         }
         else
         {
-            _currentTurn = Const.SIDE_WHITE;
-            player1.StartTurn();
-            player2.EndTurn();
+            player1.EndTurn();
+            player2.StartTurn();
         }
     }
 
@@ -126,9 +133,19 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         UpdateManaPointBar();
         //announcement
         announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn(GetCurrentTurn());
-
+        // update playable UI
+        Debug.Log(GetPlayablePlayer());
+        Debug.Log(GetPlayablePlayer().Side);
+        Debug.Log(GetCurrentTurn());
+        playable_UIGameObject.SetActive(GetPlayablePlayer().Side == GetCurrentTurn());
 
         MagicCastManager.Instance.EndCasting();
+    }
+
+    public Player GetPlayablePlayer()
+    {
+        if (player1.IsPlayable()) return player1;
+        else return player2;
     }
 
     public void UpdateManaPointBar()

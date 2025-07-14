@@ -1,6 +1,7 @@
+using Mirror;
 using UnityEngine;
 
-public class EffectManager : Singleton<EffectManager>
+public class EffectManager : NetworkSingleton<EffectManager>
 {
 
     protected GameObject gameObjectEffect;
@@ -19,10 +20,18 @@ public class EffectManager : Singleton<EffectManager>
     
     public void PlayEffect(int typeVFX, Vector3Int position)
     {
-        PlayEffect(typeVFX, position, Vector3Int.zero);
+        CmdPlayEffect(typeVFX, position, Vector3Int.zero);
     }
 
-    public void PlayEffect(int typeVFX, Vector3Int position, Vector3Int direction)
+    [Command (requiresAuthority = false)]
+    public void CmdPlayEffect(int typeVFX, Vector3Int position, Vector3Int direction)
+    {
+        RpcPlayEffect(typeVFX, position, direction);
+    }
+
+
+    [ClientRpc]
+    private void RpcPlayEffect(int typeVFX, Vector3Int position, Vector3Int direction)
     {
         GameObject vfxPrefab = null;
         Vector3 newPosition = new();
@@ -42,7 +51,7 @@ public class EffectManager : Singleton<EffectManager>
                 break;
             case Const.FX_ATTACK_PIECE:
                 vfxPrefab = attackPieceVFXPrefab;
-                newPosition = new Vector3(position.x , (float)position.y + 5f , position.z );
+                newPosition = new Vector3(position.x, (float)position.y + 5f, position.z);
                 vfxExists = true;
                 timeDuration = Const.VFX_ATTACK_PIECE_DURATION;
                 break;
@@ -54,9 +63,9 @@ public class EffectManager : Singleton<EffectManager>
         {
             GameObject vfxInstance = Instantiate(vfxPrefab, newPosition, Quaternion.identity);
 
-            if(direction != Vector3Int.zero)
+            if (direction != Vector3Int.zero)
             {
-                vfxInstance.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x,direction.y, direction.z));
+                vfxInstance.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
             }
             else
             {
@@ -64,7 +73,8 @@ public class EffectManager : Singleton<EffectManager>
             }
 
             // Add VFX_2D component for 2D effects
-            if (isVFX2D) { 
+            if (isVFX2D)
+            {
                 vfxInstance.AddComponent<VFX_2D>();
             }
             vfxInstance.transform.parent = gameObjectEffect.transform;
@@ -72,4 +82,5 @@ public class EffectManager : Singleton<EffectManager>
         }
         SoundFXMananger.Instance.PlaySoundFX(typeVFX, gameObjectEffect.transform); // Play sound effect without VFX
     }
+
 }
