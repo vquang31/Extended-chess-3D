@@ -51,18 +51,18 @@ public class Player : NetworkBehaviour
 
     public void Update()
     {
-        if(_actionPoint < 0)
-        {
-            TestUpdate();
-        }
+        //if(_actionPoint < 0)
+        //{
+        //    TestUpdate();
+        //}
     }
 
 
 
-    public void TestUpdate()
-    {
-        _actionPoint = 1000;
-    }
+    //public void TestUpdate()
+    //{
+    //    _actionPoint = 1000;
+    //}
 
 
     public void InitSide(int side)
@@ -76,7 +76,7 @@ public class Player : NetworkBehaviour
     public void StartTurn()
     {
         _actionPoint = _maxActionPoint;
-
+        TurnManager.Instance.RpcUpdateActionPointBar();
         IncreaseMana(Const.INCREASE_MANA_PER_TURN);
     }
 
@@ -85,6 +85,7 @@ public class Player : NetworkBehaviour
     {
 
     }
+    [Command(requiresAuthority = false)]
     public void IncreaseMana(int mana)
     {
         _mana += mana;
@@ -92,14 +93,14 @@ public class Player : NetworkBehaviour
         {
             _mana = Const.MAX_MANA;
         }
-        TurnManager.Instance.UpdateManaPointBar();
+        TurnManager.Instance.RpcUpdateManaPointBar();
     }
 
     public void IncreaseActionPoint(int value)
     {
         _actionPoint += value;
         if (_actionPoint > _maxActionPoint) _actionPoint = _maxActionPoint;
-        TurnManager.Instance.UpdateActionPointBar(); // ?
+        TurnManager.Instance.RpcUpdateActionPointBar(); 
     }
 
 
@@ -109,15 +110,15 @@ public class Player : NetworkBehaviour
         //TurnManager.Instance?.UpdateTurnUI(newVal); // Hiển thị icon lượt chơi
     }
 
-    private void OnActionPointChanged(int oldVal, int newVal)
-    {
-        if (isOwned) TurnManager.Instance?.UpdateActionPointBar();
-    }
+    //private void OnActionPointChanged(int oldVal, int newVal)
+    //{
+    //    if (isOwned) TurnManager.Instance?.RpcUpdateActionPointBar();
+    //}
 
-    private void OnManaChanged(int oldVal, int newVal)
-    {
-        if (isOwned) TurnManager.Instance?.UpdateManaPointBar();
-    }
+    //private void OnManaChanged(int oldVal, int newVal)
+    //{
+    //    if (isOwned) TurnManager.Instance?.UpdateManaPointBar();
+    //}
 
     public bool IsPlayable()
     {

@@ -34,7 +34,7 @@ public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
                 GameObject newSquareGameObject;
                 newSquareGameObject = Instantiate((isWhite) ? _squarePrefab1 : _squarePrefab2);
                 NetworkServer.Spawn(newSquareGameObject);
-                GameManager.Instance.RpcSpawnSquare
+                RpcSpawnSquare
                     (newSquareGameObject.GetComponent<NetworkIdentity>(), new Vector2Int(x, z));
 
                 isWhite = !isWhite;
@@ -43,6 +43,19 @@ public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
         }
 
     }
+
+
+    [ClientRpc]
+    public void RpcSpawnSquare(NetworkIdentity newItemBuffId, Vector2Int v)
+    {
+        GameObject newSquareGO = newItemBuffId.gameObject;
+        newSquareGO.name = Method2.NameSquare(v);
+        newSquareGO.transform.parent = GameObject.Find("BoardSquare").transform;
+
+        Square square = newSquareGO.GetComponent<Square>();
+        square.InitHeight(v);
+    }
+
     public void GenerateMap()
     {
         //GenerateMountain(new Vector3Int(8, 8, 8));
@@ -76,8 +89,6 @@ public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
         }
         return listPosition;
     }
-
-
 
     /// <summary>
     ///  pos.x: x,
@@ -133,11 +144,8 @@ public class GeneratorSquare : NetworkSingleton<GeneratorSquare>
                         // cách này sai do hàm ChangeHeightRoutine bị ghi đè
                         //square.ChangeHeight(currentHeight - square.Position.y, Const.CHANGE_HEIGHT_INIT_DURATION); // giá trị mới = currentHeight đơn vị
                         
-                       
                         // cách này đúng nhưng không có animation
                         //square.SetPosition(new Vector3Int(pos.x + x, currentHeight, pos.z + z)); 
-
-
                     }
                 }
             }

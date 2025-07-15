@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class TurnManager  : NetworkSingleton<TurnManager>
@@ -61,7 +62,6 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     public void ChangeTurn()
     {
         //if (!isServer) return;
-        Debug.Log("ChangeTurn called on server");
         RpcChangeTurn(); // gọi hàm RpcChangeTurn trên tất cả client
     }
 
@@ -101,7 +101,6 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     //[Server]
     private void SwitchTurn()
     {
-        Debug.Log("SwitchTurn called on server");
         if (GetCurrentTurn() == Const.SIDE_WHITE)
         {
             player1.StartTurn();
@@ -114,29 +113,17 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         }
     }
 
-    [ClientRpc]
-    private void RpcUpdateClientUI()
-    {
-        UpdateAndResetUI(); //  client mới update UI
-    }
-
     private void UpdateAndResetUI()
     {
 
-
         // reset point turn bar
-        Player currentPlayer = GetCurrentPlayer();
-        pointTurnBar.SetPoint(currentPlayer.ActionPoint);
-
+         UpdateActionPointBar();
 
         // update mana point bar    
-        UpdateManaPointBar();
+        if(isServer) RpcUpdateManaPointBar();
         //announcement
         announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn(GetCurrentTurn());
         // update playable UI
-        Debug.Log(GetPlayablePlayer());
-        Debug.Log(GetPlayablePlayer().Side);
-        Debug.Log(GetCurrentTurn());
         playable_UIGameObject.SetActive(GetPlayablePlayer().Side == GetCurrentTurn());
 
         MagicCastManager.Instance.EndCasting();
@@ -148,16 +135,40 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         else return player2;
     }
 
+    [ClientRpc]
+    public void RpcUpdateManaPointBar()
+    {
+        StartCoroutine(UpdateManaPointBarRoutine());
+    }
+
+    IEnumerator UpdateManaPointBarRoutine()
+    {
+        yield return new WaitForSeconds(0.1f); // wait for a short time to ensure UI is ready
+        UpdateManaPointBar();   
+    }
     public void UpdateManaPointBar()
     {
         manaPointBar.SetPoint(GetCurrentPlayer().Mana);
     }
 
-    public void UpdateActionPointBar()
+
+    [ClientRpc]
+    public void RpcUpdateActionPointBar()
     {
-        pointTurnBar.SetPoint(GetCurrentPlayer().ActionPoint);
+        StartCoroutine(UpdateActionPointBarRoutine());
     }
 
+    IEnumerator UpdateActionPointBarRoutine()
+    {
+        yield return new WaitForSeconds(0.1f); // wait for a short time to ensure UI is ready
+        UpdateActionPointBar();
+    }
+
+    public void UpdateActionPointBar()
+    {
+
+        pointTurnBar.SetPoint(GetPlayablePlayer().ActionPoint);
+    }
 
     public int GetCurrentTurn()
     {
