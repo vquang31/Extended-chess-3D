@@ -79,9 +79,9 @@ public class RedHighlight: Highlight
     {
         Piece piece = BoardManager.Instance.selectedPiece.gameObject.GetComponent<Piece>();
 
-        if (validAttackPositions.Contains(piece.Position))
+        if (validAttackPositions.Contains(BoardManager.Instance.FakeMovePosition))
         {
-            int index = validAttackPositions.IndexOf(piece.Position);
+            int index = validAttackPositions.IndexOf(BoardManager.Instance.FakeMovePosition);
             index++;
             if (index == validAttackPositions.Count)
             {

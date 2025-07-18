@@ -10,6 +10,8 @@ public class BoardManager : Singleton<BoardManager>
     private GameObject targetPiece;
     private Vector3Int targetPosition;
 
+    public Vector3Int FakeMovePosition;
+
     /// <summary>
     ///  this class is used to manage the board 
     ///  contains: square 
@@ -82,19 +84,5 @@ public class BoardManager : Singleton<BoardManager>
         // Camera
         CameraManager.Instance.CancelTarget();
     }
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="side"> side of enemy</param>
-    /// <returns></returns>
-    public bool IsSquareOccupiedByOpponent(Vector2Int position, int side) {
-        if(SearchingMethod.IsSquareValid(position) == false) return false;
-        if(SearchingMethod.IsSquareEmpty(position)) return false;
-        return SearchingMethod.FindPieceByPosition(position).Side == side;
-    }
-
 
 }

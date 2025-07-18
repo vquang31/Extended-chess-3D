@@ -20,7 +20,7 @@ public class Const
     public const float CHANGE_HEIGHT_INIT_DURATION = 1.5f;
 
 
-    public const double PERCENTAGE_OF_MAX_HP_TO_KILL = 0.1f;
+    public const double PERCENTAGE_OF_MAX_HP_TO_KILL = 0.5f;
 
     public enum PieceType
     {
@@ -42,6 +42,25 @@ public class Const
             { PieceType.Queen,  (300,  60, 2, 2, 6, 225) },
             { PieceType.King,   (500, 100, 2, 2, 2, 225) }
         };
+
+
+    public static List<Vector2Int> DIRECTION_EFFECTED_TOWER = new()
+    {
+        new Vector2Int(-1, -1),
+        new Vector2Int(-1, 0),
+        new Vector2Int(-1, 1),
+
+        new Vector2Int(0, -1),
+        new Vector2Int(0, 1),
+
+        new Vector2Int(1, -1),
+        new Vector2Int(1, 0),
+        new Vector2Int(1, 1),
+
+    };
+
+
+
     public const int MAX_POINT_PER_TURN = 500;
 
     public const int MAX_MANA = 5000;

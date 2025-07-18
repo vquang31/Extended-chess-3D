@@ -127,9 +127,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _position: {x: 0, y: 0, z: 0}
-  _side: 0
-  _hp: 0
 --- !u!114 &5449100817778615006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 3799907501
+  _assetId: 3004521717
   serverOnly: 0
   visibility: 0
   hasSpawned: 0

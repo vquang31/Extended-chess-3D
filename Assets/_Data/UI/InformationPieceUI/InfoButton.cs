@@ -40,7 +40,7 @@ public class InfoButton : Singleton<InfoButton>
         else 
         {
             Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
-            if (square._buffItem != null)
+            if (square.ObjectGameObject.TryGetComponent<BuffItem>(out BuffItem b) == true)
             {
                 if(InfoIBAndMagicManagerUI.Instance.gameObject.activeSelf == true)
                 {
@@ -48,7 +48,7 @@ public class InfoButton : Singleton<InfoButton>
                 }
                 else
                 {
-                    InfoIBAndMagicManagerUI.Instance.ShowUI(square._buffItem);
+                    InfoIBAndMagicManagerUI.Instance.ShowUI(b);
                 }
             }
         }

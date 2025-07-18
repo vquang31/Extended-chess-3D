@@ -21,15 +21,16 @@ public class Method2
     {
         return "BuffItem_" + (char)('a' - 1 + pos.x) + pos.z.ToString();
     }
-
-
-
-
     static public string NamePiece(int side, string name, int index)
     {
         string s = (side == Const.SIDE_WHITE) ? "White" : "Black";
         s = s + name + "_" + ((index != 0) ? index : "");
         return s;
+    }
+
+    static public string NameTower()
+    {
+        return "Tower";
     }
 
 }

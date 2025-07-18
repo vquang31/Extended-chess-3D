@@ -56,9 +56,9 @@ public class ClickSquare : Singleton<ClickSquare>
         {
             InformationPieceUIManager.Instance.HideUI();
             Square square2 = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
-            if (square2._buffItem != null)
+            if (square2.TryGetComponent<BuffItem>(out BuffItem x)  ==  true)
             {
-                InfoIBAndMagicManagerUI.Instance.ShowUI(square2._buffItem);
+                InfoIBAndMagicManagerUI.Instance.ShowUI(x);
             }
             else
             {

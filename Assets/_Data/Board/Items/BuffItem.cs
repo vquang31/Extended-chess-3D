@@ -2,9 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class BuffItem : NewNetworkBehaviour ,IAnimation
+public class BuffItem : ObjectOnSquare
 {
-    [SyncVar]private Vector3Int _position;
     protected override void Start()
     {
         InitValue();
@@ -21,23 +20,16 @@ public class BuffItem : NewNetworkBehaviour ,IAnimation
     }
 
 
-
-    public Vector3Int Position
-    {
-        get => _position;
-        set => _position = value;
-    }
-
     protected override void LoadComponents()
     {
     }
 
     [ServerCallback]
-    public void SetPosition(Vector3Int pos)
+    public override void SetPosition(Vector3Int pos)
     {
         Position = pos;
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
-        transform.position = new Vector3(0, 1, 0) * (height) + new Vector3(Position.x, (float)Position.y / 2 + 0.1f, Position.z);
+        transform.position = Vector3.up * (height) + new Vector3(Position.x, (float)Position.y / 2 + 0.6f, Position.z);
     }
 
     [Command(requiresAuthority = false)]
@@ -58,32 +50,17 @@ public class BuffItem : NewNetworkBehaviour ,IAnimation
     //    transform.Rotate(0, 180f, 0);
     //}
 
-    public void ChangeHeight(int n, float duration)
-    {
-        StartCoroutine(ChangeHeightRoutine(n, duration));
-    }
-
-
-    IEnumerator ChangeHeightRoutine(int n, float duration)
-    {
-        Vector3 start = transform.position;
-        Vector3 target = start + Vector3.up * (float)n / 2;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            transform.position = Vector3.Lerp(start, target, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null; // Chờ 1 frame trước khi tiếp tục
-        }
-        transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
-        SetPosition(new Vector3Int(Position.x, Position.y + n, Position.z));
-    }
-
     protected void OnMouseDown()
     {
-        if (InputBlocker.IsPointerOverUI()) return;
-        ClickSquare.Instance.SelectSquare(Position);
+        SearchingMethod.FindSquareByPosition(Position).MouseSelected();
     }
+
+    public override void MouseSelected()
+    {
+        base.MouseSelected();
+    }
+
+
 
     [Command(requiresAuthority = false)]
     public new void Delete()

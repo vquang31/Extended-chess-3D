@@ -26,7 +26,7 @@ public class Queen : Piece
             {
                 Vector2Int nextPosition2d = ConvertMethod.Pos3dToPos2d(currentPosition) + directionMoves[i];
 
-                if (SearchingMethod.IsSquareValid(nextPosition2d) == false || SearchingMethod.IsSquareEmpty(nextPosition2d) == false)
+                if (SearchingMethod.CanStandOnSquare(nextPosition2d) == false)
                 {
                     break;
                 }

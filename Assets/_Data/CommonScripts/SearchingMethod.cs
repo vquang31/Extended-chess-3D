@@ -15,21 +15,43 @@ public class SearchingMethod
             return false;
         return true;
     }
+
+
+    static public bool CanStandOnSquare(Vector2Int pos)
+    {
+        if(IsSquareValid(pos) == false) return false;
+        if (IsSquareEmpty(pos)) return true;
+        Square square = FindSquareByPosition(pos);
+        if (square.ObjectGameObject.TryGetComponent<BuffItem>(out BuffItem x) == true)
+            return true;
+        return false;
+    }
+
+
+    // phải kiểm tra xem square có phải là square hợp lệ không
     static public bool IsSquareEmpty(Vector2Int pos)
     {
-        if(IsSquareValid(pos) == false)
-            return false;
-        return (FindSquareByPosition(pos).PieceGameObject == null);
+        Square square = FindSquareByPosition(pos);
+        if(square == null) return false;
+        if (square.ObjectGameObject == null) return true;
+        return false;
     }
     static public Square FindSquareByPosition(Vector2Int pos)
     {
-        if(IsSquareValid(pos) == false) { return null; }
+        if(IsSquareValid(pos) == false) {  
+            return null; 
+        }
         return GameObject.Find(Method2.NameSquare(pos)).GetComponent<Square>();
     }
     static public Piece FindPieceByPosition(Vector2Int pos)
     {
         if (IsSquareValid(pos) == false) return null;
-        GameObject piece = FindSquareByPosition(pos).PieceGameObject;
+        GameObject GO = FindSquareByPosition(pos).ObjectGameObject;
+        if(GO == null) return null; 
+        if (GO.TryGetComponent<Piece>(out var piece) == false)
+        {
+            return null;
+        }
         if (piece == null)
         {
             return null;
@@ -49,7 +71,7 @@ public class SearchingMethod
     }
     static public Square FindSquareByPosition(Vector3Int pos)
     {
-        return FindSquareByPosition(ConvertMethod.Pos3dToPos2d(pos)).GetComponent<Square>();
+        return FindSquareByPosition(ConvertMethod.Pos3dToPos2d(pos));
     }
     static public Piece FindPieceByPosition(Vector3Int pos)
     {

@@ -88,6 +88,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   pieces: []
+  towers: []
 --- !u!114 &2159690300220945428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +104,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  generateMap: 0
+  generateMap: 1
 --- !u!114 &-1206322049810747174
 MonoBehaviour:
   m_ObjectHideFlags: 0

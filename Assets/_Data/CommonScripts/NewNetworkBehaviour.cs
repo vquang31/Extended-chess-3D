@@ -45,8 +45,6 @@ public class NewNetworkBehaviour : NetworkBehaviour
         Destroy(gameObject);
     }
 
-
-    ////
     ///
     /*
      *   [Command]  Client (has authority - isOnwer) -> Server (call n times)

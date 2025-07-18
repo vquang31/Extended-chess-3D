@@ -6,10 +6,8 @@ using UnityEngine.UIElements;
 using static Const;
 using Mirror;
 
-public class Piece : NewNetworkBehaviour, IAnimation
+public class Piece : ObjectOnSquare
 {
-
-    [SyncVar] private Vector3Int _position = Vector3Int.zero;
     [SyncVar] private int _side;
     [SyncVar] private int _maxHp;
     [SyncVar] protected int _attackPoint;
@@ -23,7 +21,6 @@ public class Piece : NewNetworkBehaviour, IAnimation
 
     private Animator animator;
 
-    public Vector3Int Position => _position;
     public int MaxHp => _maxHp;
     public int Hp => _hp;
     public int JumpPoint => _jumpPoint;
@@ -171,25 +168,21 @@ public class Piece : NewNetworkBehaviour, IAnimation
     }
     public virtual bool CheckValidAttack(Vector3Int currentPosition3d, Vector2Int targetPosition2d)
     {
-        if (SearchingMethod.IsSquareValid(targetPosition2d) == false || SearchingMethod.IsSquareEmpty(targetPosition2d))
-        {
+        if(SearchingMethod.IsSquareValid(targetPosition2d) == false)
+            return false;    
+        if (SearchingMethod.IsSquareEmpty(targetPosition2d))
             return false;
-        }
+        if(SearchingMethod.FindSquareByPosition(targetPosition2d).ObjectGameObject.TryGetComponent<Tower>(out var x) == true)      
+           return false; // Tower can not attack
         if (SearchingMethod.FindPieceByPosition(targetPosition2d).Side == Side)
-        {
             return false;
-        }
-
+        
         Vector3Int targetPosition3d = ConvertMethod.Pos2dToPos3d(targetPosition2d);
         int diffHeight = Math.Abs(currentPosition3d.y - targetPosition3d.y);
-        if (diffHeight <= HeightRangeAttack)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+
+        if (diffHeight <= HeightRangeAttack) return true;
+        else return false;
+        
     }
 
 
@@ -199,23 +192,33 @@ public class Piece : NewNetworkBehaviour, IAnimation
     ///  and set PieceGameObject of Square
     /// </summary>
     /// <param name="pos"> new Position </param>
-    public virtual void SetPosition(Vector3Int newPos)
+    public override void SetPosition(Vector3Int newPos )
     {
-        _position = newPos;
+        if (SearchingMethod.FindSquareByPosition(Position) != null)
+        {
+            SearchingMethod.FindSquareByPosition(Position).ObjectGameObject = null;
+        }
+        Position = newPos;
+        SetPositionTransform(newPos);
+        SearchingMethod.FindSquareByPosition(newPos).ObjectGameObject = this.gameObject;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void SetPositionTransform(Vector3Int newPos)
+    {
         // Đặt piece lên trên Square
         // kể cả khi Prefab_Square thay đổi height(localScale.y) thì piece vẫn nằm ở trên Square(sàn)
         float height = GeneratorSquare.Instance.SquarePrefab1.transform.localScale.y / 2;
-        transform.position = new Vector3(0, 1, 0) * (height) + new Vector3(_position.x, (float)_position.y / 2, _position.z);
+        transform.position = Vector3.up * (height) + new Vector3(newPos.x, (float)newPos.y / 2, newPos.z);
 
-        SearchingMethod.FindSquareByPosition(newPos).PieceGameObject = this.gameObject;
     }
 
     public void OnMouseDown()
     {
-        SearchingMethod.FindSquareByPosition(_position).MouseSelected();
+        SearchingMethod.FindSquareByPosition(Position).MouseSelected();
     }
 
-    public void MouseSelected()
+    public override void MouseSelected()
     {
         if (TurnManager.Instance.GetCurrentTurn() == _side) // nếu cùng side thì chuyển select
         {
@@ -272,11 +275,11 @@ public class Piece : NewNetworkBehaviour, IAnimation
         HighlightManager.Instance.HighlightValidAttacks(GetValidAttacks());
     }
 
-    [Command(requiresAuthority = false)]
     public virtual void FakeMove(Vector3Int newPos)
     {
-        SearchingMethod.FindSquareByPosition(Position).PieceGameObject = null;
-        SetPosition(newPos);
+        SetPositionTransform(newPos);
+
+        BoardManager.Instance.FakeMovePosition = newPos;
     }
 
     public virtual void Move()
@@ -287,16 +290,23 @@ public class Piece : NewNetworkBehaviour, IAnimation
         // update data board
         // update data square
 
+
         MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);    /// offline
 
         BoardManager.Instance.CancelHighlightAndSelectedChess();                 /// offline
-        Square square = SearchingMethod.FindSquareByPosition(Position);
-        if(square._buffItem != null)
+        Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.FakeMovePosition);
+        if(square.ObjectGameObject != null)
         {
-            CmdAnimatorSetTrigger("ReceiveBuff");
-            square._buffItem.ApplyEffect(this);
-            square._buffItem.Delete();
+            if(square.ObjectGameObject.TryGetComponent<BuffItem> (out var x) == true)
+            {
+                Debug.Log("Receive Buff " + x.name);
+                CmdAnimatorSetTrigger("ReceiveBuff");
+                x.ApplyEffect(this);
+                x.Delete();
+            }
         }
+        Debug.Log(BoardManager.Instance.FakeMovePosition);
+        SetPosition(BoardManager.Instance.FakeMovePosition);
         _isMoving = true;
         TurnManager.Instance.EndPieceTurn(this.Cost);
     }
@@ -340,26 +350,6 @@ public class Piece : NewNetworkBehaviour, IAnimation
         Destroy(gameObject , timeDie );
     }
 
-
-    public void ChangeHeight(int n, float duration)
-    {
-        StartCoroutine(ChangeHeightRoutine(n, duration));
-    }
-    IEnumerator ChangeHeightRoutine(int n , float duration)
-    {
-        Vector3 start = transform.position;
-        Vector3 target = start + Vector3.up * (float)n / 2;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            transform.position = Vector3.Lerp(start, target, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null; // Chờ 1 frame trước khi tiếp tục
-        }
-        transform.position = target; // Đảm bảo đạt đúng vị trí../ m,7
-        SetPosition(new Vector3Int(Position.x, Position.y + n, Position.z));
-
-    }
 
     [Command(requiresAuthority = false)]
     private void CmdAnimatorSetTrigger(string nameTrigger)

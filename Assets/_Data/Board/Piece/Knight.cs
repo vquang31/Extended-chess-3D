@@ -20,7 +20,7 @@ public class Knight : Piece
             {
                 Vector2Int newDirectionMove = new Vector2Int(x,z);
                 Vector2Int newPosition2d = ConvertMethod.Pos3dToPos2d(Position) + newDirectionMove;
-                if (SearchingMethod.IsSquareValid(newPosition2d) == false || SearchingMethod.IsSquareEmpty(newPosition2d) == false)
+                if ( SearchingMethod.CanStandOnSquare(newPosition2d) == false)
                 {
                     continue;
                 }

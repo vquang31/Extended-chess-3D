@@ -33,7 +33,9 @@ public class GeneratorManager : NetworkSingleton<GeneratorManager>
         yield return new WaitForSeconds(0.2f);
 
         GeneratePiece();
-        yield return new WaitForSeconds(0.2f);
+
+
+        yield return new WaitForSeconds(1.5f);
 
         if (generateMap)
         {

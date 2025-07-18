@@ -7,14 +7,36 @@ using UnityEngine.EventSystems;
 public class Square : AbstractNetworkSquare, IAnimation 
 {
 
-    [SyncVar][SerializeField] private GameObject pieceGameObject;
-    public BuffItem _buffItem;
+    [SyncVar][SerializeField] public GameObject ObjectGameObject;
 
-    public GameObject PieceGameObject
+
+    //public GameObject PieceGameObject
+    //{
+    //    get => pieceGameObject;
+    //    set => pieceGameObject = value;
+    //}
+
+    //public BuffItem BuffItem
+    //{
+    //    get => _buffItem;
+    //    set => _buffItem = value;
+    //}
+
+    //public Tower Tower
+    //{
+    //    get => _tower;
+    //    set => _tower = value;
+    //}
+
+    public ObjectOnSquare FindObjectOnSquare()
     {
-        get => pieceGameObject;
-        set => pieceGameObject = value;
+        if (ObjectGameObject != null)
+        {
+            return ObjectGameObject.GetComponent<ObjectOnSquare>();
+        }
+        return null;
     }
+
 
     [ServerCallback]
     public void InitHeight(Vector2Int pos)
@@ -64,9 +86,12 @@ public class Square : AbstractNetworkSquare, IAnimation
             return; // nếu đang cast phép thuật thì không cho click
         } 
         //////
-        if (pieceGameObject != null)
+        if (ObjectGameObject != null)
         {
-            pieceGameObject.GetComponent<Piece>().MouseSelected();
+            if(ObjectGameObject.TryGetComponent<Piece>(out var x))
+            {
+                x.MouseSelected();
+            }
         }
     }
 
@@ -82,12 +107,10 @@ public class Square : AbstractNetworkSquare, IAnimation
     {
         StartCoroutine(ChangeHeightRoutine(n,duration));
 
-        if(pieceGameObject != null)
+        if(ObjectGameObject != null)
         {
-            pieceGameObject?.GetComponent<Piece>().ChangeHeight(n, duration);
+            ObjectGameObject.GetComponent<ObjectOnSquare>().ChangeHeight(n, duration);
         }
-        if(_buffItem != null)
-            _buffItem?.ChangeHeight(n, duration);
     }
     IEnumerator ChangeHeightRoutine(int n , float duration)
     {

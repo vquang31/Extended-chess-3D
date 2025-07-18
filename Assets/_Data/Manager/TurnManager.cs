@@ -94,7 +94,7 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         UpdateAndResetUI(); // cả 2
 
         // generate item buff
-        GeneratorItemBuff.Instance.Generate(2); //server
+        GeneratorItemBuff.Instance.Generate(1); //server
     }
 
     [ServerCallback]
