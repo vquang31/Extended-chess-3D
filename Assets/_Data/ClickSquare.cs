@@ -31,7 +31,7 @@ public class ClickSquare : Singleton<ClickSquare>
         }
         else
         {
-            if(newSquare == this.square)
+            if(newSquare == this.square) // double Click
             {
                 if(Time.time - lastClickTime < doubleClickThreshold)
                 {
@@ -56,9 +56,13 @@ public class ClickSquare : Singleton<ClickSquare>
         {
             InformationPieceUIManager.Instance.HideUI();
             Square square2 = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
-            if (square2.TryGetComponent<BuffItem>(out BuffItem x)  ==  true)
+            if (square2.objectOnSquare is BuffItem x)
             {
                 InfoIBAndMagicManagerUI.Instance.ShowUI(x);
+            }
+            else if (square2.objectOnSquare is Tower t)
+            {
+                InfoIBAndMagicManagerUI.Instance.ShowUI(t);
             }
             else
             {

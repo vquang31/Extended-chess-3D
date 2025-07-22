@@ -20,27 +20,40 @@ public class InfoIBAndMagicManagerUI : Singleton<InfoIBAndMagicManagerUI>
 
     public void ShowUI(BuffItem buffItem)
     {
-        SetInformationOfItemBuff(buffItem);
-        this.gameObject.SetActive(true);
+        ShowUI(buffItem.Description());
     }
 
     public void ShowUI(Magic magic)
     {
-        SetInformationOfMagic(magic);
+        ShowUI(magic.Description());    
+    }
+
+    public void ShowUI(Tower tower)
+    {
+        ShowUI(tower.Description());
+    }
+
+
+    public void ShowUI(string s)
+    {
+        SetInformation(s);
         this.gameObject.SetActive(true);
     }
+
+
+    public void ShowUI()
+    {
+
+    }
+
     public void HideUI()
     {
         this.gameObject.SetActive(false);
     }
 
-    public void SetInformationOfItemBuff(BuffItem buffItem)
+    public void SetInformation(string s)
     {
-        _descriptionGameObject.GetComponent<TextMeshProUGUI>().text = buffItem.Description();
+        _descriptionGameObject.GetComponent<TextMeshProUGUI>().text = s;
     }
 
-    public void SetInformationOfMagic(Magic magic)
-    {
-        _descriptionGameObject.GetComponent<TextMeshProUGUI>().text = magic.Description();
-    }
 }

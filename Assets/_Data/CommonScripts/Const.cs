@@ -8,7 +8,6 @@ public class Const
     public const int SIDE_BLACK = -1;
 
  
-
     public const int MAX_HEIGHT_GROUND = 10;
 
     public const int MIN_HEIGHT_GROUND = 1; 
@@ -18,7 +17,6 @@ public class Const
     public const int MAX_BOARD_SIZE = 16;
 
     public const float CHANGE_HEIGHT_INIT_DURATION = 1.5f;
-
 
     public const double PERCENTAGE_OF_MAX_HP_TO_KILL = 0.5f;
 
@@ -35,11 +33,11 @@ public class Const
     public static readonly Dictionary<PieceType, (int MaxHp, int AttackPoint, int JumpPoint, int RangeAttack, int MovePoint, int Cost)> 
         DEFAULT_STATS = new()
         {
-            { PieceType.Pawn,   (100,  30, 2, 1, 3, 125) },
+            { PieceType.Pawn,   (120,  30, 2, 1, 3, 125) },
             { PieceType.Rook,   (200,  50, 1, 2, 5, 175) },
             { PieceType.Knight, (150,  40, 4, 3, 3, 175) },
             { PieceType.Bishop, (150,  40, 1, 2, 5, 175) },
-            { PieceType.Queen,  (300,  60, 2, 2, 6, 225) },
+            { PieceType.Queen,  (300,  50, 2, 2, 6, 225) },
             { PieceType.King,   (500, 100, 2, 2, 2, 225) }
         };
 
@@ -59,17 +57,33 @@ public class Const
 
     };
 
+    public static int MAX_POINT_TOWER = 250;
+    
+    public static int OCCUPY_POINT_PER_TURN_PER_PIECE = 5;
 
+    public static int MAX_OCCUPYING_POINT = 500; // player
+
+
+
+
+
+
+    /// 
+    ///
 
     public const int MAX_POINT_PER_TURN = 500;
 
-    public const int MAX_MANA = 5000;
+    public const int MAX_MANA = 1000;
 
-    public const int INCREASE_MANA_PER_TURN = 20;
+    public const int INCREASE_MANA_PER_TURN = 100;
 
-    public const int LIGHTNING_DAMAGE = 100;
+    public const int LIGHTNING_DAMAGE = 50;
 
     public const int HEIGHT_INCREASE_MAGIC = 2;
+
+    public const int MANA_POINT_COST_PER_LIGHTNING_MAGIC = 200;
+
+    public const int MANA_POINT_COST_PER_CHANGE_HEIGHT = 150 ;
 
 
 

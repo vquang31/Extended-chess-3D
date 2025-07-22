@@ -172,8 +172,10 @@ public class Piece : ObjectOnSquare
             return false;    
         if (SearchingMethod.IsSquareEmpty(targetPosition2d))
             return false;
-        if(SearchingMethod.FindSquareByPosition(targetPosition2d).ObjectGameObject.TryGetComponent<Tower>(out var x) == true)      
+        if(SearchingMethod.FindSquareByPosition(targetPosition2d).objectOnSquare is Tower)      
            return false; // Tower can not attack
+        if (SearchingMethod.FindSquareByPosition(targetPosition2d).objectOnSquare is BuffItem)
+            return false;
         if (SearchingMethod.FindPieceByPosition(targetPosition2d).Side == Side)
             return false;
         
@@ -196,11 +198,11 @@ public class Piece : ObjectOnSquare
     {
         if (SearchingMethod.FindSquareByPosition(Position) != null)
         {
-            SearchingMethod.FindSquareByPosition(Position).ObjectGameObject = null;
+            SearchingMethod.FindSquareByPosition(Position).objectOnSquare = null;
         }
         Position = newPos;
         SetPositionTransform(newPos);
-        SearchingMethod.FindSquareByPosition(newPos).ObjectGameObject = this.gameObject;
+        SearchingMethod.FindSquareByPosition(newPos).objectOnSquare = this;
     }
 
     [Command(requiresAuthority = false)]
@@ -234,7 +236,6 @@ public class Piece : ObjectOnSquare
                 BoardManager.Instance.ReturnSelectedPosition();
                 BoardManager.Instance.CancelHighlightAndSelectedChess();
                 // Debug
-                Debug.Log(this.gameObject.name);
 
                 BoardManager.Instance.SelectPiece(this.gameObject);
                 // Camera
@@ -290,14 +291,13 @@ public class Piece : ObjectOnSquare
         // update data board
         // update data square
 
-
         MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);    /// offline
 
         BoardManager.Instance.CancelHighlightAndSelectedChess();                 /// offline
         Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.FakeMovePosition);
-        if(square.ObjectGameObject != null)
+        if(square.objectOnSquare != null)
         {
-            if(square.ObjectGameObject.TryGetComponent<BuffItem> (out var x) == true)
+            if(square.objectOnSquare is BuffItem x)
             {
                 Debug.Log("Receive Buff " + x.name);
                 CmdAnimatorSetTrigger("ReceiveBuff");
@@ -314,11 +314,8 @@ public class Piece : ObjectOnSquare
     public virtual void AttackChess()
     {
         Move();
-
         Vector3Int direction = BoardManager.Instance.TargetPiece.GetComponent<Piece>().Position - this.Position;
-
         EffectManager.Instance.CmdPlayEffect(Const.FX_ATTACK_PIECE, this.Position, direction);
-        
         BoardManager.Instance.TargetPiece.GetComponent<Piece>().TakeDamage(_attackPoint ,  Const.VFX_PIECE_TAKE_DAMAGE_DURATION);
     }
 
@@ -338,6 +335,10 @@ public class Piece : ObjectOnSquare
 
         if (_hp <= 0)
         {
+            if (this is King)
+            {
+                GameManager.Instance.RpcEndGame(Side);
+            }
             Delete(timeDie);
         }
     }

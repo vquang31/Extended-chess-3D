@@ -28,7 +28,7 @@ public class LightningMagic : Magic
 
     protected override void InitValue()
     {
-        Cost = 100;
+        Cost = Const.MANA_POINT_COST_PER_LIGHTNING_MAGIC;
         MaxQuantity = 1;
         Damage = Const.LIGHTNING_DAMAGE;
         Type = Const.FX_LIGHTNING_MAGIC;
@@ -44,7 +44,7 @@ public class LightningMagic : Magic
         base.ApplyEffectToSquare(position);
         ///
         Square square = SearchingMethod.FindSquareByPosition(position);
-        if (square.ObjectGameObject.TryGetComponent<Piece>(out Piece piece) == false) return;
+        if (square.objectOnSquare is not Piece piece) return;
             piece.TakeDamage(Damage, Const.VFX_PIECE_TAKE_DAMAGE_DURATION );
     }
 }

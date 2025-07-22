@@ -205,7 +205,7 @@ public class GeneratorPiece: NetworkSingleton<GeneratorPiece>
             Tower tower = newGO.GetComponent<Tower>();
             tower.SetPosition(newPos3D);
             Square square = SearchingMethod.FindSquareByPosition(newPos3D);
-            square.ObjectGameObject = newGO;
+            square.objectOnSquare = tower;
             GameManager.Instance.towers.Add(tower);
         }
 

@@ -40,9 +40,9 @@ public class InfoButton : Singleton<InfoButton>
         else 
         {
             Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.TargetPosition);
-            if (square.ObjectGameObject.TryGetComponent<BuffItem>(out BuffItem b) == true)
+            if (square.objectOnSquare is BuffItem b)
             {
-                if(InfoIBAndMagicManagerUI.Instance.gameObject.activeSelf == true)
+                if (InfoIBAndMagicManagerUI.Instance.gameObject.activeSelf == true)
                 {
                     InfoIBAndMagicManagerUI.Instance.HideUI();
                 }
@@ -50,6 +50,21 @@ public class InfoButton : Singleton<InfoButton>
                 {
                     InfoIBAndMagicManagerUI.Instance.ShowUI(b);
                 }
+            }
+            else if(square.objectOnSquare is Tower t)
+            {
+                if (InfoIBAndMagicManagerUI.Instance.gameObject.activeSelf == true)
+                {
+                    InfoIBAndMagicManagerUI.Instance.HideUI();
+                }
+                else
+                {
+                    InfoIBAndMagicManagerUI.Instance.ShowUI(t);
+                }
+            }
+            else
+            {
+                InfoIBAndMagicManagerUI.Instance.HideUI();
             }
         }
 

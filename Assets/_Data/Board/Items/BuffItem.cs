@@ -57,7 +57,8 @@ public class BuffItem : ObjectOnSquare
 
     public override void MouseSelected()
     {
-        base.MouseSelected();
+        //if (InputBlocker.IsPointerOverUI()) return;
+        //ClickSquare.Instance.SelectSquare(Position);
     }
 
 

@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="UnityEngine.MonoBehaviour" Collapsed="true">
+    <Position X="68.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="AbstractNetworkSquare" Collapsed="true">
+    <Position X="2" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAIAAAACgAAIAAAgAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\AbstractNetworkSquare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractSquare" Collapsed="true">
+    <Position X="22" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAIAAAACgAAIAAAgAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\AbstractSquare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ActionPointBar" Collapsed="true">
+    <Position X="86.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\GeneralUI\TurnPointBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnnouncementTurn" Collapsed="true">
+    <Position X="38.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAEAAAAAAAAAAAAAAEAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\GeneralUI\AnnouncementTurn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackBuff" Collapsed="true">
+    <Position X="33" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAABAAACAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Items\AttackBuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackButton" Collapsed="true">
+    <Position X="115.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\SelectPieceUI\Buttons\AttackButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackButton" Collapsed="true">
+    <Position X="106.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\BackButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseButton" Collapsed="true">
+    <Position X="111.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAACAIAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\BaseButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bishop" Collapsed="true">
+    <Position X="42" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\Bishop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlueHighlight" Collapsed="true">
+    <Position X="25.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Highlight\BlueHighlight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoardManager" Collapsed="true">
+    <Position X="73.75" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAEQAAEAAAAAAEAEIAABAgAAAAACAQMAAAAAAAACQ=</HashCode>
+      <FileName>Assets\_Data\Manager\BoardManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buff" Collapsed="true">
+    <Position X="62.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Buff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuffItem" Collapsed="true">
+    <Position X="29.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAABAAACEAAgAAIAAQAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Items\BuffItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuffManaPlayer" Collapsed="true">
+    <Position X="28.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgABAAAAAAABAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Items\BuffManaPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraManager" Collapsed="true">
+    <Position X="48.75" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAABhAAAAIAIAAAAAAAAAI=</HashCode>
+      <FileName>Assets\_Data\Camera\CameraManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraMovement" Collapsed="true">
+    <Position X="82" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAIAAAABAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Camera\CameraMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraRotation" Collapsed="true">
+    <Position X="91" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAABAIAAAAAAAAAAAAAAAAAAIAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Camera\CameraRotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraZoom" Collapsed="true">
+    <Position X="95.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Camera\CameraZoom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CancelButton" Collapsed="true">
+    <Position X="120.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\SelectPieceUI\Buttons\CancelButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CancelMagicBtn" Collapsed="true">
+    <Position X="109" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\CastMagicUI\Buttons\CancelMagicBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CastMagicBtn" Collapsed="true">
+    <Position X="111.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\CastMagicUI\Buttons\CastMagicBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CastMagicUIManager" Collapsed="true">
+    <Position X="76.25" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAACACIAAAAAAABAAAAIAABAABIAAAAAAhAAk=</HashCode>
+      <FileName>Assets\_Data\UI\CastMagicUI\CastMagicUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChangeMap" Collapsed="true">
+    <Position X="26.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAABAAACAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Items\ChangeMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChangeMapMagic" Collapsed="true">
+    <Position X="32" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACAgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Magic\ChangeMapMagic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessNetwork" Collapsed="true">
+    <Position X="31.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Network\ChessNetwork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessNetworkManager" Collapsed="true">
+    <Position X="35.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIKAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\_Data\Network\ChessNetworkManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClickSquare" Collapsed="true">
+    <Position X="54.25" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABABAAAAAAAAAAAAAAAAAAAAAAAAEIoAAAAAAIAA=</HashCode>
+      <FileName>Assets\_Data\ClickSquare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Const" Collapsed="true">
+    <Position X="57.75" Y="12.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Const.PieceType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Data\CommonScripts\Const.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgVIAQAAAgAAAAAgAAAEIAgAAAAAQgCgARIAAACAgEA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\Const.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConvertMethod" Collapsed="true">
+    <Position X="57.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEAAA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\ConvertMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Debuff" Collapsed="true">
+    <Position X="64.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Debuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Effect" Collapsed="true">
+    <Position X="63.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Effect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EffectManager" Collapsed="true">
+    <Position X="23.25" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAABAAAAAAAAAAABAAAAAgAAAAAAIACAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\VFX\EffectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndTurnButton" Collapsed="true">
+    <Position X="113.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\GeneralUI\EndTurnButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExitGameButton" Collapsed="true">
+    <Position X="97.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\PauseMenuUI\ExitButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="7.75" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenerateButton" Collapsed="true">
+    <Position X="102.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Test\GenerateButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Generator" Collapsed="true">
+    <Position X="41.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\_Data\Generator\Generator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneratorItemBuff" Collapsed="true">
+    <Position X="10.75" Y="12.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAABAAAAAAAAEIAAAAEAAAAA=</HashCode>
+      <FileName>Assets\_Data\Generator\GeneratorItemBuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneratorManager" Collapsed="true">
+    <Position X="14" Y="12.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAgAAAAAAAggAAACAAIAAIAEAIAAA=</HashCode>
+      <FileName>Assets\_Data\Generator\GeneratorManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneratorPiece" Collapsed="true">
+    <Position X="17.25" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAADAABAAQIAAAAAgCAAgACQCgAIJgAAoAAIQEAACEA=</HashCode>
+      <FileName>Assets\_Data\Generator\GeneratorPiece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneratorSquare" Collapsed="true">
+    <Position X="20.25" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAEgAAQAAAAAAAAAgACAAAIBAAAAAAIAAQAEAKQAA=</HashCode>
+      <FileName>Assets\_Data\Generator\GeneratorSquare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GreenHighlight" Collapsed="true">
+    <Position X="23" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Highlight\GreenHighlight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Highlight" Collapsed="true">
+    <Position X="22" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Highlight\Highlight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HighlightManager" Collapsed="true">
+    <Position X="79.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAIAQAAAAAAAAQAAAAAKAAAAAAAAAQAwIAAAAgAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Highlight\HighlightManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="History" Collapsed="true">
+    <Position X="9" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\History.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HpBar" Collapsed="true">
+    <Position X="27.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAgAAAEAAAAAAAAAAAAAAIAAEAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\InformationPieceUI\HpBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HpBuff" Collapsed="true">
+    <Position X="30.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAQAABAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Items\HpBuff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InfoButton" Collapsed="true">
+    <Position X="56.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABACAAAAAAAACAAAACAIAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\InformationPieceUI\InfoButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InfoIBAndMagicManagerUI" Collapsed="true">
+    <Position X="59" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACgAAAAAAAAAAAAAACAAAAAAMACAAgAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\InformationItemBuff\InfoIBAndMagicManagerUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InformationPieceUIManager" Collapsed="true">
+    <Position X="62.25" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAIgAAACwAAAAAAAAAQAIAAgAAAAQAIAAAAgAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\InformationPieceUI\InformationPieceUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputBlocker" Collapsed="true">
+    <Position X="57.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\InputBlocker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemManager" Collapsed="true">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Manager\ItemManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KillButton" Collapsed="true">
+    <Position X="124.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\SelectPieceUI\Buttons\KillButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="King" Collapsed="true">
+    <Position X="46.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\King.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Knight" Collapsed="true">
+    <Position X="35.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\Knight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightningMagic" Collapsed="true">
+    <Position X="34.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAADAACAgAAAAAAAAABAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Magic\LightningMagic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Magic" Collapsed="true">
+    <Position X="33.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEBAACAgAAQAAAAAABgAACAAAAAAAQAAAAAAAgA=</HashCode>
+      <FileName>Assets\_Data\Board\Magic\Magic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MagicCastManager" Collapsed="true">
+    <Position X="51.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAAAAAAHAAAAgIAICAAAAEAAADAAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Magic\MagicCastManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ManaPointBar" Collapsed="true">
+    <Position X="88.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\GeneralUI\ManaPointBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuButton" Collapsed="true">
+    <Position X="105.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAAAAAAAQAA=</HashCode>
+      <FileName>Assets\_Data\UI\MenuButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuNetworkManager" Collapsed="true">
+    <Position X="11.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIACAgAAAGAEBBAAAAAAAgAgAAQAAIiAAAAKQAAAAEA=</HashCode>
+      <FileName>Assets\_Data\Menu\MenuNetworkManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Method2" Collapsed="true">
+    <Position X="57.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAABAAAABAAAAA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\Method2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveButton" Collapsed="true">
+    <Position X="122.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\SelectPieceUI\Buttons\MoveButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveTargetWithMouse" Collapsed="true">
+    <Position X="68.25" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAQAAQIBgQAAAABAA=</HashCode>
+      <FileName>Assets\_Data\Camera\MoveTargetWithMouse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkLauncher" Collapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAGAAAAAAAAAAAAAAAAQAACAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Network\NetworkLauncher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkSingleton&lt;T&gt;" Collapsed="true">
+    <Position X="14.25" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEEA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\NetworkSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NewMonoBehaviour" Collapsed="true">
+    <Position X="72.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAAAIAAAAAAEAAAAAIAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\NewMonoBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NewNetworkBehaviour" Collapsed="true">
+    <Position X="25" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAAAIAAAACAEAAAAAIAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\NewNetworkBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextButton" Collapsed="true">
+    <Position X="104.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\NextButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectOnSquare" Collapsed="true">
+    <Position X="37.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAEAAAAAgAAAAAQgAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\ObjectOnSquare.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OpenListMagicBtn" Collapsed="true">
+    <Position X="118" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\CastMagicUI\Buttons\OpenListMagicBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PauseGameButton" Collapsed="true">
+    <Position X="104.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\GeneralUI\PauseGameButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pawn" Collapsed="true">
+    <Position X="39.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\Pawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Piece" Collapsed="true">
+    <Position X="40.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>tQUQQBAAAKAAhCIAAEA4ARAECAeAohCALAAQiQAMSAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\Piece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PieceVFX" Collapsed="true">
+    <Position X="129.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\VFX\PieceVFX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="29.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQIAgAAAAEAoAQACgABEAAACCAQAAgICAAAIAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerManager" Collapsed="true">
+    <Position X="27.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAACCAAAAAAKAAAAQAAAEA=</HashCode>
+      <FileName>Assets\_Data\Network\PlayerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prefabs" Collapsed="true">
+    <Position X="29.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\Prefabs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PurpleHighlight" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Highlight\PurpleHighlight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Queen" Collapsed="true">
+    <Position X="37.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\Queen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomSeed" Collapsed="true">
+    <Position X="84.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Data\Rules\RandomSeed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Readme" Collapsed="true">
+    <Position X="54.25" Y="11.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Readme.Section" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\TutorialInfo\Scripts\Readme.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAQAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\TutorialInfo\Scripts\Readme.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedHighlight" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAACAAAAAAAAAAAQAAAAAAAAAAIAAAAAAAAgA=</HashCode>
+      <FileName>Assets\_Data\Board\Highlight\RedHighlight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResumeBtn" Collapsed="true">
+    <Position X="106.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\PauseMenuUI\ResumeButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rook" Collapsed="true">
+    <Position X="44.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Piece\Rook.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SearchingMethod" Collapsed="true">
+    <Position X="57.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAIAQAECAAAAAAAAAAAAAAAAAAAIAABA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\SearchingMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectButton" Collapsed="true">
+    <Position X="120.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\SelectPieceUI\Buttons\SelectButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectCell" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\SelectCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectMagicBtn" Collapsed="true">
+    <Position X="100" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAAAAAQAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\CastMagicUI\Buttons\SelectMagicBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectPieceUIManager" Collapsed="true">
+    <Position X="45.75" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAIEAAACwAAAAAIAAAAAAAAAAAAACAIAAAAgAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\SelectPieceUI\SelectPieceUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Singleton&lt;T&gt;" Collapsed="true">
+    <Position X="61.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEEA=</HashCode>
+      <FileName>Assets\_Data\CommonScripts\Singleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SliderBar" Collapsed="true">
+    <Position X="87.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiCAAAAAAAAAAAACAAAAAAAAIAAEAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\GeneralUI\SliderBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundEffect" Collapsed="true">
+    <Position X="93.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAgAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Sound\SoundEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundFXMananger" Collapsed="true">
+    <Position X="65.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAACAAAAAAAABAAsAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Sound\SoundFXMananger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundMixerManager" Collapsed="true">
+    <Position X="127" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAAMAAgAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Sound\SoundMixerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Square" Collapsed="true">
+    <Position X="2" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAgAAAAAgEAAAAAgAAIABQQAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\Square.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SquareManager" Collapsed="true">
+    <Position X="71.25" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAQAAAIAIAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Board\SquareManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tower" Collapsed="true">
+    <Position X="48.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAgAAAAAQAABAAAAAAAgCAKAAQAAAAEAQ=</HashCode>
+      <FileName>Assets\_Data\Board\Tower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TurnManager" Collapsed="true">
+    <Position X="4.75" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>wAAQCgAAgiAgCDIAABEoABCABhQBAAgAYCAAAQEIAAA=</HashCode>
+      <FileName>Assets\_Data\Manager\TurnManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIManager" Collapsed="true">
+    <Position X="43.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAgCABAAAAAAAAAAIAAAAAIAACIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\UI\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX_2D" Collapsed="true">
+    <Position X="36.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAIAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\VFX\VFX_2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SBS.LPCP.GuideSO" Collapsed="true">
+    <Position X="54.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACEAAAAAQAgAAAEAABAAAAAAAAAAAAAAAAQAAAAM=</HashCode>
+      <FileName>Assets\SmallBigSquare\LowPolyChessPieces\Scripts\GuideSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SBS.LPCP.GuideSOEditor" Collapsed="true">
+    <Position X="54.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAAAAAAAAAAAAAACAACAAAAAAAAAAEBAAAAAAA=</HashCode>
+      <FileName>Assets\SmallBigSquare\LowPolyChessPieces\Scripts\GuideSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IAnimation" Collapsed="true">
+    <Position X="33.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Data\Interface\IAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

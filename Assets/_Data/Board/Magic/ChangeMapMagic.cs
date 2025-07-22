@@ -14,7 +14,7 @@ public class ChangeMapMagic : Magic
     }
     protected override void InitValue()
     {
-        Cost = 100;
+        Cost = Const.MANA_POINT_COST_PER_CHANGE_HEIGHT;
         MaxQuantity = 3;
         Type = Const.FX_CHANGE_HEIGHT;
     }

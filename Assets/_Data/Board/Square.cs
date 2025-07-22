@@ -7,36 +7,7 @@ using UnityEngine.EventSystems;
 public class Square : AbstractNetworkSquare, IAnimation 
 {
 
-    [SyncVar][SerializeField] public GameObject ObjectGameObject;
-
-
-    //public GameObject PieceGameObject
-    //{
-    //    get => pieceGameObject;
-    //    set => pieceGameObject = value;
-    //}
-
-    //public BuffItem BuffItem
-    //{
-    //    get => _buffItem;
-    //    set => _buffItem = value;
-    //}
-
-    //public Tower Tower
-    //{
-    //    get => _tower;
-    //    set => _tower = value;
-    //}
-
-    public ObjectOnSquare FindObjectOnSquare()
-    {
-        if (ObjectGameObject != null)
-        {
-            return ObjectGameObject.GetComponent<ObjectOnSquare>();
-        }
-        return null;
-    }
-
+    [SerializeField][SyncVar] public ObjectOnSquare objectOnSquare;
 
     [ServerCallback]
     public void InitHeight(Vector2Int pos)
@@ -64,13 +35,16 @@ public class Square : AbstractNetworkSquare, IAnimation
     
     public void MouseSelected()
     {
-
         if (!canClick) return;
         if (InputBlocker.IsPointerOverUI()) return;
+
         base.OnMouseDown();
+
         if (TurnManager.Instance.GetCurrentPlayer().IsPlayable() == false) return;
+
         if (TurnManager.Instance.GetPlayablePlayer().Side != TurnManager.Instance.GetCurrentTurn()) return;
         // 2 điều kiện giống nhau
+
 
         //////////// Cast Magic
         if (MagicCastManager.Instance.IsCasting > 0) {
@@ -84,13 +58,13 @@ public class Square : AbstractNetworkSquare, IAnimation
             }
         
             return; // nếu đang cast phép thuật thì không cho click
-        } 
-        //////
-        if (ObjectGameObject != null)
+        }
+
+        if (objectOnSquare != null)
         {
-            if(ObjectGameObject.TryGetComponent<Piece>(out var x))
+            if (objectOnSquare is Piece piece)
             {
-                x.MouseSelected();
+                piece.MouseSelected();
             }
         }
     }
@@ -107,9 +81,9 @@ public class Square : AbstractNetworkSquare, IAnimation
     {
         StartCoroutine(ChangeHeightRoutine(n,duration));
 
-        if(ObjectGameObject != null)
+        if(objectOnSquare != null)
         {
-            ObjectGameObject.GetComponent<ObjectOnSquare>().ChangeHeight(n, duration);
+            objectOnSquare.ChangeHeight(n, duration);
         }
     }
     IEnumerator ChangeHeightRoutine(int n , float duration)

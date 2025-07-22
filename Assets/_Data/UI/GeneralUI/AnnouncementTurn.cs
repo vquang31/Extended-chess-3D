@@ -22,9 +22,18 @@ public class AnnouncementTurn : NewMonoBehaviour
     public void ShowAnnouncementTurn(int side)
     {
         //EndLoop = false;
-        _animator.SetBool("EndLoop", false);
+        //_animator.SetBool("EndLoop", false);
+        _animator.SetTrigger("ShowAnnouncement");
         _description.GetComponent<TextMeshProUGUI>().text = ((side == Const.SIDE_WHITE) ? "White" : "Black") +" Turn";
     }
+
+    public void ShowAnnouncementTurn(string text)
+    {
+        //EndLoop = false;
+        _animator.SetTrigger("ShowAnnouncement");
+        _description.GetComponent<TextMeshProUGUI>().text = text;
+    }
+
 
     private void endLoop()
     {

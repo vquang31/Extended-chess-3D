@@ -25,7 +25,7 @@ public class GeneratorItemBuff : NetworkSingleton<GeneratorItemBuff>
                 int x = Random.Range(2, Const.MAX_BOARD_SIZE);
                 int z = Random.Range(2, Const.MAX_BOARD_SIZE);
                 Square square = SearchingMethod.FindSquareByPosition(new Vector2Int(x, z));
-                if (square.ObjectGameObject == null)
+                if (square.objectOnSquare == null)
                 {
                     // Create new itemBuff on Square
                     GenerateItemBuff(new Vector2Int(x,z));
@@ -81,7 +81,7 @@ public class GeneratorItemBuff : NetworkSingleton<GeneratorItemBuff>
         newItemBuffGO.GetComponent<BuffItem>().SetPosition(ConvertMethod.Pos2dToPos3d(pos));
         newItemBuffGO.transform.SetParent(GameObject.Find("BuffItems").transform);
         newItemBuffGO.name = Method2.NameItemBuff(square.Position);
-        square.ObjectGameObject = newItemBuffGO;
+        square.objectOnSquare = newItemBuffGO.GetComponent<BuffItem>();
     }
 
 }

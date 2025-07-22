@@ -103,4 +103,5 @@ MonoBehaviour:
   playable: 0
   _side: 0
   _actionPoint: 500
-  _mana: 2500
+  _mana: 500
+  occypyingPoint: 0

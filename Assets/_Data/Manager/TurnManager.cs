@@ -1,7 +1,9 @@
 ﻿using Mirror;
 using System;
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+
 
 public class TurnManager  : NetworkSingleton<TurnManager>
 {
@@ -15,10 +17,18 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     [SyncVar] public  Player player1;
     [SyncVar] public  Player player2;
 
+
+
+    /// <summary>
+    /// UI components for managing turns
+    /// </summary>
     protected ActionPointBar pointTurnBar;
     protected ManaPointBar manaPointBar;
     protected GameObject announcementTurnUI;
     protected GameObject playable_UIGameObject;
+    protected OccupyPointBar occupyBarPlayer1;
+    protected OccupyPointBar occupyBarPlayer2;
+
 
     public override void OnStartServer()
     {
@@ -32,6 +42,10 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         manaPointBar = GameObject.Find("SliderManaPoint").GetComponent<ManaPointBar>();
         announcementTurnUI = GameObject.Find("AnnouncementTurnUI");
         playable_UIGameObject = GameObject.Find("Playable_UI");
+
+        occupyBarPlayer1 = GameObject.Find("OccupyBarPlayer1").GetComponent<OccupyPointBar>();
+        occupyBarPlayer2 = GameObject.Find("OccupyBarPlayer2").GetComponent<OccupyPointBar>();
+
     }
 
     protected override void Start()
@@ -58,9 +72,17 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     }
 
 
+    [Server]
+    public void SetReady()
+    {
+        GeneratorManager.Instance.Generate();
+    }
+
+
     [Command(requiresAuthority = false)]
     public void ChangeTurn()
     {
+        if(GetCurrentTurn() == 0) return; //End game, no turn to change 
         //if (!isServer) return;
         RpcChangeTurn(); // gọi hàm RpcChangeTurn trên tất cả client
     }
@@ -94,11 +116,20 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         UpdateAndResetUI(); // cả 2
 
         // generate item buff
-        GeneratorItemBuff.Instance.Generate(1); //server
+        int ran = UnityEngine.Random.Range(1, 2 + 1);
+        GeneratorItemBuff.Instance.Generate(ran); //server
+
+        if (isServer)
+        {
+            foreach(var tower in GameManager.Instance.towers)
+            {
+                tower.DoSomething();
+            }
+        }
+
     }
 
     [ServerCallback]
-    //[Server]
     private void SwitchTurn()
     {
         if (GetCurrentTurn() == Const.SIDE_WHITE)
@@ -129,11 +160,13 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         MagicCastManager.Instance.EndCasting();
     }
 
-    public Player GetPlayablePlayer()
-    {
-        if (player1.IsPlayable()) return player1;
-        else return player2;
-    }
+
+
+
+
+    /// <summary>
+    /// update the mana point bar for the current player
+    /// </summary>
 
     [ClientRpc]
     public void RpcUpdateManaPointBar()
@@ -151,6 +184,9 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         manaPointBar.SetPoint(GetCurrentPlayer().Mana);
     }
 
+    /// <summary>
+    ///  Update the action point bar for the playable player
+    /// </summary>
 
     [ClientRpc]
     public void RpcUpdateActionPointBar()
@@ -166,8 +202,38 @@ public class TurnManager  : NetworkSingleton<TurnManager>
 
     public void UpdateActionPointBar()
     {
-
         pointTurnBar.SetPoint(GetPlayablePlayer().ActionPoint);
+    }
+
+    [ClientRpc]
+    /// <summary>
+    ///  Update the occupying point bar for both players
+    /// </summary>
+    public void RpcUpdateOccupyingPointBar()
+    {
+        StartCoroutine(UpdateOccupyingPointBarRoutine());
+    }
+
+    IEnumerator UpdateOccupyingPointBarRoutine()
+    {
+        yield return new WaitForSeconds(0.1f); // wait for a short time to ensure UI is ready
+        UpdateOccupyingPointBar();
+    }
+    public void UpdateOccupyingPointBar()
+    {
+        occupyBarPlayer1.SetPoint(player1.occupyingPoint);
+        occupyBarPlayer2.SetPoint(player2.occupyingPoint);
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public Player GetPlayablePlayer()
+    {
+        if (player1.IsPlayable()) return player1;
+        else return player2;
     }
 
     public int GetCurrentTurn()
@@ -198,16 +264,17 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         return player2;
     }
 
-    [Server]
-    public void SetReady()
+    public void EndGame(int side)
     {
-        GeneratorManager.Instance.Generate();
+        announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn($"Game Over! {(side == Const.SIDE_WHITE ? "White" : "Black")} wins!");
+        _currentTurn = 0;
     }
+
 
     [ClientRpc]
     public void RpcSetActiveOfflineManager()
     {
-        Debug.Log("Run3 - Called on client only");
+        //Debug.Log("Run3 - Called on client only");
         GameObject OfflineManager = GameObject.Find("Offline_MANAGER");
         GameObject firstChild = OfflineManager.transform.GetChild(0).gameObject;
         firstChild.SetActive(true);

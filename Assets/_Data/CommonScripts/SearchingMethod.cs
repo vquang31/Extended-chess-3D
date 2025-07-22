@@ -22,7 +22,7 @@ public class SearchingMethod
         if(IsSquareValid(pos) == false) return false;
         if (IsSquareEmpty(pos)) return true;
         Square square = FindSquareByPosition(pos);
-        if (square.ObjectGameObject.TryGetComponent<BuffItem>(out BuffItem x) == true)
+        if (square.objectOnSquare is BuffItem x)
             return true;
         return false;
     }
@@ -33,7 +33,7 @@ public class SearchingMethod
     {
         Square square = FindSquareByPosition(pos);
         if(square == null) return false;
-        if (square.ObjectGameObject == null) return true;
+        if (square.objectOnSquare == null) return true;
         return false;
     }
     static public Square FindSquareByPosition(Vector2Int pos)
@@ -46,17 +46,13 @@ public class SearchingMethod
     static public Piece FindPieceByPosition(Vector2Int pos)
     {
         if (IsSquareValid(pos) == false) return null;
-        GameObject GO = FindSquareByPosition(pos).ObjectGameObject;
+        ObjectOnSquare GO = FindSquareByPosition(pos).objectOnSquare;
         if(GO == null) return null; 
-        if (GO.TryGetComponent<Piece>(out var piece) == false)
+        if (GO is not Piece piece)
         {
             return null;
         }
-        if (piece == null)
-        {
-            return null;
-        }
-        return piece.GetComponent<Piece>();
+        return piece;
     }
 
 

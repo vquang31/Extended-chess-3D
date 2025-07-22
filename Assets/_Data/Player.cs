@@ -13,6 +13,9 @@ public class Player : NetworkBehaviour
     [SyncVar] public int _actionPoint = Const.MAX_POINT_PER_TURN;
     [SyncVar] public int _mana = Const.MAX_MANA / 2;
 
+    [SyncVar(hook = nameof(OnOccupyingPointChaned))] public int occupyingPoint = 0;
+
+
     private int _maxActionPoint = Const.MAX_POINT_PER_TURN;
     // === Properties ===
     public int ActionPoint => _actionPoint;
@@ -49,15 +52,13 @@ public class Player : NetworkBehaviour
         return TurnManager.Instance.GetCurrentTurn() == _side;
     }
 
-    public void Update()
-    {
-        //if(_actionPoint < 0)
-        //{
-        //    TestUpdate();
-        //}
-    }
-
-
+    //public void Update()
+    //{
+    //    //if(_actionPoint < 0)
+    //    //{
+    //    //    TestUpdate();
+    //    //}
+    //}
 
     //public void TestUpdate()
     //{
@@ -83,7 +84,8 @@ public class Player : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void EndTurn()
     {
-
+        IncreaseMana(_actionPoint / 2);
+        _actionPoint = 0;
     }
     [Command(requiresAuthority = false)]
     public void IncreaseMana(int mana)
@@ -124,6 +126,22 @@ public class Player : NetworkBehaviour
     {
         return playable;
     }
+
+
+    public void IncreaseOccupyingPoint(int value)
+    {
+        occupyingPoint += value;
+        //TurnManager.Instance.RpcUpdateOccupyingPointBar();
+    }
+
+    private void OnOccupyingPointChaned(int oldValue, int newValue)
+    {
+        TurnManager.Instance.RpcUpdateOccupyingPointBar();
+
+    }
+
+
+
 
 
 }
