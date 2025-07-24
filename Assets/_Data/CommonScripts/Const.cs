@@ -61,7 +61,7 @@ public class Const
     
     public static int OCCUPY_POINT_PER_TURN_PER_PIECE = 5;
 
-    public static int MAX_OCCUPYING_POINT = 500; // player
+    public static int MAX_OCCUPYING_POINT = 1500; // player
 
 
 

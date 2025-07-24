@@ -9,9 +9,9 @@ public class GameManager : NetworkSingleton<GameManager>
     [SyncVar]public List<Tower> towers = new();
 
     [ClientRpc]
-    public void RpcEndGame(int side)
+    public void RpcEndGame(int loseSide)
     {
-        Debug.Log($"Game Over for side: {side}");
-        TurnManager.Instance.EndGame(side);
+        Debug.Log($"Game Over for side: {loseSide}");
+        TurnManager.Instance.EndGame(loseSide);
     }
 }

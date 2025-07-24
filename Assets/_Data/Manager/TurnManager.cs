@@ -126,7 +126,7 @@ public class TurnManager  : NetworkSingleton<TurnManager>
                 tower.DoSomething();
             }
         }
-
+        CheckWin();
     }
 
     [ServerCallback]
@@ -160,6 +160,24 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         MagicCastManager.Instance.EndCasting();
     }
 
+    private void CheckWin()
+    {
+        if(player1.OccupyingPoint >= Const.MAX_OCCUPYING_POINT
+            && player1.OccupyingPoint > player2.OccupyingPoint)
+        {
+            GameManager.Instance.RpcEndGame(player2.Side);
+        }
+        if(player2.OccupyingPoint >= Const.MAX_OCCUPYING_POINT
+            && player2.OccupyingPoint > player1.OccupyingPoint)
+        {
+            GameManager.Instance.RpcEndGame(player1.Side);
+        }
+        if(player1.OccupyingPoint == player2.OccupyingPoint
+            && player1.OccupyingPoint >= Const.MAX_OCCUPYING_POINT)
+        {
+            GameManager.Instance.RpcEndGame(0); // draw
+        }
+    }
 
 
 
@@ -205,6 +223,14 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         pointTurnBar.SetPoint(GetPlayablePlayer().ActionPoint);
     }
 
+
+    [Command (requiresAuthority = false)]
+    public void CmdUpdateOccupyingPointBar()
+    {
+        RpcUpdateOccupyingPointBar();
+    }
+
+
     [ClientRpc]
     /// <summary>
     ///  Update the occupying point bar for both players
@@ -221,8 +247,8 @@ public class TurnManager  : NetworkSingleton<TurnManager>
     }
     public void UpdateOccupyingPointBar()
     {
-        occupyBarPlayer1.SetPoint(player1.occupyingPoint);
-        occupyBarPlayer2.SetPoint(player2.occupyingPoint);
+        occupyBarPlayer1.SetPoint(player1.OccupyingPoint);
+        occupyBarPlayer2.SetPoint(player2.OccupyingPoint);
     }
 
 
@@ -266,7 +292,15 @@ public class TurnManager  : NetworkSingleton<TurnManager>
 
     public void EndGame(int side)
     {
-        announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn($"Game Over! {(side == Const.SIDE_WHITE ? "White" : "Black")} wins!");
+        if (side == 0)
+        {
+            announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn("DRAW !!!");
+        }
+        else
+        {
+            announcementTurnUI.GetComponent<AnnouncementTurn>().ShowAnnouncementTurn($"Game Over! {(side == Const.SIDE_WHITE ? "White" : "Black")} wins!");
+
+        }
         _currentTurn = 0;
     }
 

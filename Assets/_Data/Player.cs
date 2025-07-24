@@ -13,7 +13,7 @@ public class Player : NetworkBehaviour
     [SyncVar] public int _actionPoint = Const.MAX_POINT_PER_TURN;
     [SyncVar] public int _mana = Const.MAX_MANA / 2;
 
-    [SyncVar(hook = nameof(OnOccupyingPointChaned))] public int occupyingPoint = 0;
+    [SyncVar(hook = nameof(OnOccupyingPointChaned))] private int occupyingPoint = 0;
 
 
     private int _maxActionPoint = Const.MAX_POINT_PER_TURN;
@@ -24,7 +24,7 @@ public class Player : NetworkBehaviour
 
     public int Side => _side;
 
-
+    public int OccupyingPoint => occupyingPoint;
 
     public override void OnStartClient()
     {
@@ -126,8 +126,6 @@ public class Player : NetworkBehaviour
     {
         return playable;
     }
-
-
     public void IncreaseOccupyingPoint(int value)
     {
         occupyingPoint += value;
@@ -136,8 +134,8 @@ public class Player : NetworkBehaviour
 
     private void OnOccupyingPointChaned(int oldValue, int newValue)
     {
-        TurnManager.Instance.RpcUpdateOccupyingPointBar();
 
+        TurnManager.Instance.CmdUpdateOccupyingPointBar();
     }
 
 
