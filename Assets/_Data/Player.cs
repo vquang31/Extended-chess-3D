@@ -52,20 +52,6 @@ public class Player : NetworkBehaviour
         return TurnManager.Instance.GetCurrentTurn() == _side;
     }
 
-    //public void Update()
-    //{
-    //    //if(_actionPoint < 0)
-    //    //{
-    //    //    TestUpdate();
-    //    //}
-    //}
-
-    //public void TestUpdate()
-    //{
-    //    _actionPoint = 1000;
-    //}
-
-
     public void InitSide(int side)
     {
         _side = side;
@@ -137,9 +123,5 @@ public class Player : NetworkBehaviour
 
         TurnManager.Instance.CmdUpdateOccupyingPointBar();
     }
-
-
-
-
 
 }

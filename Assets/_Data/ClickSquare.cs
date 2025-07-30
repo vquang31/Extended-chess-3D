@@ -7,6 +7,12 @@ public class ClickSquare : Singleton<ClickSquare>
     private float doubleClickThreshold = 0.3f; // Giới hạn thời gian giữa 2 lần click (300ms)
     private SelectCell selectCell;
 
+    public SelectCell SelectCell
+    {
+        get { return selectCell; }
+        set { selectCell = value; }
+    }
+
 
     [SerializeField]
     public Square square;

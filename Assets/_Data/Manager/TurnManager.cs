@@ -78,7 +78,6 @@ public class TurnManager  : NetworkSingleton<TurnManager>
         GeneratorManager.Instance.Generate();
     }
 
-
     [Command(requiresAuthority = false)]
     public void ChangeTurn()
     {
@@ -178,8 +177,6 @@ public class TurnManager  : NetworkSingleton<TurnManager>
             GameManager.Instance.RpcEndGame(0); // draw
         }
     }
-
-
 
 
     /// <summary>

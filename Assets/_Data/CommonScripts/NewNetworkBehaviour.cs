@@ -117,7 +117,6 @@ public class NewNetworkBehaviour : NetworkBehaviour
 
         C2:     và Server xử lý và Các Client cùng thực hiện một hành động nào đó
 
-
                 [Command(requiresAuthority = false)]
                 private void CmdAnimatorSetTrigger(string nameTrigger)
                 {

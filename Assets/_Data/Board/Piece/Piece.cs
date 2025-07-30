@@ -291,7 +291,6 @@ public class Piece : ObjectOnSquare
         // update data board
         // update data square
 
-        MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);    /// offline
 
         BoardManager.Instance.CancelHighlightAndSelectedChess();                 /// offline
         Square square = SearchingMethod.FindSquareByPosition(BoardManager.Instance.FakeMovePosition);
@@ -307,6 +306,10 @@ public class Piece : ObjectOnSquare
         }
         Debug.Log(BoardManager.Instance.FakeMovePosition);
         SetPosition(BoardManager.Instance.FakeMovePosition);
+
+        ControlManager.Instance.CmdMoveCamera(this.transform.position, BoardManager.Instance.FakeMovePosition);  /// online
+        //MoveTargetWithMouse.Instance.MoveToPosition(this.transform.position);    /// online
+
         _isMoving = true;
         TurnManager.Instance.EndPieceTurn(this.Cost);
     }
