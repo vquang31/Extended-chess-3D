@@ -1,7 +1,7 @@
 using Mirror;
 using UnityEngine;
 
-public class AbstractNetworkSquare : NewNetworkBehaviour
+public abstract class AbstractNetworkSquare : NewNetworkBehaviour
 {
     protected bool canClick = true;
 

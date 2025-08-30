@@ -73,6 +73,8 @@ public class SearchingMethod
     {
         return FindPieceByPosition(ConvertMethod.Pos3dToPos2d(pos));
     }
+
+
     /// NetworkManager
     /// 
     static public GameObject FindRegisteredPrefab(string prefabName)

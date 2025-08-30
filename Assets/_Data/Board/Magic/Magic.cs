@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Magic : NewMonoBehaviour
+public abstract class Magic : NewMonoBehaviour
 {
     private int _cost;
     private int _maxQuanity;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Highlight : AbstractSquare
+public abstract class Highlight : AbstractSquare
 {
 
 }

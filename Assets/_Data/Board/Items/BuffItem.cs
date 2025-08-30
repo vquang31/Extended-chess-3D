@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BuffItem : ObjectOnSquare
+public abstract class BuffItem : ObjectOnSquare
 {
     protected override void Start()
     {

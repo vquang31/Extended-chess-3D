@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ObjectOnSquare : NewNetworkBehaviour, IAnimation
+public abstract class ObjectOnSquare : NewNetworkBehaviour, IAnimation
 {
     [SerializeField][SyncVar] private Vector3Int _position = new(0, 0, 0);
     public Vector3Int Position

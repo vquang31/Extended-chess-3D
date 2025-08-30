@@ -189,7 +189,7 @@
   <Class Name="ClickSquare" Collapsed="true">
     <Position X="54.25" Y="4.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAABABAAAAAAAAAAAAAAAAAAAAAAAAEIoAAAAAAIAA=</HashCode>
+      <HashCode>AAAABABAAAAAAAAEAAAAAAAAAAAAAAAEIoAAAAAAIAA=</HashCode>
       <FileName>Assets\_Data\ClickSquare.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -198,15 +198,8 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Enum Name="Const.PieceType" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\_Data\CommonScripts\Const.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AgVIAQAAAgAAAAAgAAAEIAgAAAAAQgCgARIAAACAgEA=</HashCode>
+      <HashCode>AgVoAQABAgAAAAAgAAAEIAgAAAAAQgCgARJAAACAgEE=</HashCode>
       <FileName>Assets\_Data\CommonScripts\Const.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -255,7 +248,7 @@
   <Class Name="GameManager" Collapsed="true">
     <Position X="7.75" Y="12.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAAAAAAAAAEAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Assets\_Data\Manager\GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -311,7 +304,7 @@
   <Class Name="Highlight" Collapsed="true">
     <Position X="22" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\_Data\Board\Highlight\Highlight.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -353,7 +346,7 @@
   <Class Name="InfoIBAndMagicManagerUI" Collapsed="true">
     <Position X="59" Y="4.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACgAAAAAAAAAAAAAACAAAAAAMACAAgAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACgAAAAAAAAAEAAAACAAAAAAIAAAAgAAAAA=</HashCode>
       <FileName>Assets\_Data\UI\InformationItemBuff\InfoIBAndMagicManagerUI.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -543,7 +536,7 @@
   <Class Name="Player" Collapsed="true">
     <Position X="29.75" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQIAgAAAAEAoAQACgABEAAACCAQAAgICAAAIAAAAAA=</HashCode>
+      <HashCode>AgIIIkAAAAEAoAQACgIBEAAACCAQAAgICAAAIAAAAAA=</HashCode>
       <FileName>Assets\_Data\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -587,13 +580,6 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="Readme.Section" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\TutorialInfo\Scripts\Readme.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAgAAAAQAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAA=</HashCode>
       <FileName>Assets\TutorialInfo\Scripts\Readme.cs</FileName>
@@ -693,7 +679,7 @@
   <Class Name="Square" Collapsed="true">
     <Position X="2" Y="12.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAgAAAAAgEAAAAAgAAIABQQAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAgAAAAAAEAAAgAgAAIABQAAAAAAA=</HashCode>
       <FileName>Assets\_Data\Board\Square.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -708,14 +694,14 @@
   <Class Name="Tower" Collapsed="true">
     <Position X="48.75" Y="12.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAgAAAAAQAABAAAAAAAgCAKAAQAAAAEAQ=</HashCode>
+      <HashCode>EgAAAgAAAAAkgAAAAAQAABAAAAAAAgCAKAAQAAAAEAQ=</HashCode>
       <FileName>Assets\_Data\Board\Tower.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TurnManager" Collapsed="true">
     <Position X="4.75" Y="12.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>wAAQCgAAgiAgCDIAABEoABCABhQBAAgAYCAAAQEIAAA=</HashCode>
+      <HashCode>wAAQCgAAgiAiCDIAABUoAFCBBhQxAAgAYCAAAQEYAAA=</HashCode>
       <FileName>Assets\_Data\Manager\TurnManager.cs</FileName>
     </TypeIdentifier>
   </Class>

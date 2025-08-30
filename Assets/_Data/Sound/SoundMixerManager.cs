@@ -6,6 +6,7 @@ public class SoundMixerManager : NewMonoBehaviour
     [SerializeField]
     private AudioMixer _audioMixer;
 
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();

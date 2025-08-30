@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using static Const;
 using Mirror;
 
-public class Piece : ObjectOnSquare
+public abstract class Piece : ObjectOnSquare
 {
     [SyncVar] private int _side;
     [SyncVar] private int _maxHp;
@@ -54,18 +54,18 @@ public class Piece : ObjectOnSquare
 
     protected List<Effect> effects;
 
-    public void Update()
-    {
-        if (_side < -100)
-        {
-            TestUpdate();
-        }
-    }
+    //public void Update()
+    //{
+    //    if (_side < -100)
+    //    {
+    //        TestUpdate();
+    //    }
+    //}
 
-    public void TestUpdate()
-    {
-        _side = 1000;
-    }
+    //public void TestUpdate()
+    //{
+    //    _side = 1000;
+    //}
 
     protected override void LoadComponents()
     {
