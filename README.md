@@ -12,8 +12,8 @@
 - Download: [HERE](https://github.com/vquang31/Extended-chess-3D/releases/download/Main/chess3d.v1.0.3.rar)
 <br>
 
-![InGame1](https://github.com/vquang31/Extended-chess-3D/blob/master/Assets/Resources/Images/_git/i1.png "In game screen")
+![InGame1](https://github.com/vquang31/Extended-chess-3D/blob/master/Assets/_Resources/Images/_git/i1.png "In game screen")
 <br>
 <br>
 <br>
-![InGame2](https://github.com/vquang31/Extended-chess-3D/blob/master/Assets/Resources/Images/_git/i2.png)
+![InGame2](https://github.com/vquang31/Extended-chess-3D/blob/master/Assets/_Resources/Images/_git/i2.png)
